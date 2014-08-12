@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:p="http://primefaces.org/ui">
+
+		<h:form id="form">
+			
+			<div id="titleu">
+				<h:outputText value="#{msg['users.titulo.save']}" rendered="#{usersBean.pageOption eq applicationBean.optionSave}" />
+				<h:outputText value="#{msg['users.titulo.update']}" rendered="#{usersBean.pageOption eq applicationBean.optionUpdate}" />
+				<h:outputText value="#{msg['users.titulo.delete']}" rendered="#{usersBean.pageOption eq applicationBean.optionDelete}" />
+				<h:outputText value="#{msg['users.titulo.view']}" rendered="#{usersBean.pageOption eq applicationBean.optionView}" />
+			</div>
+			
+			<h:panelGroup layout="block" id="include0" style="width:100%;height:225px;">
+			
+				<p:panel id="panel" header="Usuario" style="margin-bottom:10px;width:400px;position:absolute;">
+			        <h:panelGrid columns="2">
+			        	<h:outputLabel for="name" value="Código" />
+			            <p:inputText id="name" value="${usersBean.selectedUser.codeUser}" 				label="Código" 		disabled="#{usersBean.pageOption ne applicationBean.optionSave and usersBean.pageOption ne applicationBean.optionUpdate}"	maxlength="10" />
+			            
+			            <h:outputLabel for="cif" value="Nombre" />
+			            <p:inputText id="cif" value="${usersBean.selectedUser.nameUser}" 				label="Nombre" 		disabled="#{usersBean.pageOption ne applicationBean.optionSave and usersBean.pageOption ne applicationBean.optionUpdate}"	maxlength="50"/>
+			            
+			            <h:outputLabel for="code" value="Apellido 1" />
+			            <p:inputText id="code" value="${usersBean.selectedUser.firstSurnameUser}" 		label="Apellido 1"  disabled="#{usersBean.pageOption ne applicationBean.optionSave and usersBean.pageOption ne applicationBean.optionUpdate}"	maxlength="50"/>
+			            
+			            <h:outputLabel for="address" value="Apellido 2" />
+			            <p:inputText id="address" value="${usersBean.selectedUser.secondSurnameUser}" 	label="Apellido 2" 	disabled="#{usersBean.pageOption ne applicationBean.optionSave and usersBean.pageOption ne applicationBean.optionUpdate}"	maxlength="50"/>
+	
+						<h:outputLabel for="passw" value="Contraseña" 														rendered="#{usersBean.pageOption eq applicationBean.optionSave}" />
+			            <p:inputText id="passw" value="${usersBean.selectedUser.passwordUser}" 			label="Contraseña"  rendered="#{usersBean.pageOption eq applicationBean.optionSave}" />
+	
+						<h:outputLabel for="acc" value="Último Acceso:" 														rendered="#{usersBean.pageOption ne applicationBean.optionSave}" />
+			            <p:outputLabel id="acc" value="${usersBean.selectedUser.lastAccess}" 			label="Último Acceso"  	rendered="#{usersBean.pageOption ne applicationBean.optionSave}" />
+	
+						<p:commandButton value="Cambiar Contraseña" onclick="PF('dlg').show();" type="button" icon="ui-icon-locked"  title="#{msg['boton.chang.pass']}" rendered="#{usersBean.pageOption eq applicationBean.optionUpdate}"/>
+	
+			        </h:panelGrid>
+			    </p:panel>
+
+				<h:panelGroup id="cli" rendered="#{usersBean.selectedUser.commercial}" layout="block" style="padding-left:425px;">
+				    <p:dataTable var="customer" id="custogrid"
+						value="#{usersBean.selectedUser.customersOfCommercial}"
+						paginator="true" paginatorPosition="bottom"
+				    	rows="3"
+				    	paginatorAlwaysVisible="#{cfgview['generalPaginatorAllwaysVisible']}"
+				    	paginatorTemplate="#{cfgview['generalPaginator']}"
+				    	currentPageReportTemplate="#{cfgview['editPageReportTemplate']}"
+				    	resizableColumns="false"
+				    	sortOrder="#{cfgview['generalSortOrder']}">
+				    	
+				    	<f:facet name="header">
+				    		<h:panelGroup layout="block" style="height:30px;">
+					            <h:outputText value="Clientes del Comercial" />
+					            
+						        <h:commandLink rendered="#{empty usersBean.stackBean.navigationStack and false and (applicationBean.exportCustomers or usersBean.superUser)}">
+						            <p:graphicImage value="/images/export/excel.png" alt="XLS" title="Exportar a XLS" style="padding-right:75px;float: right;" />
+						            <p:dataExporter type="xls" target="custogrid" fileName="clientes" postProcessor="#{applicationBean.postProcessXLS}" />
+						        </h:commandLink>
+						  
+						        <h:commandLink rendered="#{empty usersBean.stackBean.navigationStack and (applicationBean.exportCustomers or usersBean.superUser)}">
+						            <p:graphicImage value="/images/export/pdf.png" alt="PDF" title="Exportar a PDF" style="float: right;" />
+						            <p:dataExporter type="pdf" target="custogrid" fileName="clientes" preProcessor="#{applicationBean.preProcessPDF}" />
+						        </h:commandLink>
+					       </h:panelGroup>
+				        </f:facet>
+
+				        <p:column id="code" sortBy="codeCustomer" width="125px;">
+				        	<f:facet name="header">
+				        		<h:outputText value="Código" />
+				        	</f:facet>
+				            <h:outputText value="#{customer.codeCustomer}" />
+				        </p:column>
+
+				        <p:column id="cif" sortBy="cifCustomer" width="125px;">
+				        	<f:facet name="header">
+				        		<h:outputText value="CIF" />
+				        	</f:facet>
+				            <h:outputText value="#{customer.cifCustomer}" />
+				        </p:column>
+
+				        <p:column id="nombre" sortBy="nameCustomer">
+				        	<f:facet name="header">
+				        		<h:outputText value="Nombre" />
+				        	</f:facet>
+				            <h:outputText value="#{customer.nameCustomer}" />
+				        </p:column>
+
+				        <p:column id="address" sortBy="mainAddress">
+				        	<f:facet name="header">
+				        		<h:outputText value="Dirección" />
+				        	</f:facet>
+				            <h:outputText value="#{customer.mainAddress}" />
+				        </p:column>
+
+				        <p:column id="phone" sortBy="mainPhone" width="100px;">
+				        	<f:facet name="header">
+				        		<h:outputText value="Teléfono" />
+				        	</f:facet>
+				            <h:outputText value="#{customer.mainPhone}" />
+				        </p:column>
+
+			        </p:dataTable>
+				</h:panelGroup>
+		    </h:panelGroup>
+
+			<hr />
+
+		    <h:panelGroup layout="block" id="includeContainer" style="padding-top:5px;" >
+			    <p:dataTable var="data" id="addedGrid"
+					style="width:45%;position:absolute;"
+					value="#{usersBean.selectedUser.roles}"
+					paginator="true" paginatorPosition="bottom"
+			    	rows="#{cfgview['generalEditRows']}"
+			    	paginatorAlwaysVisible="#{cfgview['generalPaginatorAllwaysVisible']}"
+			    	paginatorTemplate="#{cfgview['generalPaginator']}"
+			    	currentPageReportTemplate="#{cfgview['generalPageReportTemplate']}"
+			    	resizableColumns="false"
+			    	sortOrder="#{cfgview['generalSortOrder']}">
+			    	
+			    	<f:facet name="header">
+			            Roles Añadidos
+			        </f:facet>
+	
+			        <p:column headerText="Descripción">
+			            <h:outputText value="#{data.descriptionRole}" />
+			        </p:column>
+			        
+			        <p:column headerText="Acciones" width="50px" rendered="#{applicationBean.optionDelete ne usersBean.pageOption and applicationBean.optionView ne usersBean.pageOption}">
+		        		<p:commandButton action="#{usersBean.removeRole}" 	icon="ui-icon-circle-minus" update=":form:addedGrid,:messages" title="#{msg['boton.rem']}">
+			        		<f:setPropertyActionListener value="#{data}" target="#{usersBean.selectedRole}" />
+		        		</p:commandButton>
+			        </p:column>
+		        </p:dataTable>
+		        
+		        <p:dataTable var="data" id="AlladdedGrid"
+					style="width:45%;padding-left:55%;"
+					value="#{usersBean.roles}"
+					paginator="true" paginatorPosition="bottom"
+			    	rows="#{cfgview['generalEditRows']}"
+			    	paginatorAlwaysVisible="#{cfgview['generalPaginatorAllwaysVisible']}"
+			    	paginatorTemplate="#{cfgview['generalPaginator']}"
+			    	currentPageReportTemplate="#{cfgview['generalPageReportTemplate']}"
+			    	resizableColumns="false"
+			    	sortOrder="#{cfgview['generalSortOrder']}"
+			    	rendered="#{applicationBean.optionDelete ne usersBean.pageOption and applicationBean.optionView ne usersBean.pageOption}">
+			    	
+			    	<f:facet name="header">
+			            Roles Disponibles
+			        </f:facet>
+	
+			        <p:column headerText="Descripción">
+			            <h:outputText value="#{data.descriptionRole}" />
+			        </p:column>
+	
+			        <p:column headerText="Acciones" width="50px">
+		        		<p:commandButton action="#{usersBean.addRole}" icon="ui-icon-circle-plus" update=":form:addedGrid,:messages" title="#{msg['boton.add']}">
+			        		<f:setPropertyActionListener value="#{data}" target="#{usersBean.selectedRole}" />
+		        		</p:commandButton>
+			        </p:column>
+		        </p:dataTable>
+	        </h:panelGroup>
+
+			<p:outputPanel  layout="blobk" styleClass="buttonContainer">
+				<h:outputText rendered="#{usersBean.pageOption eq applicationBean.optionDelete}"	value="¿Está seguro de que desea BORRAR el Usuario?"		styleClass="error" />
+				<h:outputText rendered="#{usersBean.pageOption eq applicationBean.optionUpdate}"	value="¿Está seguro de que desea ACTUALIZAR el Usuario?"	styleClass="error" />
+
+		   		<p:commandButton value="Guardar"	action="#{usersBean.save}"		title="#{msg['boton.save']}"	ajax="false" icon="ui-icon-disk" rendered="#{usersBean.pageOption eq applicationBean.optionSave}"	update=":messages" />
+		   		<p:commandButton value="Actualizar" action="#{usersBean.update}"	title="#{msg['boton.update']}"	ajax="false" icon="ui-icon-disk" rendered="#{usersBean.pageOption eq applicationBean.optionUpdate}"	update=":messages" />
+		   		<p:commandButton value="Borrar" 	action="#{usersBean.delete}"	title="#{msg['boton.delete']}"	ajax="false" icon="ui-icon-disk" rendered="#{usersBean.pageOption eq applicationBean.optionDelete}"	update=":messages" />
+
+				<p:commandButton value="Volver" 	action="#{usersBean.back}"		title="#{msg['boton.volver']}"	ajax="true" icon="ui-icon-arrowreturnthick-1-w" rendered="#{usersBean.pageOption eq applicationBean.optionView}"	update=":messages" />
+				<p:commandButton value="Cancelar"	action="#{usersBean.cancel}"	title="#{msg['boton.cancel']}"	ajax="true" icon="ui-icon-cancel" 				rendered="#{usersBean.pageOption ne applicationBean.optionView}"	update=":messages" />
+			</p:outputPanel>
+		
+		
+		<p:dialog id="dialog" header="Nueva Contraseña" widgetVar="dlg" dynamic="true" draggable="false" modal="true" width="300" height="100">
+			<h:panelGrid columns="2">
+		    	<h:outputText for="pass1" value="Nueva Contraseña:" />
+		    	<h:inputSecret id="pass1" value="${usersBean.newPass1}" immediate="true" />
+		    	
+		    	<h:outputText for="pass2" value="Pepetir Contraseña:" />
+		    	<h:inputSecret id="pass2" value="${usersBean.newPass2}" immediate="true" />
+	    	</h:panelGrid>
+	    	
+	    	<br /><br />
+	    	
+	    	<p:commandButton value="Cambiar" 	title="#{msg['boton.chang.pass']}"	action="#{usersBean.updatePass}"	ajax="false" 	icon="ui-icon-disk" 	update=":messages"  oncomplete="PF('dlg').hide();" />
+			<p:commandButton value="Cancelar"	title="#{msg['boton.cancel']}"									ajax="true" 	icon="ui-icon-cancel" 	update=":messages"  oncomplete="PF('dlg').hide();" />
+		</p:dialog>
+		
+	</h:form>
+
+</ui:component>

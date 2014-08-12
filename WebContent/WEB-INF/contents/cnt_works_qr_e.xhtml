@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:p="http://primefaces.org/ui">
+
+		<h:form id="form">
+			
+			<div id="titlew">
+				<h:outputText value="#{msg['works.titulo.update']} - #{worksBean.selectedReport.nameReport} - Nuevo" />
+			</div>
+			
+			<p:panel id="panel2" header="1. Zona de la Ficha" style="width:300px;position:absolute;">
+				<ui:repeat var="v" value="#{worksBean.questionGroups}">
+					<p:commandLink update=":form:replies,:form:panelC" title="#{v.nameQuestionGroup}" action="#{worksBean.prepareRepliesWithSelectedQuestionG}">
+	                    <h:outputText value="#{v.nameQuestionGroup}" />
+	                    <f:setPropertyActionListener value="#{v}" target="#{worksBean.selectedQuestionGroups}" />
+	                </p:commandLink><br/>
+				</ui:repeat>
+			</p:panel>
+			
+			<p:panel id="panelC" header="2. Identificador" style="margin-left:320px;width:250px;position: absolute;">
+		        <h:panelGrid columns="1">
+		        	<h:outputLabel for="name" value="Identificador del Nuevo Elemento" />
+		        	<p:inputText id="name" value="#{worksBean.selectedReplyGroup.nameReplyGroup}" style="width:96%"/>
+	        	</h:panelGrid>
+        	</p:panel>
+
+			<p:panel id="replies" header="3. Preguntas y Respuestas" style="margin-left:590px;width:450px;">
+				<p:dataTable var="reply" value="#{worksBean.selectedReplyGroup.replies}" editable="true" editMode="cell" sortBy="question.order">
+		        	<f:facet name="header">
+						<p:row>
+		              		#{worksBean.selectedReplyGroup.nameReplyGroup}
+	              		</p:row>
+	              		<p:row>
+	              			<p:column headerText="Pregunta" />
+	              			<p:column headerText="Respuesta" />
+	              		</p:row>   
+		            </f:facet>
+		        
+		        	<p:column id="nameReport" sortBy="question">
+			            <h:outputText value="#{reply.question.question}" />
+			        </p:column>
+			        <p:column id="wqe" sortBy="reply">
+			        	<p:cellEditor>  
+		                   <f:facet name="output">
+		                   		<h:outputText value="#{reply.reply}" />
+		                   </f:facet>  
+		                   <f:facet name="input">
+		                   		<p:inputText id="modelInput" value="#{reply.reply}"  style="width:96%" />
+		                   </f:facet>  
+		               </p:cellEditor>  
+			        </p:column>
+		    	</p:dataTable>
+			</p:panel>
+
+			<p:outputPanel  layout="blobk" styleClass="buttonContainer">
+		   		<p:commandButton value="Guardar" 	action="#{worksBean.saveElement}"	title="#{msg['boton.save']}"	ajax="false" icon="ui-icon-disk" 	update=":messages" />
+				<p:commandButton value="Cancelar"	action="#{worksBean.back}"			title="#{msg['boton.cancel']}"	ajax="true" icon="ui-icon-cancel" 	update=":messages" />
+			</p:outputPanel>
+		
+	</h:form>
+
+</ui:component>

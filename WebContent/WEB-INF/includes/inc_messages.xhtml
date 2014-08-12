@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <h:form name="messages" id="messages">
+		<p:growl id="messages" life="${cfgview['lifeGrowl']}" showDetail="true" showSummary="true"/>
+	</h:form>
+
+	<p:idleMonitor timeout="9000000" onidle="idleDialog.show()" onactive="idleDialog.hide()"/>
+	<p:dialog header="Procedemos a cerrrar la sesión" resizable="false" widgetVar="idleDialog" modal="true" width="400">
+    	<h:outputText value="Debido a su inactividad, la sesión va a ser cerrada" />
+	</p:dialog>
+
+</ui:component>

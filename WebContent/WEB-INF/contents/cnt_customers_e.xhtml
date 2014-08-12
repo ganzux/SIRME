@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:p="http://primefaces.org/ui">
+    
+    	<div id="titlec">
+			<h:outputText value="#{msg['clientes.titulo.save']}" rendered="#{customersBean.pageOption eq applicationBean.optionSave}" />
+			<h:outputText value="#{msg['clientes.titulo.update']}" rendered="#{customersBean.pageOption eq applicationBean.optionUpdate}" />
+			<h:outputText value="#{msg['clientes.titulo.delete']}" rendered="#{customersBean.pageOption eq applicationBean.optionDelete}" />
+			<h:outputText value="#{msg['clientes.titulo.view']}" rendered="#{customersBean.pageOption eq applicationBean.optionView}" />
+		</div>
+    
+	    <h:form enctype="multipart/form-data" rendered="#{false and customersBean.pageOption eq applicationBean.optionSave}" style="padding-bottom:15px;">
+			<p:panel id="panel" header="Importar Cliente de Contrato">
+				<h:panelGrid columns="2">
+					<p:fileUpload value="#{customersBean.file}" mode="simple"/>  
+		     		<p:commandButton value="Procesar Contrato" ajax="false" actionListener="#{customersBean.upload}" update=":form" />
+		  		</h:panelGrid>
+	  		</p:panel>
+		</h:form>
+
+
+		<h:form id="form">
+
+			<p:panel id="panel" header="Datos del Cliente" style="width:37%;position:absolute;">
+		        <h:panelGrid columns="2">
+		        	<h:outputLabel for="typec" value="Tipo de Cliente" />
+		        	<p:selectOneMenu id="typec" value="#{customersBean.selectedCustomer.typeCustomer.idTypeCustomer}" disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"> 
+			            <f:selectItems value="#{applicationBean.allTypeCustomers}" var="tc" itemValue="#{tc.idTypeCustomer}" itemLabel="#{tc.nameTypeCustomer}" />
+			        </p:selectOneMenu>
+			        
+			        <h:outputLabel for="typeAct" value="Activo" />
+		        	<p:selectOneMenu id="typeAct" value="#{customersBean.selectedCustomer.active}" disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"> 
+			            <f:selectItem itemValue="${true}" itemLabel="Sí" />
+			            <f:selectItem itemValue="${false}" itemLabel="No" />
+			        </p:selectOneMenu>
+		        
+		            <h:outputLabel for="name" value="Nombre *" />
+		            <p:inputText id="name" 		maxlength="200"	value="${customersBean.selectedCustomer.nameCustomer}" 	label="Nombre"				size="40"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}" />
+		            
+		            <h:outputLabel for="cif" value="CIF *" />
+		            <p:inputText id="cif" 		maxlength="20"	value="${customersBean.selectedCustomer.cifCustomer}" 	label="CIF"					size="10"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"/>
+		            
+		            <h:outputLabel for="code" value="Código *" />
+		            <p:inputText id="code" 		maxlength="20"	value="${customersBean.selectedCustomer.codeCustomer}" 	label="Código"				size="10"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"/>
+		            
+		            <h:outputLabel for="address" value="Dirección" />
+		            <p:inputText id="address" 	maxlength="300"	value="${customersBean.selectedCustomer.mainAddress}" label="Dirección Principal"	size="40"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"/>
+		            
+		            <h:outputLabel for="mp1" value="Población" />
+		            <p:inputText id="mp1" 		maxlength="300"	value="${customersBean.selectedCustomer.mainPobl}" label="Dirección Principal"	size="40"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"/>
+
+		            <h:outputLabel for="mp" value="Provincia" />
+		            <p:inputText id="mp" 		maxlength="50"	value="${customersBean.selectedCustomer.mainProv}" label="Dirección Principal"	size="40"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"/>
+
+		            <h:outputLabel for="mcp" value="Código Postal" />
+		            <p:inputMask id="mcp"  		maxlength="5"	mask="99999"	value="${customersBean.selectedCustomer.mainPostalCode}" label="Dirección Principal"	size="5"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"/>
+		            
+		            <h:outputLabel for="mail" value="Correo Principal" />
+		            <p:inputText id="mail"  	maxlength="100"	value="${customersBean.selectedCustomer.mainMail}" 		label="Correo Principal"	size="40"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"/>
+		            
+		            <h:outputLabel for="phone" value="Teléfono Principal" />
+		            <p:inputText id="phone"  	maxlength="9"	value="${customersBean.selectedCustomer.mainPhone}" 	label="Teléfono Principal"	size="10"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"/>
+
+		        </h:panelGrid>
+		    </p:panel>
+		    
+		    <p:panel id="panel2" header="Otros Datos" style="margin-left:40%;width:60%;height:355px;">
+		    	<p:tabView id="tabView" activeIndex="${customersBean.activeTab}">
+					<p:tab id="tab0" title="Contratos">
+
+						<p:dataTable id="addresses" var="ad" value="${customersBean.selectedCustomer.address}" widgetVar="addressTable"
+								editable="#{customersBean.pageOption eq applicationBean.optionSave or customersBean.pageOption eq applicationBean.optionUpdate}" editMode="cell"
+								style="width:100%"
+								paginator="true" paginatorPosition="bottom"
+						    	rows="4"
+						    	paginatorAlwaysVisible="#{cfgview['generalPaginatorAllwaysVisible']}"
+						    	paginatorTemplate="#{cfgview['generalPaginator']}"
+						    	currentPageReportTemplate="#{cfgview['editPageReportTemplate']}"
+						    	resizableColumns="false"
+						    	sortOrder="#{cfgview['generalSortOrder']}"
+								emptyMessage="No existen Contratos para este Cliente">
+
+						        <f:facet name="header">
+						            Contratos del Cliente
+						        </f:facet>
+						  
+						        <p:ajax event="cellEdit" listener="#{customersBean.onAddressEdit}" update=":messages" />
+						  
+								<p:column headerText="Ubicacion" style="width:33%">
+									<p:cellEditor>
+										<f:facet name="output"><h:outputText value="#{ad.location}" /></f:facet>
+										<f:facet name="input"><p:inputText value="#{ad.location}" style="width:96%"/></f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								<p:column headerText="Dirección" style="width:33%">
+									<p:cellEditor>
+										<f:facet name="output"><h:outputText value="#{ad.mainAddress}" /></f:facet>
+										<f:facet name="input"><p:inputText value="#{ad.mainAddress}" style="width:96%"/></f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Población" style="width:33%">
+									<p:cellEditor>
+										<f:facet name="output"><h:outputText value="#{ad.mainPobl}" /></f:facet>
+										<f:facet name="input"><p:inputText value="#{ad.mainPobl}" style="width:96%"/></f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Provincia" style="width:33%">
+									<p:cellEditor>
+										<f:facet name="output"><h:outputText value="#{ad.mainProv}" /></f:facet>
+										<f:facet name="input"><p:inputText value="#{ad.mainProv}" style="width:96%"/></f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Acciones" style="width:10%" rendered="#{customersBean.pageOption eq applicationBean.optionSave or customersBean.pageOption eq applicationBean.optionUpdate or customersBean.pageOption eq applicationBean.optionView}">
+						        	<p:commandButton action="${customersBean.removeAddress}" icon="ui-icon-circle-minus" update="addresses,:messages" title="#{msg['boton.rem']}" rendered="#{customersBean.pageOption eq applicationBean.optionSave or customersBean.pageOption eq applicationBean.optionUpdate}">
+						        		<f:setPropertyActionListener target="#{customersBean.selectedAddress}" value="#{ad}" />
+						        	</p:commandButton>
+						        	<p:commandButton value="Ver" id="butCus" ajax="true" icon="ui-icon-circle-zoomin" action="address_e" title="Acceder a la Dirección" rendered="#{customersBean.pageOption eq applicationBean.optionView}">
+						            	<f:setPropertyActionListener target="#{customersBean.stackBean.pushPage}"	value="customers_e" />
+						            	<f:setPropertyActionListener target="#{customersBean.selectedAddress}"		value="#{ad}" />
+					            		<f:setPropertyActionListener target="#{addressBean.selectedAddress}"		value="#{ad}" />
+					            		<f:setPropertyActionListener target="#{addressBean.selectedMonths}"			value="#{ad.monthsInt}" />
+					            		<f:setPropertyActionListener target="#{addressBean.selectedAddress}"		value="#{ad}" />
+					            		<f:setPropertyActionListener target="#{addressBean.selectedAddress}"		value="#{ad}" />
+						            	<f:setPropertyActionListener target="#{addressBean.selectedCustomer}"		value="#{customersBean.selectedCustomer}" />
+						            	<f:setPropertyActionListener target="#{addressBean.pageOption}"				value="#{applicationBean.optionView}" />
+						            	<f:setPropertyActionListener target="#{addressBean.currentWorks}"			value="#{ad.works}" />
+						            </p:commandButton>
+						        </p:column>
+						    </p:dataTable>
+					</p:tab>
+					
+					<p:tab id="tab1" title="Datos adicionales">
+						<h:panelGrid columns="1" cellpadding="10">
+							<h:panelGrid columns="3" rendered="#{customersBean.pageOption eq applicationBean.optionSave or customersBean.pageOption eq applicationBean.optionUpdate}" id="newContant">
+					            <p:inputText id="newC" value="${customersBean.newContact.nameContact}" 	label="Contacto" />
+					            <p:inputText id="newD" value="${customersBean.newContact.dataContact}" 	label="Dato" />
+					            <p:commandButton action="${customersBean.addNewContact}" icon="ui-icon-circle-plus" update="contacts,newContant,:messages" title="#{msg['boton.add']}"	/>
+					            <p:watermark for="newC" value="Nuevo Contacto" />
+					            <p:watermark for="newD" value="Nuevo Dato" /> 
+				           </h:panelGrid>
+				
+					    	<p:dataTable id="contacts" var="contact" value="${customersBean.selectedCustomer.contacts}" widgetVar="contactsTable"
+								editable="#{customersBean.pageOption eq applicationBean.optionSave or customersBean.pageOption eq applicationBean.optionUpdate}" editMode="cell"
+								style="width:400px;"
+								paginator="true" paginatorPosition="bottom"
+						    	rows="4"
+						    	paginatorAlwaysVisible="#{cfgview['generalPaginatorAllwaysVisible']}"
+						    	paginatorTemplate="#{cfgview['generalPaginator']}"
+						    	currentPageReportTemplate="#{cfgview['editPageReportTemplate']}"
+						    	resizableColumns="false"
+						    	sortOrder="#{cfgview['generalSortOrder']}"
+								emptyMessage="No existen más formas de Contacto para este Cliente">
+
+						        <f:facet name="header">
+						            Otras Formas de Contacto
+						        </f:facet>
+						  
+						        <p:ajax event="cellEdit" listener="#{customersBean.onContactEdit}" update=":messages" />
+						  
+						        <p:column headerText="Tipo de Dato" style="width:33%">
+						               <p:cellEditor>
+						                   <f:facet name="output"><h:outputText value="#{contact.nameContact}" /></f:facet>
+						                   <f:facet name="input"><p:inputText id="modelInput" value="#{contact.nameContact}" style="width:96%"/></f:facet>
+						               </p:cellEditor>
+						           </p:column>
+						  
+						           <p:column headerText="Dato" style="width:57%">
+									<p:cellEditor>
+									    <f:facet name="output"><h:outputText value="#{contact.dataContact}" /></f:facet>
+									    <f:facet name="input"><p:inputText value="#{contact.dataContact}" style="width:96%" label="Dato"/></f:facet>
+									</p:cellEditor>
+						        </p:column>
+						        
+						        <p:column headerText="Eliminar" style="width:10%" rendered="#{customersBean.pageOption eq applicationBean.optionSave or customersBean.pageOption eq applicationBean.optionUpdate}">
+						        	<p:commandButton action="${customersBean.removeContact}" icon="ui-icon-circle-minus" update="contacts,:messages" title="#{msg['boton.rem']}" >
+						        		<f:setPropertyActionListener target="#{customersBean.selectedContact}" value="#{contact}" />
+						        	</p:commandButton>
+						        </p:column>
+						    </p:dataTable>
+						</h:panelGrid>
+					</p:tab>
+	
+					<p:tab id="tab2" title="Gestor - Responsable">
+						<h:panelGrid columns="2" cellpadding="10">
+				    		<p:commandButton value="Buscar" action="manager" ajax="true" icon="ui-icon-circle-zoomin" rendered="#{customersBean.pageOption eq applicationBean.optionSave or customersBean.pageOption eq applicationBean.optionUpdate}" actionListener="#{managerBean.reloadManagers}" title="#{msg['boton.buscar']}" >
+				            	<f:setPropertyActionListener target="#{customersBean.stackBean.pushPage}" value="customers_e" />
+				            </p:commandButton>
+				            <p:commandButton value="#{msg['boton.desvincular']}" ajax="true" icon="ui-icon-circle-minus" rendered="#{customersBean.pageOption eq applicationBean.optionSave or customersBean.pageOption eq applicationBean.optionUpdate}" title="#{msg['boton.desvincular']}" update=":form:tabView" >
+				            	<f:setPropertyActionListener target="#{customersBean.selectedManager}" value="${null}" />
+				            </p:commandButton>
+		
+				            <h:outputLabel for="namee" value="Nombre" />
+				            <p:inputText id="namee" value="${customersBean.selectedManager.nameManager}" 		label="Nombre"		disabled="true" />
+				            
+				            <h:outputLabel for="phone2" value="Teléfono" />
+				            <p:inputText id="phone2" value="${customersBean.selectedManager.phoneManager}" 		label="Teléfono"	disabled="true" />
+				            
+				            <h:outputLabel for="mail1" value="Correo" />
+				            <p:inputText id="mail1" value="${customersBean.selectedManager.mailManager}" 		label="Correo"		disabled="true" />
+				        </h:panelGrid>
+					</p:tab>
+
+					<p:tab id="tab3" title="Comercial">
+						<h:panelGrid columns="2" cellpadding="10">
+				    		<p:commandButton value="Buscar" action="users" ajax="true" icon="ui-icon-circle-zoomin" rendered="#{customersBean.pageOption eq applicationBean.optionSave or customersBean.pageOption eq applicationBean.optionUpdate}" actionListener="#{usersBean.reloadCommercials}" title="#{msg['boton.buscar']}" >
+				            	<f:setPropertyActionListener target="#{customersBean.stackBean.pushPage}" value="customers_e" />
+				            </p:commandButton>
+				            <p:commandButton value="#{msg['boton.desvincular']}" ajax="true" icon="ui-icon-circle-minus" rendered="#{customersBean.pageOption eq applicationBean.optionSave or customersBean.pageOption eq applicationBean.optionUpdate}" title="#{msg['boton.desvincular']}" update=":form:tabView" >
+				            	<f:setPropertyActionListener target="#{customersBean.selectedCommercial}" value="${null}" />
+				            </p:commandButton>
+
+				            <h:outputLabel for="codecom" value="Código" />
+				            <p:inputText id="codecom" value="${customersBean.selectedCommercial.codeUser}" 		label="Código"		disabled="true" />
+				            
+				            <h:outputLabel for="namecom" value="Nombre" />
+				            <p:inputText id="namecom" value="${customersBean.selectedCommercial.nameUser}" 		label="Nombre"		disabled="true" />
+				            
+				            <h:outputLabel for="apecom" value="Apellidos" />
+				            <p:inputText id="apecom" value="${customersBean.selectedCommercial.firstSurnameUser} ${customersBean.selectedCommercial.secondSurnameUser}" 		label="Apellidos"		disabled="true" />
+				        </h:panelGrid>
+					</p:tab>
+				</p:tabView>
+		    </p:panel>
+
+			<p:outputPanel  layout="blobk" styleClass="buttonContainer">
+				<h:outputText rendered="#{customersBean.pageOption eq applicationBean.optionDelete}"	value="¿Está seguro de que desea BORRAR el Cliente?"		styleClass="error" />
+				<h:outputText rendered="#{customersBean.pageOption eq applicationBean.optionUpdate}"	value="¿Está seguro de que desea ACTUALIZAR el Cliente?"	styleClass="error" />
+				
+				
+		   		<p:commandButton value="Guardar"	action="#{customersBean.save}"		title="#{msg['boton.save']}"	ajax="false" icon="ui-icon-disk" rendered="#{customersBean.pageOption eq applicationBean.optionSave}"	update=":messages" />
+		   		<p:commandButton value="Actualizar" action="#{customersBean.update}"	title="#{msg['boton.update']}"	ajax="false" icon="ui-icon-disk" rendered="#{customersBean.pageOption eq applicationBean.optionUpdate}"	update=":messages" />
+		   		<p:commandButton value="Borrar" 	action="#{customersBean.delete}"	title="#{msg['boton.delete']}"	ajax="false" icon="ui-icon-disk" rendered="#{customersBean.pageOption eq applicationBean.optionDelete}"	update=":messages" />
+	           
+				<p:commandButton value="Volver" 	action="#{customersBean.back}"		title="#{msg['boton.volver']}"	ajax="true" icon="ui-icon-arrowreturnthick-1-w" rendered="#{customersBean.pageOption eq applicationBean.optionView}"	update=":messages" />
+				<p:commandButton value="Cancelar"	action="#{customersBean.cancel}"	title="#{msg['boton.cancel']}"	ajax="true" icon="ui-icon-cancel" 				rendered="#{customersBean.pageOption ne applicationBean.optionView}"	update=":messages" />
+			</p:outputPanel>
+		
+	</h:form>
+
+</ui:component>

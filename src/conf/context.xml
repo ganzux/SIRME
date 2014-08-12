@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="  
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd  
+         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd  
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd  
+         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<!-- Activates scanning of @Autowired -->
+    <context:annotation-config/>
+    <task:annotation-driven />
+
+    <!-- Activates scanning of @Repository and @Service -->
+    <context:component-scan base-package="com"/>
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:conf/config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="configService" class="com.sirme.util.ConfigService">
+		<property name="cronExpression" 	value="${cron.expression}" />
+		<property name="cronExpression2" 	value="${cron.expression2}" />
+		<property name="dynUser" 			value="${dyndns.user}" />
+		<property name="dynPath" 			value="${dyndns.path}" />
+		<property name="dynPass" 			value="${dyndns.pass}" />
+		<property name="dynEnabled" 		value="${dyndns.enabled}" />
+		<property name="exportCustomers" 	value="${export.customers}" />
+		<property name="photoDirectory" 	value="${photo.dir}" />
+		<property name="logDirectory" 		value="${log.dir}" />
+		<property name="allowFiles" 		value="${files.perm}" />
+		<property name="allowZIP" 			value="${review.and.zip}" />		
+	</bean>
+	
+	<util:properties id="applicationProps" location="classpath:conf/config.properties" />
+    <context:property-placeholder properties-ref="applicationProps" />
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
+		<property name="configLocations">
+			<list>
+				<value>classpath:conf/hibernate.cfg.xml</value>
+			</list>
+		</property>
+		
+		<!-- Escaneo de paquetes DATA, sustituyen a la declaración de DATA en el fichero de configuración de Hibernate -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.sirme.data</value>
+				<value>com.sirme.basicsecurity.data</value>
+			</list>
+		</property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="IPDNSCron" class="com.sirme.schedulers.IPCronService" />
+	<!-- Cada minuto se comprueba la IP y, SI HA CAMBIADO, se actualiza DynDNS -->
+	<task:scheduled-tasks>
+        <task:scheduled ref="IPDNSCron" method="updateIPDynDNS" cron="#{applicationProps['cron.expression']}"></task:scheduled>
+    </task:scheduled-tasks>
+    
+	<!-- Cada media hora se comprueba la IP y se actualiza DynDNS -->
+	<task:scheduled-tasks>
+        <task:scheduled ref="IPDNSCron" method="resetDynDNSCron" cron="#{applicationProps['cron.expression2']}"></task:scheduled>
+    </task:scheduled-tasks>
+
+
+</beans>

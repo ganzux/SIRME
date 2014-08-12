@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="form">
+
+		<div id="titles">
+			<h:outputText value="Configuración" />
+		</div>
+		
+		<p:panel id="panelC" header="Datos Básicos" style="margin-bottom:10px;width:500px;position: absolute;">
+	        <h:panelGrid columns="2">
+	        	<h:outputLabel for="c" value="Código" />
+	            <p:outputLabel id="c" value="${settingsBean.user.codeUser}" />
+	            
+	            <h:outputLabel for="name" value="Nombre" />
+	            <p:outputLabel id="name" value="${settingsBean.user.nameUser}" />
+	            
+	            <h:outputLabel for="a" value="Apellidos" />
+	            <p:outputLabel id="a" value="${settingsBean.user.firstSurnameUser} ${settingsBean.user.secondSurnameUser}" />
+            </h:panelGrid>
+           </p:panel>
+           
+		<p:panel id="paneleq" header="Opciones" style="margin-left:525px;width:500px;">
+				<p:commandButton value="Cambiar Contraseña" onclick="PF('dlg').show();" type="button" icon="ui-icon-locked" />
+		</p:panel>
+		
+		<p:panel id="panelsu1" header="Super User" style="position:absolute;margin-top:50px;" rendered="${settingsBean.superUser}">
+
+			<h:panelGrid columns="2">
+				<h:outputText value="${settingsBean.applicationBean.serverLaunched}">
+	            	<f:convertDateTime pattern="#{cfgview['dateFormatseconds']}" timeZone="#{applicationBean.timeZone}" />
+	            </h:outputText>
+				<p:commandButton action="${settingsBean.forceDNS}" 			value="Forzar DynDNS" 	update=":messages"/>
+
+				<p:commandButton value="Ver Conexiones" onclick="PF('dlg2').show();" type="button" icon="ui-icon-locked" />
+				<p:commandButton action="${settingsBean.resetConnections}" value="Resetear Conexiones" update=":messages,dialog2"/>
+
+			</h:panelGrid>
+			
+		</p:panel>
+		
+		<p:panel id="panelsu2" header="Super User" style="margin-left:525px;width:500px;" rendered="${settingsBean.superUser}">
+			<h:panelGrid columns="2">
+				<p:inputText id="dir" value="#{settingsBean.processDir}" label="Procesar Directorio de Contratos" />
+				<p:commandButton value="Procesar Directorio de Contratos" title="Procesar Directorio de Contratos" action="#{settingsBean.process}" ajax="true" icon="ui-icon-disk" />
+				
+				<p:inputText id="dir2" value="#{settingsBean.processDirManager}" label="Procesar Directorio de Gestores" />
+				<p:commandButton value="Procesar Directorio de Gestores" title="Procesar Directorio de Gestores" action="#{settingsBean.processDirManager}" ajax="true" icon="ui-icon-disk" />
+
+				<p:inputText value="${settingsBean.sql}" />
+				<p:commandButton action="${settingsBean.launchSql}" value="Lanzar" update=":messages"/>
+			</h:panelGrid>
+		</p:panel>
+		
+		<p:dialog id="dialog" header="Nueva Contraseña" widgetVar="dlg" dynamic="true" draggable="false" modal="true" width="300" height="100">
+			<h:panelGrid columns="2">
+		    	<h:outputText for="pass1" value="Nueva Contraseña:" />
+		    	<h:inputSecret id="pass1" value="${settingsBean.newPass1}" immediate="true" />
+		    	
+		    	<h:outputText for="pass2" value="Pepetir Contraseña:" />
+		    	<h:inputSecret id="pass2" value="${settingsBean.newPass2}" immediate="true" />
+	    	</h:panelGrid>
+	    	
+	    	<br /><br />
+	    	
+	    	<p:commandButton value="Cambiar" 	action="#{settingsBean.save}"	ajax="false" 	icon="ui-icon-disk" 	update=":messages"  oncomplete="PF('dlg').hide();" />
+			<p:commandButton value="Cancelar"	action="#{settingsBean.cancel}"	ajax="true" 	icon="ui-icon-cancel" 	update=":messages"  oncomplete="PF('dlg').hide();" />
+		</p:dialog>
+		
+		
+		<p:dialog id="dialog2" header="Conexiones de Usuarios" widgetVar="dlg2" dynamic="true" draggable="true" modal="false" width="800" height="600">
+
+			<p:outputPanel layout="block" style="padding-bottom:100px;">
+				<ul>
+					<ui:repeat value="#{settingsBean.applicationBean.userAccess.entrySet().toArray()}" var="entry">
+					    <li>
+					    	Usuario: #{entry.key}, Conexiones (#{fn:length(entry.value)}):
+					    	<div style="padding-left: 20px;">
+					    		#{entry.value}
+					    	</div>
+					    </li>
+					</ui:repeat>
+				</ul>
+			</p:outputPanel>
+	    	
+			<p:commandButton value="Cerrar"	icon="ui-icon-cancel" oncomplete="PF('dlg2').hide();" />
+		</p:dialog>
+	</h:form>
+
+</ui:component>

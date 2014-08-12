@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:p="http://primefaces.org/ui">
+
+		<h:form id="form">
+
+			<div id="titleu">
+				<h:outputText value="#{msg['users.titulo']}" />
+			</div>
+			
+			<div style="font-size:16px;text-align:right;padding-bottom:15px;">
+				<p:commandButton value="Nuevo"	title="#{msg['boton.save']}" action="#{usersBean.prepareAction}" ajax="true" icon="ui-icon-disk" rendered="${empty customersBean.stackBean.navigationStack}">
+	            	<f:setPropertyActionListener target="#{usersBean.pageOption}" value="#{applicationBean.optionSave}" />
+            	</p:commandButton>
+            	<p:commandButton value="Volver"	action="#{customersBean.stackBean.popPage}" ajax="true" icon="ui-icon-disk" rendered="${not empty customersBean.stackBean.navigationStack}" />
+           	</div>
+
+		    <p:dataTable id="dataTable" var="user" widgetVar="userssTable" rowKey="#{user.idUser}"
+		    		value="#{usersBean.users}" filteredValue="#{usersBean.filteredUsers}"
+		            emptyMessage="No existen Usuarios con los datos facilitados" 
+		            paginator="true" paginatorPosition="bottom"
+			    	rows="#{cfgview['generalRows']}"
+			    	paginatorAlwaysVisible="#{cfgview['generalPaginatorAllwaysVisible']}"
+			    	paginatorTemplate="#{cfgview['generalPaginator']}"
+			    	currentPageReportTemplate="#{cfgview['generalPageReportTemplate']}"
+			    	resizableColumns="false"
+			    	sortOrder="#{cfgview['generalSortOrder']}">
+
+				<f:facet name="header">
+		            <h:outputText value="Usuarios del Sistema" /> 
+		        </f:facet>
+
+		        <p:column id="code" headerText="Código" sortBy="codeUser" width="100px;" filterMatchMode="contains" filterBy="codeUser" >
+		            <h:outputText value="#{user.codeUser}" />
+		        </p:column>
+		        
+		        <p:column id="nameUser" headerText="Nombre" sortBy="nameUser" width="125px;" filterMatchMode="contains" filterBy="nameUser" >
+		            <h:outputText value="#{user.nameUser}" />
+		        </p:column>
+		        
+		        <p:column id="firstSurnameUser" headerText="Apellido 1" sortBy="firstSurnameUser" width="125px;" filterMatchMode="contains" filterBy="firstSurnameUser" >
+		            <h:outputText value="#{user.firstSurnameUser}" />
+		        </p:column>
+		        
+		        <p:column id="firstSurnameUser2" headerText="Apellido 2" sortBy="secondSurnameUser" width="125px;" filterMatchMode="contains" filterBy="secondSurnameUser" >
+		            <h:outputText value="#{user.secondSurnameUser}" />
+		        </p:column>
+		        
+		        <p:column id="datecreated" headerText="Acceso" sortBy="lastAccess" width="100px;" rendered="#{usersBean.superUser}">
+		        	<f:facet name="header">
+					    <p:outputPanel style="float: left">
+					    	Acceso
+					    </p:outputPanel>
+					</f:facet>
+		            <h:outputText value="#{user.lastAccess}">
+		            	<f:convertDateTime pattern="#{cfgview['dateFormat']}" timeZone="#{applicationBean.timeZone}" />
+		            </h:outputText>
+		        </p:column>
+		        
+		        <p:column id="opt" headerText="Acciones" width="125px;" style="text-align:center" rendered="${empty customersBean.stackBean.navigationStack}">
+		        	<p:menuButton value="Acciones">
+				        <p:menuitem value="Ver" 		icon="ui-icon-circle-zoomin"		action="#{usersBean.prepareAction}" title="#{msg['boton.view']}">
+				        	<f:setPropertyActionListener target="#{usersBean.pageOption}" 	value="#{applicationBean.optionView}" />
+				        	<f:setPropertyActionListener target="#{usersBean.selectedUser}" value="#{user}" />
+				        </p:menuitem>
+				        <p:menuitem value="Actualizar" 	icon="ui-icon-arrowrefresh-1-w"		action="#{usersBean.prepareAction}" title="#{msg['boton.update']}">
+				        	<f:setPropertyActionListener target="#{usersBean.pageOption}"	value="#{applicationBean.optionUpdate}" />
+				        	<f:setPropertyActionListener target="#{usersBean.selectedUser}" value="#{user}" />
+				        </p:menuitem>
+				        <p:menuitem value="Borrar" 		icon="ui-icon-close" 				action="#{usersBean.prepareAction}" title="#{msg['boton.delete']}">
+				        	<f:setPropertyActionListener target="#{usersBean.pageOption}" 	value="#{applicationBean.optionDelete}" />
+				        	<f:setPropertyActionListener target="#{usersBean.selectedUser}" value="#{user}" />
+				        </p:menuitem>
+    				</p:menuButton>
+		        </p:column>
+		        
+		        <p:column id="nav" headerText="Seleccionar" width="125px;" style="text-align:center" rendered="${not empty customersBean.stackBean.navigationStack}">
+		        	<p:commandButton value="Seleccionar"	action="#{customersBean.stackBean.popPage}" ajax="true" icon="ui-icon-disk">
+		        		<f:setPropertyActionListener target="#{customersBean.selectedCommercial}" 	value="#{user}" />
+		        		<f:setPropertyActionListener target="${customersBean.activeTab}" 			value="3" />
+		        	</p:commandButton>
+		        </p:column>
+		        
+		    </p:dataTable>
+           
+		
+	</h:form>
+
+</ui:component>

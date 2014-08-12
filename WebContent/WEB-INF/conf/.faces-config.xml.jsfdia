@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="customers_e::#pages#pg_customers_e.xhtml"
+    NAME="output" PATH="/pages/pg_customers_e.xhtml"
+    TARGET="rules:#pages#pg_customers_e.xhtml" TITLE="customers_e" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:1" PATH="*" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:1" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="customers::#pages#pg_customers.xhtml"
+    NAME="output" PATH="/pages/pg_customers.xhtml"
+    TARGET="rules:#pages#pg_customers.xhtml" TITLE="customers" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#pg_customers_e.xhtml"
+  PATH="/pages/pg_customers_e.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pg_customers.xhtml"
+  PATH="/pages/pg_customers.xhtml" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:2" PATH="*" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:2" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="teams_e::#pages#pg_teams_e.xhtml"
+    NAME="output" PATH="/pages/pg_teams_e.xhtml"
+    TARGET="rules:#pages#pg_teams_e.xhtml" TITLE="teams_e" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:3" PATH="*" SHAPE="32,353,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:3" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="teams::#pages#pg_teams.xhtml" NAME="output"
+    PATH="/pages/pg_teams.xhtml" TARGET="rules:#pages#pg_teams.xhtml"
+    TITLE="teams" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:4" PATH="*" SHAPE="32,465,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:4" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="works_e::#pages#pg_works_e.xhtml"
+    NAME="output" PATH="/pages/pg_works_e.xhtml"
+    TARGET="rules:#pages#pg_works_e.xhtml" TITLE="works_e" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#pg_error.xhtml"
+  PATH="/pages/pg_error.xhtml" SHAPE="240,481,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pg_teams.xhtml"
+  PATH="/pages/pg_teams.xhtml" SHAPE="240,369,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pg_teams_e.xhtml"
+  PATH="/pages/pg_teams_e.xhtml" SHAPE="240,257,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:5" PATH="*" SHAPE="32,801,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:5" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="works::#pages#pg_works.xhtml" NAME="output"
+    PATH="/pages/pg_works.xhtml" TARGET="rules:#pages#pg_works.xhtml"
+    TITLE="works" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:6" PATH="*" SHAPE="32,689,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:6" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="replies::#pages#pg_works_qr.xhtml"
+    NAME="output" PATH="/pages/pg_works_qr.xhtml"
+    TARGET="rules:#pages#pg_works_qr.xhtml" TITLE="replies" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#pg_works_e.xhtml"
+  PATH="/pages/pg_works_e.xhtml" SHAPE="240,593,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pg_works.xhtml"
+  PATH="/pages/pg_works.xhtml" SHAPE="240,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:7" PATH="*" SHAPE="32,913,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:7" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="replies_e::#pages#pg_works_qr_e.xhtml"
+    NAME="output" PATH="/pages/pg_works_qr_e.xhtml"
+    TARGET="rules:#pages#pg_works_qr_e.xhtml" TITLE="replies_e" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#pg_configs.xhtml"
+  PATH="/pages/pg_configs.xhtml" SHAPE="240,929,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:8" PATH="*" SHAPE="32,1137,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:8" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="configs::#pages#pg_configs.xhtml"
+    NAME="output" PATH="/pages/pg_configs.xhtml"
+    TARGET="rules:#pages#pg_configs.xhtml" TITLE="configs" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:9" PATH="*" SHAPE="32,1025,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:9" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="users::#pages#pg_users.xhtml" NAME="output"
+    PATH="/pages/pg_users.xhtml" TARGET="rules:#pages#pg_users.xhtml"
+    TITLE="users" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#pg_users_e.xhtml"
+  PATH="/pages/pg_users_e.xhtml" SHAPE="240,1153,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pg_users.xhtml"
+  PATH="/pages/pg_users.xhtml" SHAPE="240,1041,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:10" PATH="*" SHAPE="32,1361,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:10" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="users_e::#pages#pg_users_e.xhtml"
+    NAME="output" PATH="/pages/pg_users_e.xhtml"
+    TARGET="rules:#pages#pg_users_e.xhtml" TITLE="users_e" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:11" PATH="*" SHAPE="32,1249,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:11" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="manager::#pages#pg_manager.xhtml"
+    NAME="output" PATH="/pages/pg_manager.xhtml"
+    TARGET="rules:#pages#pg_manager.xhtml" TITLE="manager" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#pg_manager_e.xhtml"
+  PATH="/pages/pg_manager_e.xhtml" SHAPE="240,1377,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#pg_manager.xhtml"
+  PATH="/pages/pg_manager.xhtml" SHAPE="240,1265,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:12" PATH="*" SHAPE="32,1473,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:12" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="manager_e::#pages#pg_manager_e.xhtml"
+    NAME="output" PATH="/pages/pg_manager_e.xhtml"
+    TARGET="rules:#pages#pg_manager_e.xhtml" TITLE="manager_e" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#pg_works_qr_e.xhtml"
+  PATH="/pages/pg_works_qr_e.xhtml" SHAPE="240,1489,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:13" PATH="*" SHAPE="32,1585,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:13" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="error::#pages#pg_error.xhtml" NAME="output"
+    PATH="/pages/pg_error.xhtml" TARGET="rules:#pages#pg_error.xhtml"
+    TITLE="error" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#pg_works_qr.xhtml"
+  PATH="/pages/pg_works_qr.xhtml" SHAPE="240,1601,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/WEB-INF/templates/tpl_str_non_load.xhtml">
+
+        <ui:define name="header">
+    	    <ui:include src="/WEB-INF/header/hdr_general.xhtml" />
+		</ui:define>
+		
+		<ui:define name="menu">
+        	<ui:include src="/WEB-INF/menu/menu_general.xhtml" />
+        </ui:define>
+
+		<ui:define name="content">
+    	    <ui:include src="/WEB-INF/contents/cnt_customers.xhtml"/>
+		</ui:define>
+
+		<ui:define name="footer">
+			<ui:include src="/WEB-INF/footer/ftr_general.xhtml" /> 
+		</ui:define>
+
+		<ui:define name="modals">
+            <ui:include src="/WEB-INF/modals/mod_general.xhtml" />
+        </ui:define>
+        
+	</ui:composition>
+</html>	

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	
+	
+	
+	<form id="loginForm" action="#{applicationBean.contextRoot}/j_spring_security_check" method="post">
+
+		<div class="ui-outputpanel ui-widget" style="width: 100%; text-align: center;">
+			<div id="containerLoginForm" class="ui-outputpanel ui-widget">
+				<table>
+					<tbody>
+						<tr>
+							<td>
+								<label for="j_username">
+									Usuario:
+								</label>
+							</td>
+							<td>
+								<input id="j_username" type="text" name="j_username" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="j_password">
+									Contraseña:
+								</label>
+							</td>
+							<td>
+								<input id="j_password" type="password" name="j_password" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<div id="j_idt18" class="ui-outputpanel ui-widget buttonContainerLogin">
+					<input type="submit" value="Entrar" style="vertical-align: right" />
+				</div>
+			</div>
+		</div>
+
+		<h:panelGroup style="color:red; font-size:14px">
+			${error}
+		</h:panelGroup>
+	</form>
+	
+	<script>
+		document.getElementById("j_username").focus();
+	</script>
+
+</ui:component>
