@@ -14,9 +14,7 @@ public interface ICustomersDao {
 	
 	public AddressData getAddressById( int idAddress );
 	
-	public CustomerData getCustomer(int idCustomer);
-	
-	public CustomerData getCustomer(String codeCustomer);
+	public CustomerData getCustomer(CustomerData customer);
 	
 	public ManagerData getManager(int idManager);
 	

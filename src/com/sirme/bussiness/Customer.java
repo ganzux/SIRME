@@ -180,6 +180,12 @@ public class Customer implements IBusinessObject,Cloneable{
 	public void setWorks(Collection<Work> works) {
 		this.works = works;
 	}
+	
+	public Customer(){}
+	
+	public Customer(String cif){
+		this.cifCustomer = cif;
+	}
 
 	public String getServicesAddress(){
 		StringBuilder sb = new StringBuilder();

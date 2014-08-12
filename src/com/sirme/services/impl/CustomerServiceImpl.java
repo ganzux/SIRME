@@ -119,12 +119,7 @@ public class CustomerServiceImpl implements ICustomerService{
 	public Customer get( Customer customer ){
 		MyLogger.info(log, CLASS_NAME, "get", "IN", customer);
 		
-		CustomerData cd = null;
-		
-		if( customer.getIdCustomer() != 0 )
-			cd = customersDao.getCustomer( customer.getIdCustomer() );
-		else
-			cd = customersDao.getCustomer( customer.getCodeCustomer() );
+		CustomerData cd = customersDao.getCustomer( (CustomerData)TransformFactory.getTransformator(Customer.class).toDataObject( customer ) );
 
 		Customer c = null;
 		if ( cd != null ){

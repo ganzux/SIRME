@@ -1,7 +1,9 @@
 package com.sirme.dao.impl;
 
 import java.util.Collection;
+import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -87,35 +89,34 @@ public class CustomersDaoImpl extends HibernateDaoSupport implements ICustomersD
 	}
 
 	@Override
-	public CustomerData getCustomer(int idCustomer){
+	public CustomerData getCustomer(CustomerData cd){
 		MyLogger.info( log , CLASS_NAME, "getCustomer", "INIT");
 		
-		CustomerData c = (CustomerData)  getSessionFactory().getCurrentSession().createCriteria(CustomerData.class)
+		Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(CustomerData.class)
 				.setFetchMode("contacts", FetchMode.SELECT)
 				.setFetchMode("manager", FetchMode.JOIN)
-				.setFetchMode("commercial", FetchMode.JOIN)
-                .add( Restrictions.idEq(idCustomer) )
-                .uniqueResult();
+				.setFetchMode("commercial", FetchMode.JOIN);
+		
+		if (  cd.getIdCustomer() != 0 )
+			criteria.add( Restrictions.idEq(cd.getIdCustomer()) );
+		else if ( cd.getCodeCustomer() != null && cd.getCodeCustomer() != 0)
+			criteria.add( Restrictions.eq("codeCustomer",Integer.valueOf(cd.getCodeCustomer())) );
+		else if ( cd.getCifCustomer() != null && !cd.getCifCustomer().isEmpty() )
+			criteria.add( Restrictions.eq("cifCustomer",cd.getCifCustomer()) );
+		else
+			criteria.add( Restrictions.idEq( 0 ) );
+			
+
+		List<CustomerData> css = (List<CustomerData>)criteria.list();
+		CustomerData c = null;
+		
+		if ( css != null && !css.isEmpty() )
+			c = css.get( 0 );
 
 		MyLogger.info( log , CLASS_NAME, "getCustomer", "END");
 		return c;
 	}
-	
-	@Override
-	public CustomerData getCustomer(String codeCustomer){
-		MyLogger.info( log , CLASS_NAME, "getCustomer", "INIT");
-		
-		CustomerData c = (CustomerData)  getSessionFactory().getCurrentSession().createCriteria(CustomerData.class)
-				.setFetchMode("contacts", FetchMode.SELECT)
-				.setFetchMode("manager", FetchMode.JOIN)
-				.setFetchMode("commercial", FetchMode.JOIN)
-                .add( Restrictions.eq("codeCustomer",Integer.valueOf(codeCustomer)) )
-                .uniqueResult();
 
-		MyLogger.info( log , CLASS_NAME, "getCustomer", "END");
-		return c;
-	}
-	
 	@Override
 	public ManagerData getManager(int idManager){
 		MyLogger.info( log , CLASS_NAME, "getManager", "INIT");

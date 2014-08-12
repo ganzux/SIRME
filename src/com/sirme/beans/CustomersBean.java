@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.Resource;
+import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.component.inputtext.InputText;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import com.sirme.basicsecurity.business.data.User;
@@ -212,7 +215,7 @@ public class CustomersBean extends ManagedBean {
 			applicationBean.sendMessageError("web.error.general.validacion", "web.error.general.xp", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "Código del Cliente o CIF repetido" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "Código del Cliente repetido" );
 			return null;
 		}
 
@@ -233,8 +236,11 @@ public class CustomersBean extends ManagedBean {
 		} catch(ValidationException e){
 			applicationBean.sendMessageError("web.error.general.validacion", "web.error.general.xp", e.getMessage() );
 			return null;
-		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "web.error.general.xp", e.getMessage() );
+		} catch(Exception e){
+			if ( e instanceof DataIntegrityViolationException )
+				applicationBean.sendMessageError("web.error.general.transaccion", "clientes.error.codigo.repetido" );
+			else
+				applicationBean.sendMessageError("web.error.general.transaccion", "web.error.general.xp", e.getMessage() );
 			return null;
 		}
 		return doInit();
@@ -264,6 +270,20 @@ public class CustomersBean extends ManagedBean {
 	@Override
 	public String cancel(){
 		return back();
+	}
+	
+	public void findCIF(AjaxBehaviorEvent event){
+		try{
+			String cif = (String) ((InputText) event.getSource()).getValue();
+			Customer existing = customerService.get( new Customer(cif) );
+
+			// if exists and the id is not current, the cif is repeated
+			if ( existing != null && selectedCustomer.getIdCustomer() != existing.getIdCustomer() ){
+				applicationBean.sendMessageInfo("CIF Existente", "El CIF ? ya existe como Cliente. Compruébelo antes de continuar", cif);
+			}
+		} catch( Exception e){
+			
+		}
 	}
 	
 	public void upload() {  

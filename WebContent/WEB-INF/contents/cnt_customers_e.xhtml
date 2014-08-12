@@ -45,8 +45,10 @@
 		            <p:inputText id="name" 		maxlength="200"	value="${customersBean.selectedCustomer.nameCustomer}" 	label="Nombre"				size="40"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}" />
 		            
 		            <h:outputLabel for="cif" value="CIF *" />
-		            <p:inputText id="cif" 		maxlength="20"	value="${customersBean.selectedCustomer.cifCustomer}" 	label="CIF"					size="10"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"/>
-		            
+  		            <p:inputText id="cif" 		maxlength="20"	value="${customersBean.selectedCustomer.cifCustomer}" 	label="CIF"					size="10"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}">
+		            	<p:ajax event="blur" listener="#{customersBean.findCIF}" update=":messages" />
+		            </p:inputText>
+
 		            <h:outputLabel for="code" value="Código *" />
 		            <p:inputText id="code" 		maxlength="20"	value="${customersBean.selectedCustomer.codeCustomer}" 	label="Código"				size="10"	disabled="#{customersBean.pageOption ne applicationBean.optionSave and customersBean.pageOption ne applicationBean.optionUpdate}"/>
 		            

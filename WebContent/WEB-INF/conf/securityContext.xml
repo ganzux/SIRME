@@ -21,7 +21,7 @@
 		<sec:intercept-url pattern="/pages/**"				access="isAuthenticated()" />
 		
 		<sec:session-management invalid-session-url="/pages/pg_login.xhtml">
-			<sec:concurrency-control max-sessions="20" expired-url="/pages/pg_login.xhtml" error-if-maximum-exceeded="true" session-registry-ref="sessionRegistry" />
+			<sec:concurrency-control max-sessions="100" expired-url="/pages/pg_login.xhtml" error-if-maximum-exceeded="false" session-registry-ref="sessionRegistry" />
 		</sec:session-management>
 		
 		<sec:form-login
@@ -48,7 +48,7 @@
 	<bean id="userService"				class="com.sirme.basicsecurity.UserDetailsService"/>
 	<bean id="passwordEncoder"			class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />		 
 	<bean id="authSuccessHandler" 		class="com.sirme.basicsecurity.BSUserAuthenticationSuccessHandler"	p:defaultTargetUrl="/pages/pg_general.xhtml" />	
-	<bean id="authErrorHandler" 		class="com.sirme.basicsecurity.BSUserAuthenticationErrorHandler"		p:defaultTargetUrl="/pages/pg_login.xhtml" />			
+	<bean id="authErrorHandler" 		class="com.sirme.basicsecurity.BSUserAuthenticationErrorHandler"	p:defaultTargetUrl="/pages/pg_login.xhtml" />			
 
 
 </beans>
