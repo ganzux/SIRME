@@ -1,5 +1,6 @@
 package com.sirme.bussiness;
 
+import com.sirme.services.rest.dto.ReplyTypeDTO;
 import com.sirme.transform.ITransformator;
 import com.sirme.transform.ReplyTypeTransform;
 
@@ -11,6 +12,19 @@ public class ReplyType implements IBusinessObject,Cloneable{
 	
 	
 	
+	public ReplyType(ReplyTypeDTO replyType) {
+		idReplyType = replyType.getIdReplyType();
+		nameReplyType = replyType.getNameReplyType();
+	}
+
+
+
+	public ReplyType() {
+		super();
+	}
+
+
+
 	public int getIdReplyType() {
 		return idReplyType;
 	}

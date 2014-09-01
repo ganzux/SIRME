@@ -10,6 +10,9 @@ import java.util.Map.Entry;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import com.sirme.services.rest.dto.QuestionGroupDTO;
+import com.sirme.services.rest.dto.ReplyGroupDTO;
+import com.sirme.services.rest.dto.ReportDTO;
 import com.sirme.transform.ITransformator;
 import com.sirme.transform.ReportTransform;
 
@@ -53,6 +56,23 @@ public class Report implements IBusinessObject,Cloneable{
 		if ( reportAlbaran == REPORT_ALBARAN ){
 			setNameReport("albaran");
 			setFileReport("albaran");
+		}
+	}
+
+	public Report(ReportDTO report) {
+		idReport = report.getIdReport();
+		nameReport = report.getNameReport();
+
+		if ( report.getReplyGroups() != null ){
+			replyGroups = new ArrayList<ReplyGroup>();
+			for ( ReplyGroupDTO q:report.getReplyGroups() )
+				replyGroups.add( new ReplyGroup(q) );
+		}
+		
+		if ( report.getQuestionGroups() != null ){
+			questionGroups = new ArrayList<QuestionGroup>();
+			for ( QuestionGroupDTO q:report.getQuestionGroups() )
+				questionGroups.add( new QuestionGroup(q) );
 		}
 	}
 

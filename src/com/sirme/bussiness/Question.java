@@ -2,6 +2,8 @@ package com.sirme.bussiness;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import com.sirme.services.rest.dto.QuestionDTO;
+import com.sirme.services.rest.dto.ReplyTypeDTO;
 import com.sirme.transform.ITransformator;
 import com.sirme.transform.QuestionTransform;
 
@@ -36,6 +38,19 @@ public class Question implements IBusinessObject,Cloneable{
 	@JsonIgnore
 	private Boolean totalize;
 	private ReplyType replyType;
+
+
+	public Question(QuestionDTO question) {
+		idQuestion = question.getIdQuestion();
+		this.question = question.getQuestion();
+		order = question.getOrder();
+		replyType = new ReplyType( question.getReplyType() );
+	}
+
+
+	public Question() {
+		super();
+	}
 
 
 	@Override

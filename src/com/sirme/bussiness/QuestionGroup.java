@@ -1,7 +1,10 @@
 package com.sirme.bussiness;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import com.sirme.services.rest.dto.QuestionDTO;
+import com.sirme.services.rest.dto.QuestionGroupDTO;
 import com.sirme.transform.ITransformator;
 import com.sirme.transform.QuestionGroupTransform;
 
@@ -60,6 +63,22 @@ public class QuestionGroup implements IBusinessObject,Cloneable{
 	private Report report;
 	private Collection<Question> questions;
 
+
+	public QuestionGroup(QuestionGroupDTO questionGroup) {
+		idQuestionGroup = questionGroup.getIdQuestionGroup();
+		nameQuestionGroup = questionGroup.getNameQuestionGroup();
+		times = questionGroup.getTimes();
+
+		if ( questionGroup.getQuestions() != null ){
+			questions = new ArrayList<Question>();
+			for ( QuestionDTO q:questionGroup.getQuestions() )
+				questions.add( new Question(q) );
+		}
+	}
+
+	public QuestionGroup() {
+		super();
+	}
 
 	@Override
 	public Class<? extends ITransformator> getTransformator() {

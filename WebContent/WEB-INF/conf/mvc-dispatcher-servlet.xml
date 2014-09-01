@@ -48,7 +48,7 @@
 
 				<prop key="/getAdvicesInit">getAdvicesInitRestController</prop>	<!-- Recoger todos los Avisos -->
 				<prop key="/getAdvicesEnd">getAdvicesEndRestController</prop>	<!-- Marcar Aviso como descargado -->
-				
+
 				<prop key="/getWorksInit">getWorksInitRestController</prop>		<!-- Recoger todos los Trabajos -->
 				<prop key="/getWorksEnd">getAdvicesEndRestController</prop>		<!-- Marcar Trabajos como descargado -->
 
@@ -57,6 +57,9 @@
 
 				<prop key="/file">fileRestController</prop>						<!-- Enviar fichero general -->
 				<prop key="/sign">signRestController</prop>						<!-- Enviar firma digitalizada -->
+				
+				<prop key="/workInit">workInitRestController</prop>				<!-- Subir trabajo Inicio -->
+				<prop key="/workEnd">workEndRestController</prop>				<!-- Subir trabajo Fin -->
 
 				<prop key="/works">teamRestController</prop>
 				<prop key="/workReport/**">workReportsRestController</prop>

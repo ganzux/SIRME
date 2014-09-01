@@ -1,5 +1,6 @@
 package com.sirme.bussiness;
 
+import com.sirme.services.rest.dto.ReplyDTO;
 import com.sirme.transform.ITransformator;
 import com.sirme.transform.ReplyTransform;
 
@@ -11,6 +12,14 @@ public class Reply implements IBusinessObject,Cloneable{
 	private String reply;
 	private ReplyGroup replyGroup;
 
+	public Reply(ReplyDTO reply2) {
+		this.idReply = reply2.getIdReply();
+		this.question = new Question( reply2.getQuestion() );
+		this.reply = reply2.getReply();
+	}
+	public Reply() {
+		super();
+	}
 	public int getIdReply() {
 		return idReply;
 	}

@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.sirme.services.rest.dto.ReportDTO;
+import com.sirme.services.rest.dto.WorkDTO;
 import com.sirme.transform.ITransformator;
 import com.sirme.transform.WorkTransform;
 
@@ -36,6 +38,17 @@ public class Work implements IBusinessObject, Cloneable {
 	private List<Report> reports;
 	private Collection<Photo> photos;
 
+	public Work(){
+		super();
+	}
+
+	public Work(WorkDTO w) {
+		super();
+		reports = new ArrayList<Report>();
+		if ( w.getReports() != null && !w.getReports().isEmpty() )
+			for ( ReportDTO rep:w.getReports() )
+				reports.add( new Report(rep) );
+	}
 	@Override
 	public String toString() {
 		return idWork + "," + date + "," + team + "," + customer;

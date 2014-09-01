@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import com.sirme.services.rest.dto.ReplyDTO;
+import com.sirme.services.rest.dto.ReplyGroupDTO;
 import com.sirme.transform.ITransformator;
 import com.sirme.transform.ReplyGroupTransform;
 
@@ -22,6 +24,18 @@ public class ReplyGroup implements IBusinessObject,Cloneable{
 	private List<Reply> replies;
 
 	
+	public ReplyGroup(ReplyGroupDTO rg) {
+		idReplyGroup = rg.getIdReplyGroup();
+		nameReplyGroup = rg.getNameReplyGroup();
+		replies = new ArrayList<Reply>();
+		
+		if ( rg.getReplies() != null && !rg.getReplies().isEmpty() )
+			for ( ReplyDTO reply:rg.getReplies() )
+				replies.add( new Reply(reply) );
+	}
+	public ReplyGroup() {
+		super();
+	}
 	public int getIdReplyGroup() {
 		return idReplyGroup;
 	}

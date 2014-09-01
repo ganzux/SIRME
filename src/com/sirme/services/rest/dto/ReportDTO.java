@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import com.sirme.bussiness.QuestionGroup;
 import com.sirme.bussiness.ReplyGroup;
 import com.sirme.bussiness.Report;
 
@@ -19,6 +20,12 @@ public class ReportDTO {
 			for ( ReplyGroup q:report.getReplyGroups() )
 				replyGroups.add( new ReplyGroupDTO(q) );
 		}
+		
+		if ( report.getQuestionGroups() != null ){
+			questionGroups = new ArrayList<QuestionGroupDTO>();
+			for ( QuestionGroup q:report.getQuestionGroups() )
+				questionGroups.add( new QuestionGroupDTO(q) );
+		}
 	}
 	
 	@JsonProperty
@@ -27,6 +34,8 @@ public class ReportDTO {
 	private String nameReport;
 	@JsonProperty
 	private Collection<ReplyGroupDTO> replyGroups;
+	@JsonProperty
+	private Collection<QuestionGroupDTO> questionGroups;
 
 	public int getIdReport() {
 		return idReport;
@@ -45,6 +54,12 @@ public class ReportDTO {
 	}
 	public void setReplyGroups(Collection<ReplyGroupDTO> replyGroups) {
 		this.replyGroups = replyGroups;
+	}
+	public Collection<QuestionGroupDTO> getQuestionGroups() {
+		return questionGroups;
+	}
+	public void setQuestionGroups(Collection<QuestionGroupDTO> questionGroups) {
+		this.questionGroups = questionGroups;
 	}
 
 

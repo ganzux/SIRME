@@ -170,7 +170,11 @@ public class CustomerServiceImpl implements ICustomerService{
 			CustomerData cd = getCustomerData( customer );
 			customersDao.save( cd );
 		} catch (Exception e){
-			MyLogger.error(log, CLASS_NAME, "save", ((org.hibernate.exception.ConstraintViolationException)e.getCause()).getCause().getMessage() );
+			try{
+				MyLogger.error(log, CLASS_NAME, "save", ((org.hibernate.exception.ConstraintViolationException)e.getCause()).getCause().getMessage() );
+			} catch( Exception e1 ){
+				MyLogger.error(log, CLASS_NAME, "save", e.getCause().getMessage() );
+			}
 			throw new TransactionException( e );
 		}
 
