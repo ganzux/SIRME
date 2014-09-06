@@ -250,6 +250,12 @@ a img {
 	width:400px;
 }
 
+#headerBodyR {
+	float:right;
+	padding-right: 5px;
+	padding-top: 5px;
+}
+
 #headerBody .left {
 	float: left;
 	margin: 14px 0 0 30px;
@@ -484,7 +490,7 @@ a img {
 
 .buttonContainerLogin {
 	display: block;
-    margin-top: 100px;
+    margin-top: 50px;
     text-align: right;	
 }
 

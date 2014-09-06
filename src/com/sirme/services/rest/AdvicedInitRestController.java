@@ -59,7 +59,7 @@ public class AdvicedInitRestController {
 
 					MyLogger.info(log, CLASS_NAME, "openWork", "Cliente con dirección encontrados");
 					MyLogger.info(log, CLASS_NAME, "openWork", data.getAlertId(), "Insertando en cola de trabajos...");
-					adviceService.insertAdvice( data.getAlertId(), new Advice(data) );
+					adviceService.insert( data.getAlertId(), new Advice(data) );
 					MyLogger.info(log, CLASS_NAME, "openWork", data.getAlertId(), "Insertando en cola de trabajos OK");
 
 				} else

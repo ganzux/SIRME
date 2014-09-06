@@ -14,7 +14,6 @@ import com.sirme.bussiness.FirextFile;
 import com.sirme.services.IAdviceService;
 import com.sirme.util.MyLogger;
 import com.sirme.util.SpringConstants;
-import com.sirme.util.TransactionException;
 
 @Service( SpringConstants.ADVICE_SERVICE)
 public class AdviceServiceImpl implements IAdviceService{
@@ -53,23 +52,8 @@ public class AdviceServiceImpl implements IAdviceService{
 	//                      Métodos Públicos                     //
 	///////////////////////////////////////////////////////////////
 
-	@Deprecated
-	public int insertAdvice(String query) throws Exception{
-		MyLogger.info(log, CLASS_NAME, "launchQuery", "IN");
-		int i = 0;
-		try{
-			
-		} catch (Exception e){
-			throw new TransactionException(e);
-		}
-
-		MyLogger.info(log, CLASS_NAME, "launchQuery", "OUT");
-		
-		return i;
-	}
-	
 	@Override
-	public void insertAdvice(String key, Advice value) throws Exception {
+	public void insert(String key, Advice value) throws Exception {
 		MyLogger.info(log, CLASS_NAME, "insertAdvice", "IN", key, value);
 		advices.put(key, value);
 		MyLogger.info(log, CLASS_NAME, "insertAdvice", "OUT", key, value);
@@ -101,9 +85,10 @@ public class AdviceServiceImpl implements IAdviceService{
 			throw new Exception("No existe ese Aviso");
 
 		Advice adv = advices.get( key );
-		FirextFile files = adv.getSign();
+
 		if ( adv.getSign() != null )
 			throw new Exception("Hay más de una firma");
+
 		adv.setSign( file );
 		advices.put(key, adv);
 
@@ -111,7 +96,7 @@ public class AdviceServiceImpl implements IAdviceService{
 	}
 
 	@Override
-	public void closeAdvice(String key, Advice value) throws Exception {
+	public void close(String key, Advice value) throws Exception {
 		MyLogger.info(log, CLASS_NAME, "closeAdvice", "IN", key, value);
 		if ( !advices.containsKey( key ) )
 			throw new Exception("No existe ese Aviso");
@@ -135,7 +120,7 @@ public class AdviceServiceImpl implements IAdviceService{
 	}
 
 	@Override
-	public Advice getAdvice(String key) throws Exception{
+	public Advice get(String key) throws Exception{
 		return advices.get( key );
 	}
 	

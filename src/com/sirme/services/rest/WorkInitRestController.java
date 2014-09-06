@@ -36,7 +36,7 @@ public class WorkInitRestController {
 	protected ICustomerService customerService;
 
 	@RequestMapping( produces="application/json", method = RequestMethod.POST )
-	public @ResponseBody CodeDTO openWorkToLoadToLoad(@RequestBody WorkDTO data ) {
+	public @ResponseBody CodeDTO openWorkToLoad(@RequestBody WorkDTO data ) {
 		
 		MyLogger.info(log, CLASS_NAME, "openWorkToLoad", "IN", data);
 
@@ -45,7 +45,7 @@ public class WorkInitRestController {
 			if ( team != null  ) {
 				MyLogger.info(log, CLASS_NAME, "openWorkToLoad", "Equipo de Trabajo encontrado");
 				MyLogger.info(log, CLASS_NAME, "openWorkToLoad", data.getAlertId(), "Insertando en cola de trabajos...");
-				adviceService.insertAdvice( data.getAlertId(), new Advice(data) );
+				adviceService.insert( data.getAlertId(), new Advice(data) );
 				MyLogger.info(log, CLASS_NAME, "openWorkToLoad", data.getAlertId(), "Insertando en cola de trabajos OK");
 
 			} else

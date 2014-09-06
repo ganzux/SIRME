@@ -26,18 +26,18 @@ import com.sirme.services.ICustomerService;
 import com.sirme.services.ITeamService;
 import com.sirme.services.IUpdatedService;
 import com.sirme.services.IWorkService;
-import com.sirme.services.rest.dto.AdviceDTO;
 import com.sirme.services.rest.dto.CodeDTO;
+import com.sirme.services.rest.dto.WorkDTO;
 import com.sirme.util.ConfigService;
 import com.sirme.util.FileUtil;
 import com.sirme.util.MyLogger;
 import com.sirme.util.SpringConstants;
 
-@Controller("adviceEndRestController")
-public class AdvicedEndRestController {
+@Controller("workEndRestController")
+public class WorkEndRestController {
 	
-	private static Logger log = LoggerFactory.getLogger( AdvicedEndRestController.class );
-	private static final String CLASS_NAME = "AdvicedEndRestController";
+	private static Logger log = LoggerFactory.getLogger( WorkEndRestController.class );
+	private static final String CLASS_NAME = "WorkEndRestController";
 
 	@Resource(name = SpringConstants.ADVICE_SERVICE)
 	protected IAdviceService adviceService;
@@ -58,87 +58,67 @@ public class AdvicedEndRestController {
 	protected IUpdatedService updateService;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody CodeDTO closeWork(@RequestBody AdviceDTO data) {
+	public @ResponseBody CodeDTO closeWorkToLoad(@RequestBody WorkDTO data) {
 		
-		MyLogger.info(log, CLASS_NAME, "closeWork", data);
+		MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", data);
 		Work w = new Work();
 
 		try{
 			Team team = teamService.get( data.getTeam(),data.getPassword() );
 			if ( team != null  ) {
-				MyLogger.info(log, CLASS_NAME, "closeWork", "Equipo de Trabajo encontrado");
+				MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Equipo de Trabajo encontrado");
 				w.setTeam( team );
 
-				int idAddress = 0;
-				try{
-					idAddress = Integer.parseInt( data.getIdClient() );
-				} catch( Exception e ){
-					throw new Exception("El Id tiene que ser numérico");
-				}
-				Address address =  customerService.getAddressById( idAddress );
-				
-				if ( address != null ){
-					MyLogger.info(log, CLASS_NAME, "closeWork", "Cliente con dirección encontrados");
-					w.setAddress( address );
-					w.setCustomer( address.getCustomer() );
-					
-					Advice advice = adviceService.get( data.getAlertId() );
+				Advice advice = adviceService.get( data.getAlertId() );
 
-					if ( advice != null ){
-						MyLogger.info(log, CLASS_NAME, "closeWork", "Aviso encontrado");
+				if ( advice != null ){
+					MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Trabajo encontrado");
 
-						w.setTypeWork( new TypeWork(2) );
-						w.setDateCreated( new Date() );
-						w.setDate( new Date() );
-						w.setMemo( advice.getWorkText() );
+					w.setTypeWork( new TypeWork(1) );
+					w.setDate( new Date() );
+					w.setMemo( advice.getWorkText() );
 
-						// Guardamos la firma en el directorio de ficheros
-						if ( advice.getSign() != null ){
-							MyLogger.info(log, CLASS_NAME, "closeWork", "Tratando Firma...", advice.getSign().getName());
-							w = saveFirextFile( true, advice.getSign(), w );
+					// Guardamos la firma en el directorio de ficheros
+					if ( advice.getSign() != null ){
+						MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Tratando Firma...", advice.getSign().getName());
+						w = saveFirextFile( true, advice.getSign(), w );
+						Thread.sleep( 2 );
+						MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Tratando Firma OK", advice.getSign().getName());
+					} else{
+						MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "No esiste Firma", advice);
+						throw new Exception("La firma del cliente es obligatoria");
+					}
+
+					if ( advice.getPictures() != null ){
+						for ( FirextFile ff:advice.getPictures() ){
+							MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Tratando Foto ", ff.getName());
+							w = saveFirextFile( false, ff, w );
 							Thread.sleep( 2 );
-							MyLogger.info(log, CLASS_NAME, "closeWork", "Tratando Firma OK", advice.getSign().getName());
-						} else{
-							MyLogger.info(log, CLASS_NAME, "closeWork", "No esiste Firma", advice);
-							throw new Exception("La firma del cliente es obligatoria");
+							MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Tratando Foto OK", ff.getName());
 						}
-
-						if ( advice.getPictures() != null ){
-							for ( FirextFile ff:advice.getPictures() ){
-								MyLogger.info(log, CLASS_NAME, "closeWork", "Tratando Foto ", ff.getName());
-								w = saveFirextFile( false, ff, w );
-								Thread.sleep( 2 );
-								MyLogger.info(log, CLASS_NAME, "closeWork", "Tratando Foto OK", ff.getName());
-							}
-						} else
-							MyLogger.info(log, CLASS_NAME, "closeWork", "No hay imágenes", advice);
-						
-						w.setStatus( Work.STATUS_RECIBIDO );
-						
-						if ( data.getDownloaded() ){
-							Work oldWork = null;
-							try{
-								oldWork = worksService.get( Integer.valueOf( data.getAlertId() ) );
-							} catch ( Exception e ){
-								throw new Exception("Ese Aviso no ha sido descargado, es nuevo");
-							}
-							w.setIdWork( Integer.valueOf( data.getAlertId() ) );
-							w.setAlbaran( oldWork.getAlbaran() );
-							w.setDate( oldWork.getDate() );
-							w.setDateCreated( oldWork.getDateCreated() );
-							w.setYear( oldWork.getYear() );
-							worksService.update( w );
-						} else
-							worksService.save( w );
-
-						updateService.refreshDate();
-						
 					} else
-						throw new Exception("Ese Aviso no existe");
+						MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "No hay imágenes", advice);
+					
+					w.setStatus( Work.STATUS_RECIBIDO );
+					
+					Work oldWork = null;
+					try{
+						oldWork = worksService.get( Integer.valueOf( data.getAlertId() ) );
+					} catch ( Exception e ){
+						throw new Exception("Ese Aviso no ha sido descargado, es nuevo");
+					}
+					w.setIdWork( Integer.valueOf( data.getAlertId() ) );
+					w.setAlbaran( oldWork.getAlbaran() );
+					w.setDate( oldWork.getDate() );
+					w.setDateCreated( oldWork.getDateCreated() );
+					w.setYear( oldWork.getYear() );
+					
+					worksService.update( w );
 
+					updateService.refreshDate();
+					
 				} else
-					throw new Exception("No se ha encontrado ese Cliente con esa dirección");
-
+					throw new Exception("Ese Trabajo no existe");
 			} else
 				throw new Exception("No existe ese equipo de Trabajo");
 
