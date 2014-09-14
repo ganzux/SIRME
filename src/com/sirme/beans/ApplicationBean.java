@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
@@ -42,6 +44,7 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.sirme.bussiness.Report;
+import com.sirme.bussiness.Team;
 import com.sirme.bussiness.TypeCustomer;
 import com.sirme.bussiness.Work;
 import com.sirme.services.IQuestionService;
@@ -134,6 +137,83 @@ public class ApplicationBean implements Serializable {
 
 	/////////////////////////////////////////////////////////////////////////
 	//                    Fin de Colecciones Compartidas                   //
+	/////////////////////////////////////////////////////////////////////////
+
+
+
+	/////////////////////////////////////////////////////////////////////////
+	//                            Control REST                             //
+	/////////////////////////////////////////////////////////////////////////
+	private Map<String,Object[]> restData;
+	
+	public void addRestLogin(Team team, String device){
+		addRestCall(team, device, 1);
+	}
+	public List<String> getRestLogin(){
+		return getRestCall( 1 );
+	}
+	public void addRestPassword(Team team){
+		addRestCall(team, "", 2);
+	}
+	public List<String> getRestPassword(){
+		return getRestCall( 2 );
+	}
+	public void addRestQuestions(){
+		addRestCall(new Team(), "", 3);
+	}
+	public List<String> getRestQuestions(){
+		return getRestCall( 3 );
+	}
+	public void addRestAdvices( int teamId ){
+		addRestCall(new Team(), teamId + "", 4);
+	}
+	public List<String> getRestAdvices(){
+		return getRestCall( 4 );
+	}
+	public void addRestWorks( int teamId ){
+		addRestCall(new Team(), teamId + "", 5);
+	}
+	public List<String> getRestWorks(){
+		return getRestCall( 5 );
+	}
+	
+	
+	
+
+	private void addRestCall( Team team, String device, int position ){
+		if ( restData == null )
+			restData = new HashMap<String,Object[]>();
+
+		Object[] old = restData.get( team.getNameTeam() + ":" + device );
+		if ( old == null )
+			old = new Object[]{team,0,0,0,0,0,0,0,0,0,0};
+
+		int times = 0;
+		try{
+			times = (int) old[ position ];
+		} catch ( Exception e){
+		}
+		old[ position ] = ++times;
+
+		restData.put( team.getNameTeam() + ":" + device , old );
+	}
+	
+	private List<String> getRestCall( int position ){
+		List<String> restCalls = new ArrayList<String>();
+
+		if ( restData != null ){
+			Iterator<Entry<String, Object[]>> it = restData.entrySet().iterator();
+		    while ( it.hasNext() ) {
+		    	Entry<String,Object[]> pairs = it.next();
+		    	restCalls.add( pairs.getKey() + " - " + pairs.getValue()[position] );
+			}
+		}
+
+		return restCalls;
+	}
+	
+	/////////////////////////////////////////////////////////////////////////
+	//                        Fin de Control REST                          //
 	/////////////////////////////////////////////////////////////////////////
 
 

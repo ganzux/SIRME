@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sirme.beans.ApplicationBean;
 import com.sirme.bussiness.Team;
 import com.sirme.services.ITeamService;
 import com.sirme.services.rest.dto.LoginInDTO;
 import com.sirme.services.rest.dto.LogonDTO;
+import com.sirme.util.BeanNameUtil;
 import com.sirme.util.ConfigService;
 import com.sirme.util.MyLogger;
 import com.sirme.util.SpringConstants;
@@ -26,6 +28,9 @@ public class LoginRestController {
 
 	@Resource(name = SpringConstants.TEAM_SERVICE)
 	protected ITeamService teamService;
+	
+	@Resource( name=BeanNameUtil.APP_BEAN)
+	private ApplicationBean applicationBean;
 	
 	@Resource
 	private ConfigService cfg;
@@ -46,6 +51,8 @@ public class LoginRestController {
 			logonDTO.setTeamId( team.getIdTeam() );
 			logonDTO.setCanUploadPhotos( team.isCanUploadPhotos() );
 			logonDTO.setServerOnTime( cfg.getTimeUp() );
+			
+			applicationBean.addRestLogin( team,loginInData.getDeviceId() );
 		}
 		
 		MyLogger.info(log, CLASS_NAME, "login", "END", "Petición de login desde terminal", logonDTO);

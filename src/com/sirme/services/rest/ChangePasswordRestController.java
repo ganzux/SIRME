@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sirme.beans.ApplicationBean;
 import com.sirme.bussiness.Team;
 import com.sirme.services.ITeamService;
 import com.sirme.services.rest.dto.ChangePassWordInDTO;
 import com.sirme.services.rest.dto.ChangePassWordOutDTO;
+import com.sirme.util.BeanNameUtil;
 import com.sirme.util.MyLogger;
 import com.sirme.util.SpringConstants;
 
@@ -27,6 +29,9 @@ public class ChangePasswordRestController {
 
 	@Resource(name = SpringConstants.TEAM_SERVICE)
 	protected ITeamService teamService;
+	
+	@Resource( name=BeanNameUtil.APP_BEAN)
+	private ApplicationBean applicationBean;
 
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody
@@ -55,6 +60,8 @@ public class ChangePasswordRestController {
 					logonDTO.setError( null );
 					logonDTO.setOperation("OK");
 					logonDTO.setTeam( loginInData.getTeam() );
+					
+					applicationBean.addRestPassword( team );
 	
 					break;
 				}

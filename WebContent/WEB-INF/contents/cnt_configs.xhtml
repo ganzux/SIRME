@@ -52,9 +52,16 @@
 			            </h:outputText>
 						<p:commandButton action="${settingsBean.forceDNS}" 			value="Forzar DynDNS" 	update=":messages"/>
 		
-						<p:commandButton value="Ver Conexiones" onclick="PF('dlg2').show();" type="button" icon="ui-icon-locked" />
-						<p:commandButton action="${settingsBean.resetConnections}" value="Resetear Conexiones" update=":messages,dialog2"/>
-		
+						<p:commandButton value="Conexiones Web" onclick="PF('dlg2').show();" type="button" icon="ui-icon-locked" />
+						<p:commandButton value="Resetear Conexiones Web" action="${settingsBean.resetConnections}" update=":messages,dialog2"/>
+						
+						<p:commandButton value="Conexiones REST"  	action="#{settingsBean.doRestLogin}" ajax="true"  oncomplete="PF('dlg3').show();" icon="ui-icon-locked" update="dialog3"/>
+						<p:commandButton value="Cambio Pass REST"  	action="#{settingsBean.doRestPassword}" ajax="true"  oncomplete="PF('dlg3').show();" icon="ui-icon-locked" update="dialog3"/>
+						
+						<p:commandButton value="Avisos REST"  		action="#{settingsBean.doRestAdvices}" ajax="true"  oncomplete="PF('dlg3').show();" icon="ui-icon-locked" update="dialog3"/>
+						<p:commandButton value="Trabajos REST"  	action="#{settingsBean.doRestWorks}" ajax="true"  oncomplete="PF('dlg3').show();" icon="ui-icon-locked" update="dialog3"/>
+
+						<p:commandButton value="Preguntas REST"  	action="#{settingsBean.doRestQuestions}" ajax="true"  oncomplete="PF('dlg3').show();" icon="ui-icon-locked" update="dialog3"/>
 					</h:panelGrid>
 					
 				</p:panel>
@@ -136,6 +143,22 @@
 			</p:outputPanel>
 	    	
 			<p:commandButton value="Cerrar"	icon="ui-icon-cancel" oncomplete="PF('dlg2').hide();" />
+		</p:dialog>
+		
+		
+		<p:dialog id="dialog3" header="Conexiones de Terminales" widgetVar="dlg3" dynamic="true" draggable="true" modal="false" width="800" height="600">
+
+			<p:outputPanel layout="block" style="padding-bottom:100px;">
+				<ul>
+					<ui:repeat value="#{settingsBean.restCalls}" var="entry">
+					    <li>
+					    	#{entry}
+					    </li>
+					</ui:repeat>
+				</ul>
+			</p:outputPanel>
+	    	
+			<p:commandButton value="Cerrar"	icon="ui-icon-cancel" oncomplete="PF('dlg3').hide();" />
 		</p:dialog>
 	</h:form>
 

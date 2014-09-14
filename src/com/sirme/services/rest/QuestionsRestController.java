@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sirme.beans.ApplicationBean;
 import com.sirme.bussiness.Report;
 import com.sirme.services.IQuestionService;
 import com.sirme.services.rest.dto.ReportDTO;
+import com.sirme.util.BeanNameUtil;
 import com.sirme.util.MyLogger;
 import com.sirme.util.SpringConstants;
 
@@ -26,6 +28,9 @@ public class QuestionsRestController {
 
 	@Resource(name = SpringConstants.QUESTION_SERVICE)
 	protected IQuestionService questionService;
+	
+	@Resource( name=BeanNameUtil.APP_BEAN)
+	private ApplicationBean applicationBean;
 
 	@RequestMapping(method = RequestMethod.POST)
 	public @ResponseBody
@@ -36,6 +41,7 @@ public class QuestionsRestController {
 
 		try{
 			reports = new ArrayList<ReportDTO>();
+			applicationBean.addRestQuestions();
 			for (Report report : questionService.getAllWithQuestions())
 				reports.add(  new ReportDTO( report ) );
 		} catch (Exception e){

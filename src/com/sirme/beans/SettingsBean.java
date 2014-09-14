@@ -22,8 +22,8 @@ import com.sirme.basicsecurity.business.IUsersService;
 import com.sirme.bussiness.Address;
 import com.sirme.bussiness.Customer;
 import com.sirme.bussiness.Manager;
-import com.sirme.bussiness.Report;
 import com.sirme.bussiness.Month.MonthE;
+import com.sirme.bussiness.Report;
 import com.sirme.excel.CustomerXLSExtract;
 import com.sirme.excel.ManagerDocExtract;
 import com.sirme.schedulers.IPCronService;
@@ -74,6 +74,8 @@ public class SettingsBean extends ManagedBean {
 	private String processDirManager = "C:\\a";
 	
 	private String sql;
+	
+	private List<String> restCalls;
 	
 	///////////////////////////////////////////////////////////////
 	//                    Fin de los Atributos                   //
@@ -165,6 +167,22 @@ public class SettingsBean extends ManagedBean {
 		newPass1 = "";
 		newPass2 = "";
 		return BeanNameUtil.PAGE_PRINCIPAL_CONFIG;
+	}
+	
+	public void doRestLogin(){
+		restCalls = applicationBean.getRestLogin();
+	}
+	public void doRestPassword(){
+		restCalls = applicationBean.getRestPassword();
+	}
+	public void doRestQuestions(){
+		restCalls = applicationBean.getRestQuestions();
+	}
+	public void doRestAdvices(){
+		restCalls = applicationBean.getRestAdvices();
+	}
+	public void doRestWorks(){
+		restCalls = applicationBean.getRestWorks();
 	}
 	
 	public void process(){
@@ -414,6 +432,12 @@ public class SettingsBean extends ManagedBean {
 	}
 	public void setSql(String sql) {
 		this.sql = sql;
+	}
+	public List<String> getRestCalls() {
+		return restCalls;
+	}
+	public void setRestCalls(List<String> restCalls) {
+		this.restCalls = restCalls;
 	}
 
 	///////////////////////////////////////////////////////////////
