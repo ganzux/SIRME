@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:p="http://primefaces.org/ui">
+
+		<div id="titlew">
+			<h:outputText value="#{msg['works.titulo.sign']}" />
+		</div>
+		
+		<h:form enctype="multipart/form-data" style="padding-bottom:15px;">
+			<p:panel id="panel" header="Seleccionar Nuevo fichero con la Firma">
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Firmante: " />
+					<h:inputText value="#{worksBean.selectedWork.signName}"  />
+					<p:fileUpload value="#{worksBean.file}" mode="simple"/>
+		  		</h:panelGrid>
+	  		</p:panel>
+
+			<p:outputPanel layout="block" style="padding-bottom:15px;">
+				<h:graphicImage value="imgsSrvlt/#{worksBean.selectedWork.signpath}" width="600"/>
+			</p:outputPanel>
+
+			<p:outputPanel  layout="blobk" styleClass="buttonContainer">
+				<h:outputText value="¿Está seguro de que desea ACTUALIZAR la Firma del Trabajo?"	styleClass="error" />
+				
+		   		<p:commandButton value="Actualizar Firma" 	action="#{worksBean.addSign}"	title="#{msg['boton.update']}"	ajax="false" 	icon="ui-icon-disk"				update=":messages" />
+		   		<p:commandButton value="Girar 90º" 			action="#{worksBean.rotate}"	title="Rotar 90º a la derecha"	ajax="false" 	icon="ui-icon-arrowrefresh-1-e"	update="@all" />
+				<p:commandButton value="Cancelar"			action="#{worksBean.cancel}"	title="#{msg['boton.cancel']}"	ajax="true" 	icon="ui-icon-cancel"			update=":messages" />
+			</p:outputPanel>
+		
+	</h:form>
+
+</ui:component>

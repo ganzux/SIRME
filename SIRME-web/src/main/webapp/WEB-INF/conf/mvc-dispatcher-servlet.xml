@@ -1,0 +1,68 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/mvc
+ 		   http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+ 		   
+ 	<!-- Preparar servicios RESTful usando spring mvc -->
+	<context:component-scan base-package="com.alcedomoreno.sirme.business.rest" />
+	
+	<!-- Indica al dispatcher que procese los request hacia las clases anotadas -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	</bean>
+	
+	
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		
+		<property name="messageConverters">
+			<list>
+				<ref bean="jacksonMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="jacksonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	</bean>
+	
+	<bean id="multipartResolver" class="com.alcedomoreno.sirme.business.rest.PutAwareCommonsMultipartResolver">
+        <property name="maxUploadSize" value="5000000" />
+ 
+    </bean>
+
+	<!-- Controladores RESTful principales -->
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/teamLogin">loginRestController</prop>				<!-- LOGIN -->
+				<prop key="/teamPassword">passwordRestController</prop>			<!-- Cambio de Password -->
+
+				<prop key="/questions">allQuestionsRestController</prop>		<!-- Todos los informes con las preguntas -->
+
+				<prop key="/getAdvicesInit">getAdvicesInitRestController</prop>	<!-- Recoger todos los Avisos -->
+				<prop key="/getAdvicesEnd">getAdvicesEndRestController</prop>	<!-- Marcar Aviso como descargado -->
+
+				<prop key="/getWorksInit">getWorksInitRestController</prop>		<!-- Recoger todos los Trabajos -->
+				<prop key="/getWorksEnd">getAdvicesEndRestController</prop>		<!-- Marcar Trabajos como descargado -->
+
+				<prop key="/adviceInit">adviceInitRestController</prop>			<!-- Subir Aviso Inicio -->
+				<prop key="/adviceEnd">adviceEndRestController</prop>			<!-- Fin de la subida de Aviso -->
+
+				<prop key="/file">fileRestController</prop>						<!-- Enviar fichero general -->
+				<prop key="/sign">signRestController</prop>						<!-- Enviar firma digitalizada -->
+				
+				<prop key="/workInit">workInitRestController</prop>				<!-- Subir trabajo Inicio -->
+				<prop key="/workEnd">workEndRestController</prop>				<!-- Subir trabajo Fin -->
+
+				<prop key="/works">teamRestController</prop>
+				<prop key="/workReport/**">workReportsRestController</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

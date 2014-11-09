@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c9a25a73-06e2-4298-ab70-777660bbe2c8">
+	<property name="ireport.zoom" value="1.0000000000000047"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="CLI_NAM" class="java.lang.String"/>
+	<parameter name="CLI_DAT" class="java.util.Date"/>
+	<parameter name="CLI_ALB" class="java.lang.Integer"/>
+	<parameter name="CLI_ADD" class="java.lang.String"/>
+	<parameter name="CLI_TEC" class="java.lang.String"/>
+	<parameter name="TITULO" class="java.lang.String"/>
+	<parameter name="PATH" class="java.lang.String"/>
+	<parameter name="DS" class="net.sf.jasperreports.engine.JRDataSource" isForPrompting="false"/>
+	<title>
+		<band height="175" splitType="Stretch">
+			<staticText>
+				<reportElement x="374" y="85" width="428" height="70" uuid="75e6b299-f723-4f51-b459-1423e5ff3227"/>
+				<textElement textAlignment="Right">
+					<font fontName="DialogInput" size="12"/>
+				</textElement>
+				<text><![CDATA[C/ Polo Sur,12  Pol. Ind. Sector 8
+28850 Torrejón de Ardoz  Madrid
+Tlf.  91 678 28 78  Fax. 91 678 28 77
+w w w . f i r e x t . e s  I n f o @ f i r e x t . e s]]></text>
+			</staticText>
+			<image>
+				<reportElement x="25" y="15" width="268" height="101" uuid="e07eb765-c017-4fc6-980f-c0cc9fcb4792"/>
+				<imageExpression><![CDATA[$P{PATH}+"logo.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="531" y="0" width="130" height="85" uuid="e0372bc7-87da-40d7-9107-a8b207b4d906"/>
+				<imageExpression><![CDATA[$P{PATH}+"14001.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="672" y="0" width="130" height="85" uuid="fa2cfc6e-0fa3-417f-a5f8-d627ceb068fe"/>
+				<imageExpression><![CDATA[$P{PATH}+"9001.bmp"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="155" width="802" height="20" uuid="583c1ade-c7cf-4a48-bf90-d63825aca4f1"/>
+				<textElement>
+					<font fontName="DialogInput" size="12"/>
+				</textElement>
+				<text><![CDATA[Empresa Autorizada por el Ministerio de Industria: Nº registro industrial: 130359]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="32" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement mode="Transparent" x="0" y="0" width="802" height="30" uuid="368503d7-2f00-462a-b40a-29070cf2c407"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="6" y="2" width="41" height="14" uuid="7644f491-5206-4d42-966c-839a646769c7"/>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="15" width="94" height="14" uuid="c67235d2-996a-4dbc-8715-f91feb87f6d3"/>
+				<text><![CDATA[Fecha de Revisión:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="16" width="52" height="14" uuid="6e58c4da-f881-4701-8f26-ff92d589d051"/>
+				<text><![CDATA[Nº Albarán:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="2" width="52" height="14" uuid="f351efa3-a45b-4384-960c-c3358118b942"/>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="15" width="52" height="14" uuid="e6992551-1ca4-4913-b279-2b249f1e444c"/>
+				<text><![CDATA[Técnicos:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="47" y="2" width="361" height="14" uuid="36982814-ff5d-4772-923c-2a2b7540ecbd"/>
+				<textFieldExpression><![CDATA[$P{CLI_NAM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="100" y="15" width="74" height="14" uuid="f8cf4d1f-309e-4363-a8a7-a748982aa6d8"/>
+				<textFieldExpression><![CDATA[$P{CLI_DAT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="268" y="16" width="66" height="14" uuid="87fc2c20-5622-4a46-a2e3-a92332906bf3"/>
+				<textFieldExpression><![CDATA[$P{CLI_ALB}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="460" y="2" width="330" height="14" uuid="d1e72e01-59be-450e-aa78-d2f8a5d1a57d"/>
+				<textFieldExpression><![CDATA[$P{CLI_ADD}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="460" y="15" width="330" height="14" uuid="baced44a-a22a-4bf1-a0d9-5f3567e02457"/>
+				<textFieldExpression><![CDATA[$P{CLI_TEC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

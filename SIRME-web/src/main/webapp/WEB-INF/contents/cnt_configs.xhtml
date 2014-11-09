@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="form"> 
+
+		<div id="titles">
+			<h:outputText value="Configuración" />
+		</div>
+		
+		<p:layout>
+		    <p:layoutUnit position="west" resizable="false" size="305" style="text-align:center">
+		        <h:graphicImage value="/images/logo.jpg" alt="Firext" />
+		        <h:graphicImage value="/images/sirme.png" alt="S I R M E" width="200px"/>
+		        <div style="padding-top:25px;">
+		        	<p:commandButton value="Acerca De" 			onclick="PF('about').show();" 	type="button" icon="ui-icon-help" />
+		        </div>
+		    </p:layoutUnit>
+		 
+		    <p:layoutUnit position="center" resizable="false" minSize="275" maxSize="275">
+		        <p:panel id="panelC" header="Datos Básicos">
+			        <h:panelGrid columns="2">
+			        	<h:outputLabel for="c" value="Código de Usuario (login):" />
+			            <p:outputLabel id="c" value="${settingsBean.user.codeUser}" />
+			            
+			            <h:outputLabel for="name" value="Nombre:" />
+			            <p:outputLabel id="name" value="${settingsBean.user.nameUser}" />
+			            
+			            <h:outputLabel for="a" value="Apellidos:" />
+			            <p:outputLabel id="a" value="${settingsBean.user.firstSurnameUser} ${settingsBean.user.secondSurnameUser}" />
+		            </h:panelGrid>
+				</p:panel>
+				
+				<p:panel id="paneleq" header="Opciones de Usuario">
+					<p:commandButton value="Cambiar Contraseña" onclick="PF('dlg').show();" 	type="button" icon="ui-icon-locked" />
+				</p:panel>
+		    </p:layoutUnit>
+
+			<p:layoutUnit position="east" resizable="false" minSize="400" >
+		        <p:panel id="panelsu1" header="Super User" rendered="${settingsBean.superUser}">
+
+					<h:panelGrid columns="2">
+						<h:outputText value="${settingsBean.applicationBean.serverLaunched}">
+			            	<f:convertDateTime pattern="#{cfgview['dateFormatseconds']}" timeZone="#{applicationBean.timeZone}" />
+			            </h:outputText>
+						<p:commandButton action="${settingsBean.forceDNS}" 			value="Forzar DynDNS" 	update=":messages"/>
+		
+						<p:commandButton value="Conexiones Web" onclick="PF('dlg2').show();" type="button" icon="ui-icon-locked" />
+						<p:commandButton value="Resetear Conexiones Web" action="${settingsBean.resetConnections}" update=":messages,dialog2"/>
+						
+						<p:commandButton value="Conexiones REST"  	action="#{settingsBean.doRestLogin}" ajax="true"  oncomplete="PF('dlg3').show();" icon="ui-icon-locked" update="dialog3"/>
+						<p:commandButton value="Cambio Pass REST"  	action="#{settingsBean.doRestPassword}" ajax="true"  oncomplete="PF('dlg3').show();" icon="ui-icon-locked" update="dialog3"/>
+						
+						<p:commandButton value="Avisos REST"  		action="#{settingsBean.doRestAdvices}" ajax="true"  oncomplete="PF('dlg3').show();" icon="ui-icon-locked" update="dialog3"/>
+						<p:commandButton value="Trabajos REST"  	action="#{settingsBean.doRestWorks}" ajax="true"  oncomplete="PF('dlg3').show();" icon="ui-icon-locked" update="dialog3"/>
+
+						<p:commandButton value="Preguntas REST"  	action="#{settingsBean.doRestQuestions}" ajax="true"  oncomplete="PF('dlg3').show();" icon="ui-icon-locked" update="dialog3"/>
+					</h:panelGrid>
+					
+				</p:panel>
+				
+				<p:panel id="panelsu2" header="Super User" rendered="${settingsBean.superUser}">
+					<h:panelGrid columns="2">
+						<p:inputText id="dir" value="#{settingsBean.processDir}" label="Procesar Directorio de Contratos" />
+						<p:commandButton value="Procesar Directorio de Contratos" title="Procesar Directorio de Contratos" action="#{settingsBean.process}" ajax="true" icon="ui-icon-disk" />
+						
+						<p:inputText id="dir2" value="#{settingsBean.processDirManager}" label="Procesar Directorio de Gestores" />
+						<p:commandButton value="Procesar Directorio de Gestores" title="Procesar Directorio de Gestores" action="#{settingsBean.processDirManager}" ajax="true" icon="ui-icon-disk" />
+		
+						<p:inputText value="${settingsBean.sql}" />
+						<p:commandButton action="${settingsBean.launchSql}" value="Lanzar" update=":messages"/>
+					</h:panelGrid>
+				</p:panel>
+		    </p:layoutUnit>
+
+		</p:layout>
+
+
+
+
+
+		<p:dialog id="dialog" header="Nueva Contraseña" widgetVar="dlg" dynamic="true" draggable="false" modal="true" width="300" height="100">
+			<h:panelGrid columns="2">
+		    	<h:outputText for="pass1" value="Nueva Contraseña:" />
+		    	<h:inputSecret id="pass1" value="${settingsBean.newPass1}" immediate="true" />
+		    	
+		    	<h:outputText for="pass2" value="Pepetir Contraseña:" />
+		    	<h:inputSecret id="pass2" value="${settingsBean.newPass2}" immediate="true" />
+	    	</h:panelGrid>
+	    	
+	    	<br /><br />
+	    	
+	    	<p:commandButton value="Cambiar" 	action="#{settingsBean.save}"	ajax="false" 	icon="ui-icon-disk" 	update=":messages"  oncomplete="PF('dlg').hide();" />
+			<p:commandButton value="Cancelar"	action="#{settingsBean.cancel}"	ajax="true" 	icon="ui-icon-cancel" 	update=":messages"  oncomplete="PF('dlg').hide();" />
+		</p:dialog>
+		
+		<p:dialog id="about" header="Acerda De" widgetVar="about" dynamic="true" draggable="false" modal="true" width="640" height="120" resizable="false">
+			<div id="container">
+				<div id="navbar" style="float:left;width:20%;">
+					<h:graphicImage value="/images/sirme.png" alt="S I R M E" width="100px"/>
+		    		
+				</div>
+				<div id="content" style="margin-left:20%;">
+					<div style="font-size:large;text-align:center">
+						<h:outputText value="Sistema Integral de Revisión y Mantenimiento de Equipos"/>
+					</div>
+					
+					<div style="padding-bottom:20px;">
+						<hr></hr>
+					</div>
+
+					<div> <h:outputText value="Versión: 2014.09.07" /> </div>
+					<div> <h:outputText value="Licenciado para FIREXT Sistemas de Extinción el 1 de enero de 2014" /> </div>
+				</div>
+				
+				<div style="padding-top:30px;padding-left:87%">
+					<p:commandButton value="Cerrar"	icon="ui-icon-cancel" oncomplete="PF('about').hide();" />
+				</div>
+			</div>
+		</p:dialog>
+		
+		
+		<p:dialog id="dialog2" header="Conexiones de Usuarios" widgetVar="dlg2" dynamic="true" draggable="true" modal="false" width="800" height="600">
+
+			<p:outputPanel layout="block" style="padding-bottom:100px;">
+				<ul>
+					<ui:repeat value="#{settingsBean.applicationBean.userAccess.entrySet().toArray()}" var="entry">
+					    <li>
+					    	Usuario: #{entry.key}, Conexiones (#{fn:length(entry.value)}):
+					    	<div style="padding-left: 20px;">
+					    		#{entry.value}
+					    	</div>
+					    </li>
+					</ui:repeat>
+				</ul>
+			</p:outputPanel>
+	    	
+			<p:commandButton value="Cerrar"	icon="ui-icon-cancel" oncomplete="PF('dlg2').hide();" />
+		</p:dialog>
+		
+		
+		<p:dialog id="dialog3" header="Conexiones de Terminales" widgetVar="dlg3" dynamic="true" draggable="true" modal="false" width="800" height="600">
+
+			<p:outputPanel layout="block" style="padding-bottom:100px;">
+				<ul>
+					<ui:repeat value="#{settingsBean.restCalls}" var="entry">
+					    <li>
+					    	#{entry}
+					    </li>
+					</ui:repeat>
+				</ul>
+			</p:outputPanel>
+	    	
+			<p:commandButton value="Cerrar"	icon="ui-icon-cancel" oncomplete="PF('dlg3').hide();" />
+		</p:dialog>
+	</h:form>
+
+</ui:component>

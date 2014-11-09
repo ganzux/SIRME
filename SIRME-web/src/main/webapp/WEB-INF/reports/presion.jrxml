@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c9a25a73-06e2-4298-ab70-777660bbe2c8">
+	<property name="ireport.zoom" value="1.6105100000000245"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="table 2" forecolor="#FF3366" backcolor="#00CC99">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#FF6666">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#CCFFCC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFFFFF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="DS" uuid="8e4cd21c-177a-4e2b-b0de-292183f2d73f">
+		<field name="F1" class="java.lang.String"/>
+		<field name="F2" class="java.lang.String"/>
+		<field name="F3" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="CLI_NAM" class="java.lang.String"/>
+	<parameter name="CLI_DAT" class="java.util.Date"/>
+	<parameter name="CLI_ALB" class="java.lang.Integer"/>
+	<parameter name="CLI_ADD" class="java.lang.String"/>
+	<parameter name="CLI_TEC" class="java.lang.String"/>
+	<parameter name="TITULO" class="java.lang.String"/>
+	<parameter name="PATH" class="java.lang.String"/>
+	<parameter name="DS" class="net.sf.jasperreports.engine.JRDataSource" isForPrompting="false"/>
+	<parameter name="DS_HEAD" class="net.sf.jasperreports.engine.JRDataSource" isForPrompting="false"/>
+	<parameter name="DS_FOOT" class="net.sf.jasperreports.engine.JRDataSource" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\wsfirext\\Firext_local\\WebContent\\WEB-INF\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="225" splitType="Stretch">
+			<subreport>
+				<reportElement x="-21" y="0" width="596" height="207" uuid="9444aaa8-86ab-4ffc-8858-3a7fc8e25825"/>
+				<subreportParameter name="TITULO">
+					<subreportParameterExpression><![CDATA[$P{TITULO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CLI_ADD">
+					<subreportParameterExpression><![CDATA[$P{CLI_ADD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CLI_NAM">
+					<subreportParameterExpression><![CDATA[$P{CLI_NAM}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PATH">
+					<subreportParameterExpression><![CDATA[$P{PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CLI_ALB">
+					<subreportParameterExpression><![CDATA[$P{CLI_ALB}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CLI_TEC">
+					<subreportParameterExpression><![CDATA[$P{CLI_TEC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CLI_DAT">
+					<subreportParameterExpression><![CDATA[$P{CLI_DAT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[$P{DS_HEAD}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{PATH} + "vertical.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="207" width="555" height="18" uuid="fb2c12aa-b037-4bed-a338-7ffaf7b59235"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIFICADO REVISIÓN DE GRUPO DE PRESIÓN SANITARIO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="1">
+			<componentElement>
+				<reportElement key="table" x="0" y="0" width="555" height="0" uuid="90cd3952-4450-40df-b384-d825245c238f"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="DS" uuid="4efdeeef-ac80-4ba6-9c0a-b7e834388350">
+						<dataSourceExpression><![CDATA[$P{DS}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="454" uuid="049d4194-2a5d-4051-8285-2ce8f33ca109">
+						<jr:detailCell style="table 2_TD" height="11" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement mode="Opaque" x="0" y="0" width="454" height="10" backcolor="#CCCCCC" uuid="4599c449-802a-4e5d-b139-41032d0c2d00">
+									<printWhenExpression><![CDATA[$F{F3}.equals( "1" )]]></printWhenExpression>
+								</reportElement>
+								<textElement verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA["  "+$F{F1}]]></textFieldExpression>
+							</textField>
+							<textField isStretchWithOverflow="true">
+								<reportElement mode="Opaque" x="0" y="0" width="454" height="10" backcolor="#CCCCCC" uuid="d93d0eda-2dae-4135-ad33-220a3d306d2f">
+									<printWhenExpression><![CDATA[$F{F3}.equals( "0" )]]></printWhenExpression>
+								</reportElement>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA["   "+$F{F1}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="80" uuid="d37d33ba-63e9-43a4-a6a9-248a198885d2">
+						<jr:detailCell style="table 2_TD" height="11" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="3" y="0" width="77" height="11" uuid="7a6a69d6-5fd3-493c-a71a-28731cf09b55"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{F2}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="37" uuid="009ed200-b8ca-48cf-b5e1-baee80a44e1b"/>
+				<textElement textAlignment="Justified">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[FIREXT Sistemas de Extinción, S.L. certifica que han sido realizadas las pruebas oportunas para la emisión del presente informe en el que se reflejan, el estado de componentes y elementos así como las deficiencias que se pudieron encontrar en la comprobación las cuales se reflejaran (caso de existir) en documento adjunto  (informe de anomalías) para proceder a su reparación, una vez aceptadas las condiciones. Y para que  conste y surta los efectos oportunos ante el Organismo que lo pudiera solicitar, firmamos el  presente en  Madrid a 03 de febrero de 2014.]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Column header" x="435" y="36" width="80" height="15" uuid="8a98cd24-0bbe-44c0-8644-9c53c61dd950"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="515" y="36" width="40" height="15" uuid="398a7fd1-bf56-4b39-b5fa-aea3521f24ef"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="36" width="100" height="15" uuid="6462f5a7-87e5-487a-8798-9af938e7b4fe"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

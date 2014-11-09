@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:p="http://primefaces.org/ui">
+
+		<h:form id="form">
+			
+			<div id="titlew">
+				<h:outputText value="#{msg['works.titulo.update']} - #{worksBean.selectedReport.nameReport}" rendered="#{worksBean.pageOption eq applicationBean.optionUpdate or worksBean.pageOption eq applicationBean.optionSave}" />
+				<h:outputText value="#{msg['works.titulo.view']} - #{worksBean.selectedReport.nameReport}" 	rendered="#{worksBean.pageOption eq applicationBean.optionView}" />
+			</div>
+			
+			<div style="font-size:16px;text-align:right;padding-bottom:15px;">
+				<p:commandButton value="Nuevo"	title="#{msg['boton.save']}" action="#{worksBean.prepareNewElement}" ajax="true" icon="ui-icon-disk" rendered="#{worksBean.pageOption eq applicationBean.optionUpdate or worksBean.pageOption eq applicationBean.optionSave}">
+					<f:setPropertyActionListener target="#{worksBean.stackBean.pushPage}"		value="replies" />
+				</p:commandButton>
+           	</div>
+			
+		    <p:outputPanel  layout="blobk" styleClass="buttonContainer">
+		    <p:dataGrid var="replyGroup" value="#{worksBean.selectedReport.replyGroups}"
+		    	columns="3" rows="3" paginator="true"  
+		    	emptyMessage="No existen Datos Para esta Ficha"
+		        paginatorAlwaysVisible="#{cfgview['generalPaginatorAllwaysVisible']}"
+		    	paginatorTemplate="#{cfgview['generalPaginator']}"
+		    	currentPageReportTemplate="#{cfgview['generalPageReportTemplate']}"
+		    	resizableColumns="false">
+		    	
+			        <p:dataTable var="reply" value="#{replyGroup.replies}" editable="#{worksBean.pageOption eq applicationBean.optionUpdate or worksBean.pageOption eq applicationBean.optionSave}" editMode="cell">
+			        
+			        	<f:facet name="header">
+							<p:row>
+								 <p:inplace id="ajaxInplace" editor="true">
+					                <p:inputText value="#{replyGroup.nameReplyGroup}" required="true" label="text"/>
+					            </p:inplace>
+								<h:outputText value="  (#{replyGroup.questionGroup.nameQuestionGroup}) " />
+			              		<p:commandButton action="${worksBean.removeReplyGroup}" icon="ui-icon-circle-minus" update=":form,:messages" title="#{msg['boton.rem']}" rendered="#{worksBean.pageOption eq applicationBean.optionUpdate or worksBean.pageOption eq applicationBean.optionSave}">
+					        		<f:setPropertyActionListener target="#{worksBean.selectedReplyGroup}" value="#{replyGroup}" />
+					        	</p:commandButton>
+		              		</p:row>
+		              		<p:row>
+		              			<p:column headerText="Pregunta" />
+		              			<p:column headerText="Respuesta" />
+		              		</p:row>   
+			            </f:facet>
+
+			        	<p:column id="nameReport" sortBy="question.question">
+				            <h:outputText value="#{reply.question.question}" />
+				        </p:column>
+				        <p:column id="wqe" sortBy="reply">
+				        	<p:cellEditor>
+			                   <f:facet name="output">
+			                   		<h:outputText value="#{reply.reply}" />
+			                   </f:facet>
+			                   <f:facet name="input">
+			                   		<p:inputText id="modelInput" value="#{reply.reply}" style="width:96%">
+			                   			<p:ajax update=":form:contdores" />
+			                   		</p:inputText>
+			                   </f:facet>
+			               </p:cellEditor>
+				        </p:column>
+			    	</p:dataTable>
+			    </p:dataGrid>
+			</p:outputPanel>
+
+			<p:outputPanel layout="block" id="contdores">
+				<p:panel header="Totales" style="width:500px;position:absolute;" rendered="#{not empty worksBean.selectedReport.countTypes}">
+					<ui:repeat var="reply" value="#{worksBean.selectedReport.countTypes}">
+						<h:outputText value="Número total de ${reply}" /><br/>
+					</ui:repeat>
+					
+					<ui:repeat var="reply" value="#{worksBean.selectedReport.totalizers}">
+						<hr></hr>
+						<h:outputText value="${reply.nameQuestion}" /><br/>
+						<div style="padding-left: 10%">
+							<ui:repeat var="reply2" value="#{reply.replies}">
+								<h:outputText value="${reply2}" /><br/>
+							</ui:repeat>
+						</div>
+					</ui:repeat>
+				</p:panel>
+			</p:outputPanel>
+
+			<p:outputPanel  layout="blobk" styleClass="buttonContainer">
+		   		<p:commandButton value="Actualizar" action="#{worksBean.updateReport}"	title="#{msg['boton.update']}"	ajax="false" icon="ui-icon-disk" rendered="#{worksBean.pageOption eq applicationBean.optionUpdate or worksBean.pageOption eq applicationBean.optionSave}"	update=":messages" />
+				<p:commandButton value="Volver" 	action="#{worksBean.back}"			title="#{msg['boton.volver']}"	ajax="true" icon="ui-icon-arrowreturnthick-1-w" rendered="#{worksBean.pageOption eq applicationBean.optionView}"	update=":messages" />
+			</p:outputPanel>
+		
+	</h:form>
+
+</ui:component>

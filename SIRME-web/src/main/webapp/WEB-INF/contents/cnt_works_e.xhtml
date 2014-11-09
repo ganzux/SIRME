@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:p="http://primefaces.org/ui">
+
+		<div id="titlew">
+			<h:outputText value="#{msg['works.titulo.save']}" 	rendered="#{worksBean.pageOption eq applicationBean.optionSave}" />
+			<h:outputText value="#{msg['works.titulo.update']}" rendered="#{worksBean.pageOption eq applicationBean.optionUpdate}" />
+			<h:outputText value="#{msg['works.titulo.delete']}" rendered="#{worksBean.pageOption eq applicationBean.optionDelete}" />
+			<h:outputText value="#{msg['works.titulo.view']}" 	rendered="#{worksBean.pageOption eq applicationBean.optionView}" />
+			<h:outputText value="#{msg['works.titulo.close']}" 	rendered="#{worksBean.pageOption eq applicationBean.optionClose}" />
+		</div>
+		
+		<h:form enctype="multipart/form-data" rendered="#{worksBean.pageOption eq applicationBean.optionSave and false}" style="padding-bottom:15px;">
+			<p:panel id="panel" header="Importar trabajo de Fichero">
+				<h:panelGrid columns="2">
+					<p:fileUpload value="#{worksBean.file}" mode="simple"/>  
+		     		<p:commandButton value="Procesar Fichero" ajax="false" actionListener="#{worksBean.upload}"/>
+		  		</h:panelGrid>
+	  		</p:panel>
+		</h:form>
+			
+		<h:form id="form">
+			<p:panel id="panel2" header="Datos del Trabajo *" style="width:325px;position:absolute;">
+		    	<h:panelGrid columns="2">
+			    	<h:outputLabel for="alba" value="Albarán" rendered="#{worksBean.pageOption ne applicationBean.optionSave or worksBean.showAlbaranAndStatus}"/>
+			        <p:inputText id="alba" value="${worksBean.selectedWork.codeWork}" 	label="Albarán"	disabled="true" rendered="#{worksBean.pageOption ne applicationBean.optionSave or worksBean.showAlbaranAndStatus}"/>
+			        
+			        <h:outputLabel for="stt" value="Estado" rendered="#{worksBean.pageOption ne applicationBean.optionSave or worksBean.showAlbaranAndStatus}"/>
+			        <p:inputText id="stt" value="${worksBean.selectedWork.statusString}" 	label="Estado"	disabled="true" rendered="#{worksBean.pageOption ne applicationBean.optionSave or worksBean.showAlbaranAndStatus}"/>
+			        
+			        <h:outputLabel for="tipo" value="Tipo de Trabajo"/>
+			        <p:selectOneMenu id="tipo" value="${worksBean.selectedWork.typeWork.idTypeWork}" valueChangeListener="#{worksBean.handleChangeTypeWork}" disabled="#{worksBean.pageOption ne applicationBean.optionSave and worksBean.pageOption ne applicationBean.optionUpdate}"> 
+			            <f:selectItems value="#{worksBean.allTypeWorks}" var="tc" itemValue="#{tc.idTypeWork}" itemLabel="#{tc.nameTypeWork}" />
+			            <p:ajax event="change" update=":form:FichasPanel" />
+			        </p:selectOneMenu> 
+
+			        <h:outputLabel for="date" value="Fecha Trabajo*" />
+			        <p:calendar locale="es" id="date" value="#{worksBean.selectedWork.date}"  pattern="#{cfgview['dateFormat']}"		size="9" disabled="#{worksBean.pageOption ne applicationBean.optionSave and worksBean.pageOption ne applicationBean.optionUpdate}">
+			        	<p:ajax event="dateSelect" process="date" listener="#{worksBean.changeDate}" update="butCus" />
+			        </p:calendar>
+			        
+			        <h:outputLabel for="date1" value="Fecha Creación" />
+			        <p:calendar locale="es" id="date1" value="#{worksBean.selectedWork.dateCreated}"  pattern="#{cfgview['dateFormat']}"		size="9" disabled="true" />
+
+					<h:outputLabel for="data" value="Clasificación" />
+			        <p:inputText id="data" value="${worksBean.selectedWork.data}" 	label="Clasificación"	disabled="#{worksBean.pageOption ne applicationBean.optionSave and worksBean.pageOption ne applicationBean.optionUpdate}" />
+
+			        <h:outputLabel for="notas" value="Notas" />
+			    	<p:inputTextarea id="notas" value="#{worksBean.selectedWork.memo}" rows="5" cols="40" maxlength="1000" autoResize="false" disabled="#{worksBean.pageOption ne applicationBean.optionSave and worksBean.pageOption ne applicationBean.optionUpdate and worksBean.pageOption ne applicationBean.optionClose}"/>
+		    	</h:panelGrid>
+		    </p:panel>
+
+			<p:panel id="panelC" header="Datos del Contrato *" style="margin-left:350px;width:380px;position: absolute;">
+		        <h:panelGrid columns="2">
+		        	<p:commandButton value="Buscar" id="butCus" ajax="true" icon="ui-icon-circle-zoomin" rendered="#{worksBean.pageOption eq applicationBean.optionSave or worksBean.pageOption eq applicationBean.optionUpdate}" action="#{addressBean.reloadAddress}" title="#{msg['boton.buscar']}">
+		            	<f:setPropertyActionListener target="#{worksBean.stackBean.pushPage}"		value="works_e" />
+		            	<f:setPropertyActionListener target="#{addressBean.filterForDate}"		value="#{worksBean.selectedWork.date}" />
+		            	<f:setPropertyActionListener target="#{addressBean.filterForTypeWork}"	value="#{worksBean.selectedWork.typeWork.idTypeWork}" />
+		            </p:commandButton>
+		            <h:outputLabel rendered="#{worksBean.pageOption ne applicationBean.optionSave and worksBean.pageOption ne applicationBean.optionUpdate}" />
+		            <h:outputLabel />
+
+		            <h:outputLabel for="name" value="Nombre" />
+		            <p:inputText id="name" value="${worksBean.selectedCustomer.nameCustomer}" 	label="Nombre"				disabled="true" size="40" />
+
+		            <h:outputLabel for="cif" value="CIF" />
+		            <p:inputText id="cif" value="${worksBean.selectedCustomer.cifCustomer}" 	label="CIF"					disabled="true" size="10" />
+
+		            <h:outputLabel for="code" value="Código Cliente" />
+		            <p:inputText id="code" value="${worksBean.selectedCustomer.codeCustomer}" 	label="Código Cliente"		disabled="true" size="10" />
+
+		            <h:outputLabel for="phone" value="Teléfono Principal" />
+		            <p:inputText id="phone" value="${worksBean.selectedCustomer.mainPhone}" 	label="Teléfono Principal"	disabled="true" size="10" />
+
+		            <h:outputLabel for="aa" value="Código Contrato" />
+		            <p:inputText id="aa" value="${worksBean.selectedAddress.idAddress}" 		label="Código del Servicio"	disabled="true" size="10" />
+		            
+		            <h:outputLabel for="tpio" value="Dirección del Servicio" />
+		            <p:inputText id="tpio" value="${worksBean.selectedAddress.mainAddress}" 	label="Dirección del Servicio"	disabled="true" size="40" />
+		            
+		            <h:outputLabel for="mcp22" value="Notas" />
+	           		<p:inputTextarea id="mcp22" value="${worksBean.selectedAddress.other}" 	label="Varios"	size="5"	disabled="true" cols="42" />
+	            
+
+		        </h:panelGrid>
+		    </p:panel>
+
+		    <p:panel id="paneleq" header="Equipo de Trabajo" style="margin-left:750px;width:350px;">
+		    	<h:panelGrid columns="2">
+		    		<p:commandButton value="Buscar" action="teams" ajax="true" icon="ui-icon-circle-zoomin" rendered="#{worksBean.pageOption eq applicationBean.optionSave or worksBean.pageOption eq applicationBean.optionUpdate}" actionListener="#{teamsBean.reloadTeams}" title="#{msg['boton.buscar']}">
+		            	<f:setPropertyActionListener target="#{worksBean.stackBean.pushPage}" value="works_e" />
+		            </p:commandButton>
+		            <h:outputLabel rendered="#{worksBean.pageOption ne applicationBean.optionSave and worksBean.pageOption ne applicationBean.optionUpdate}" />
+		            <h:outputLabel />
+
+		            <h:outputLabel for="namee" value="Nombre" />
+		            <p:inputText id="namee" value="${worksBean.selectedTeam.nameTeam}" 		label="Nombre"		size="30"	disabled="true" />
+		            
+		            <h:outputLabel for="phone2" value="Teléfono" />
+		            <p:inputText id="phone2" value="${worksBean.selectedTeam.phoneNumber}" 	label="Teléfono"	size="10"	disabled="true" />
+		            
+		            <h:outputLabel value="Miembros" />
+		            <ui:repeat var="user" value="#{worksBean.selectedTeam.users}" varStatus="userVar">
+		            	#{user.codeUser} - #{user.nameUser} #{user.firstSurnameUser} #{user.secondSurnameUser}<br/>
+		            </ui:repeat>
+		        </h:panelGrid>
+		    </p:panel>
+
+			<p:outputPanel layout="block" id="FichasPanel" style="padding-top:50px;">
+				<p:outputPanel layout="block" id="selRep" rendered="${worksBean.selectedWork.typeWork.idTypeWork ne 2}">
+				    <div style="font-size:16px;text-align:left;padding-top:125px;">
+				    	<div style="position:absolute;">
+				    		<p:selectOneMenu rendered="#{(worksBean.pageOption eq applicationBean.optionUpdate or worksBean.pageOption eq applicationBean.optionSave) and fn:length(worksBean.avaiableReports)>0}" value="#{worksBean.selectedAddTypeReport}">  
+					            <f:selectItems value="${worksBean.avaiableReports}" var="ficha" itemValue="${ficha.idReport}" itemLabel="${ficha.nameReport}" />
+				        	</p:selectOneMenu>
+				        </div>
+				        <div style="padding-left:250px;">
+							<p:commandButton value="Agregar Ficha"  title="#{msg['boton.save']}" action="#{worksBean.addReport}" update=":form:selRep,dataTable" ajax="true" icon="ui-icon-disk" rendered="#{(worksBean.pageOption eq applicationBean.optionUpdate or worksBean.pageOption eq applicationBean.optionSave) and fn:length(worksBean.avaiableReports)>0}" />
+							<p:spacer height="20px" rendered="#{worksBean.pageOption ne applicationBean.optionUpdate}" />
+						</div>
+					</div>
+				</p:outputPanel>
+	
+			    <p:outputPanel  layout="blobk" styleClass="buttonContainer" rendered="${worksBean.selectedWork.typeWork.idTypeWork ne 2}">
+					<p:dataTable id="dataTable" var="report" widgetVar="reportTable" rowKey="#{report.idReport}"
+			    		value="#{worksBean.selectedWork.reports}"
+			            emptyMessage="No existen Fichas de este Trabajo" 
+			            paginator="false"
+			            rowIndexVar="idx"
+				    	paginatorAlwaysVisible="false"
+				    	paginatorTemplate="false"
+				    	currentPageReportTemplate="#{cfgview['generalPageReportTemplate']}"
+				    	resizableColumns="false"
+				    	sortOrder="#{cfgview['generalSortOrder']}">
+				    	
+				    	<f:facet name="header">
+				            <h:outputText value="Fichas" /> 
+				        </f:facet>
+	
+				        <p:column id="idReport" headerText="Núm." width="25">
+				            <h:outputText value="#{idx+1}" />
+				        </p:column>
+				        
+				        <p:column id="nameReport" headerText="Nombre de la Ficha" sortBy="nameReport">
+				            <h:outputText value="#{report.nameReport}" />
+				        </p:column>
+				        
+				        <p:column id="lengthReport" headerText="Número de Respuestas" sortBy="tableSize" width="100">
+				            <h:outputText value="#{report.tableSize}" />
+				        </p:column>
+				        
+				        <p:column id="opt" headerText="Acciones" width="125px;" style="text-align:center">
+				        	<p:menuButton value="Acciones">
+						        <p:menuitem value="Ver" 		icon="ui-icon-circle-zoomin"	action="#{worksBean.prepareReplies}" title="#{msg['boton.view']}" rendered="#{worksBean.pageOption eq applicationBean.optionView}">
+						        	<f:setPropertyActionListener target="#{worksBean.selectedReport}" value="#{report}" />
+						        	<f:setPropertyActionListener target="#{worksBean.stackBean.pushPage}" value="works_e" />
+						        </p:menuitem>
+						        <p:menuitem value="Actualizar" 	icon="ui-icon-arrowrefresh-1-w"	action="#{worksBean.prepareReplies}" title="#{msg['boton.update']}" rendered="#{worksBean.pageOption eq applicationBean.optionUpdate or worksBean.pageOption eq applicationBean.optionSave}">
+						        	<f:setPropertyActionListener target="#{worksBean.selectedReport}" value="#{report}" />
+						        	<f:setPropertyActionListener target="#{worksBean.stackBean.pushPage}" value="works_e" />
+						        </p:menuitem>
+						        <p:menuitem value="Borrar"	 	icon="ui-icon-close"			action="#{worksBean.removeReport}" title="#{msg['boton.update']}" rendered="#{worksBean.pageOption eq applicationBean.optionUpdate or worksBean.pageOption eq applicationBean.optionSave}" update=":form:selRep,dataTable">
+						        	<f:setPropertyActionListener target="#{worksBean.selectedReport}" value="#{report}" />
+						        </p:menuitem>
+						        
+						        <p:menuitem value="PDF" 		icon="ui-icon-circle-zoomin"	action="#{worksBean.preparePDF}" 	title="#{msg['boton.view']}" rendered="#{worksBean.pageOption ne applicationBean.optionSave}" >
+						        	<f:setPropertyActionListener target="#{worksBean.selectedReport}" value="#{report}" />
+						        	<f:setPropertyActionListener target="#{worksBean.stackBean.pushPage}" value="works_e" />
+						        	<f:setPropertyActionListener target="#{worksBean.downloadOption}" value="#{applicationBean.optionaddFile}" />
+						        </p:menuitem>
+						        
+		    				</p:menuButton>
+				        </p:column>
+			    	</p:dataTable>
+				</p:outputPanel>
+			</p:outputPanel>
+			
+			<p:outputPanel layout="blobk" styleClass="buttonContainer">
+		    	<p:commandButton value="Revisar Todos los Documentos" title="Revisar Todos los Documentos"
+		    		action="#{worksBean.reviewDocs}" ajax="false" icon="ui-icon-circle-zoomin" update=":messages"
+		    		rendered="#{worksBean.pageOption ne applicationBean.optionSave and applicationBean.generateZIP}">
+		    		<f:setPropertyActionListener target="#{worksBean.stackBean.pushPage}" value="works_e" />
+		    		<f:setPropertyActionListener target="#{worksBean.downloadOption}" value="#{applicationBean.optionAllFiles}" />
+		    	</p:commandButton>
+		    		
+		    	<p:commandButton value="Albarán" title="Ver Albarán" rendered="#{worksBean.pageOption ne applicationBean.optionSave and worksBean.pageOption ne applicationBean.optionUpdate}"
+		    		action="#{worksBean.prepareAlbaran}" icon="ui-icon-circle-zoomin">
+		        	<f:setPropertyActionListener target="#{worksBean.stackBean.pushPage}" value="works_e" />
+		        	<f:setPropertyActionListener target="#{worksBean.downloadOption}" value="#{applicationBean.optionaddFile}" />
+		        </p:commandButton>
+	    	
+		    	<p:commandButton value="Ver Ficheros" title="Ver Ficheros Adjuntos al Parte de Trabajo" type="button" rendered="#{worksBean.pageOption ne applicationBean.optionSave and applicationBean.seeFiles}"
+		    		onclick="PF('dialogFiles').show();" update=":modalImageForm:dialogFiles" icon="ui-icon-circle-zoomin"/>
+    		</p:outputPanel>
+
+			<p:outputPanel  layout="blobk" styleClass="buttonContainer">
+				<h:outputText rendered="#{worksBean.pageOption eq applicationBean.optionDelete}"		value="¿Está seguro de que desea BORRAR el Trabajo?"						styleClass="error" />
+				<h:outputText rendered="#{worksBean.pageOption eq applicationBean.optionUpdate}"		value="¿Está seguro de que desea ACTUALIZAR el Trabajo?"					styleClass="error" />
+				<h:outputText rendered="#{worksBean.pageOption eq applicationBean.optionClose}"			value="¿Está seguro de que desea CERRAR el Trabajo?"						styleClass="error" />
+				<h:outputText rendered="#{worksBean.pageOption eq applicationBean.optionReOpen}"		value="¿Está seguro de que desea VOLVER A ABRIR el Trabajo?"				styleClass="error" />
+				<h:outputText rendered="#{worksBean.pageOption eq applicationBean.optionReReceived}"	value="¿Está seguro de que desea establecer el Trabajo como RECIBIDO?"		styleClass="error" />
+				
+		   		<p:commandButton value="Guardar"	action="#{worksBean.save}"			title="#{msg['boton.save']}"		ajax="false" icon="ui-icon-disk" rendered="#{worksBean.pageOption eq applicationBean.optionSave}"		update=":messages" />
+		   		<p:commandButton value="Actualizar" action="#{worksBean.update}"		title="#{msg['boton.update']}"		ajax="false" icon="ui-icon-disk" rendered="#{worksBean.pageOption eq applicationBean.optionUpdate}"		update=":messages" />
+		   		<p:commandButton value="Borrar" 	action="#{worksBean.delete}"		title="#{msg['boton.delete']}"		ajax="false" icon="ui-icon-disk" rendered="#{worksBean.pageOption eq applicationBean.optionDelete}"		update=":messages" />
+		   		<p:commandButton value="Cerrar" 	action="#{worksBean.close}"			title="#{msg['boton.cerrar']}"		ajax="false" icon="ui-icon-disk" rendered="#{worksBean.pageOption eq applicationBean.optionClose}"		update=":messages" />
+		   		<p:commandButton value="Aceptar"	action="#{worksBean.reOpen}"		title="Establecer como ABIERTO"		ajax="false" icon="ui-icon-disk" rendered="#{worksBean.pageOption eq applicationBean.optionReOpen}"		update=":messages" />
+		   		<p:commandButton value="Aceptar"	action="#{worksBean.reReceive}"		title="Establecer como RECIBIDO"	ajax="false" icon="ui-icon-disk" rendered="#{worksBean.pageOption eq applicationBean.optionReReceived}"	update=":messages" />
+		   		<p:commandButton value="Aceptar"	action="#{worksBean.pteEntrega}"	title="Establecer como PENDIENTE"	ajax="false" icon="ui-icon-disk" rendered="#{worksBean.pageOption eq applicationBean.optionPteEntrega}"	update=":messages" />
+
+				<p:commandButton value="Volver" 	action="#{worksBean.back}"		title="#{msg['boton.volver']}"	ajax="true" icon="ui-icon-arrowreturnthick-1-w" rendered="#{worksBean.pageOption eq applicationBean.optionView}"	update=":messages" />
+				<p:commandButton value="Cancelar"	action="#{worksBean.cancel}"	title="#{msg['boton.cancel']}"	ajax="true" icon="ui-icon-cancel" 				rendered="#{worksBean.pageOption ne applicationBean.optionView}"	update=":messages" />
+			</p:outputPanel>
+		
+	</h:form>
+
+</ui:component>

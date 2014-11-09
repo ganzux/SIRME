@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:sec="http://www.springframework.org/security/facelets/tags"
+    xmlns:p="http://primefaces.org/ui">
+
+		<h:form id="form">
+			
+			<div id="titlem">
+				<h:outputText value="#{msg['manager.titulo.save']}" 	rendered="#{managerBean.pageOption eq applicationBean.optionSave}" />
+				<h:outputText value="#{msg['manager.titulo.update']}" 	rendered="#{managerBean.pageOption eq applicationBean.optionUpdate}" />
+				<h:outputText value="#{msg['manager.titulo.delete']}" 	rendered="#{managerBean.pageOption eq applicationBean.optionDelete}" />
+				<h:outputText value="#{msg['manager.titulo.view']}" 	rendered="#{managerBean.pageOption eq applicationBean.optionView}" />
+			</div>
+
+			<p:panel id="panel" header="Datos del Gestor" style="margin-bottom:20px;width:30%;position:absolute">
+		        <h:panelGrid columns="2">
+		            <h:outputLabel for="name" value="Nombre" />
+		            <p:inputText id="name" value="${managerBean.selectedManager.nameManager}" 		maxlength="50" 	size="50"	label="Nombre"				disabled="#{managerBean.pageOption ne applicationBean.optionSave and managerBean.pageOption ne applicationBean.optionUpdate}" />
+
+		            <h:outputLabel for="phone" value="Teléfono" />
+		            <p:inputText id="phone" value="${managerBean.selectedManager.phoneManager}" 	maxlength="9" 	size="12"	label="Teléfono Principal"	disabled="#{managerBean.pageOption ne applicationBean.optionSave and managerBean.pageOption ne applicationBean.optionUpdate}"/>
+		            
+		            <h:outputLabel for="mail" value="Correo" />
+		            <p:inputText id="mail" value="${managerBean.selectedManager.mailManager}" 		maxlength="50"	size="50"	label="Correo Principal"	disabled="#{managerBean.pageOption ne applicationBean.optionSave and managerBean.pageOption ne applicationBean.optionUpdate}"/>
+		        </h:panelGrid>
+		    </p:panel>
+		    
+		    <p:panel id="panel2" header="Otros Datos" style="margin-left:33%;width:67%;">
+		    	<h:panelGrid columns="1" cellpadding="10">
+					<h:panelGrid columns="3" rendered="#{managerBean.pageOption eq applicationBean.optionSave or managerBean.pageOption eq applicationBean.optionUpdate}" id="newContant">
+			            <p:inputText id="newC" value="${managerBean.newContact.nameContact}" 	label="Contacto" />
+			            <p:inputText id="newD" value="${managerBean.newContact.dataContact}" 	label="Dato" />
+			            <p:commandButton action="${managerBean.addNewContact}" icon="ui-icon-circle-plus" update="contacts,newContant,:messages" title="#{msg['boton.add']}"	/>
+			            <p:watermark for="newC" value="Nuevo Contacto" />
+			            <p:watermark for="newD" value="Nuevo Dato" /> 
+		           </h:panelGrid>
+		
+			    	<p:dataTable id="contacts" var="contact" value="${managerBean.selectedManager.contacts}" widgetVar="contactsTable"
+						editable="#{managerBean.pageOption eq applicationBean.optionSave or managerBean.pageOption eq applicationBean.optionUpdate}" editMode="cell"
+						style="width:600px;"
+						paginator="true" paginatorPosition="bottom"
+				    	rows="4"
+				    	paginatorAlwaysVisible="#{cfgview['generalPaginatorAllwaysVisible']}"
+				    	paginatorTemplate="#{cfgview['generalPaginator']}"
+				    	currentPageReportTemplate="#{cfgview['editPageReportTemplate']}"
+				    	resizableColumns="false"
+				    	sortOrder="#{cfgview['generalSortOrder']}"
+						emptyMessage="No existen más formas de Contacto para este Gestor">
+	
+				        <f:facet name="header">
+				            Otras Formas de Contacto
+				        </f:facet>
+				  
+				        <p:ajax event="cellEdit" listener="#{managerBean.onContactEdit}" update=":messages" />
+				  
+				        <p:column headerText="Tipo de Dato" style="width:33%">
+				               <p:cellEditor>
+				                   <f:facet name="output"><h:outputText value="#{contact.nameContact}" /></f:facet>
+				                   <f:facet name="input"><p:inputText id="modelInput" value="#{contact.nameContact}" style="width:96%"/></f:facet>
+				               </p:cellEditor>
+				           </p:column>
+				  
+				           <p:column headerText="Dato" style="width:57%">
+							<p:cellEditor>
+							    <f:facet name="output"><h:outputText value="#{contact.dataContact}" /></f:facet>
+							    <f:facet name="input"><p:inputText value="#{contact.dataContact}" style="width:96%" label="Dato"/></f:facet>
+							</p:cellEditor>
+				        </p:column>
+				        
+				        <p:column headerText="Eliminar" style="width:10%" rendered="#{managerBean.pageOption eq applicationBean.optionSave or managerBean.pageOption eq applicationBean.optionUpdate}">
+				        	<p:commandButton action="${managerBean.removeContact}" icon="ui-icon-circle-minus" update="contacts,:messages" title="#{msg['boton.rem']}" >
+				        		<f:setPropertyActionListener target="#{managerBean.selectedContact}" value="#{contact}" />
+				        	</p:commandButton>
+				        </p:column>
+				    </p:dataTable>
+				</h:panelGrid>
+			</p:panel>
+		    
+		    <p:outputPanel  layout="blobk" styleClass="buttonContainer" rendered="#{managerBean.pageOption ne applicationBean.optionSave}">
+				<p:dataTable id="dataTable" var="customer" widgetVar="customersTable" rowKey="#{customer.idCustomer}"
+		    		value="#{managerBean.selectedManager.customers}"
+		            emptyMessage="No existen Clientes de este Gestor" 
+		            paginator="true" paginatorPosition="bottom"
+			    	rows="#{cfgview['generalRows']}"
+			    	paginatorAlwaysVisible="#{cfgview['generalPaginatorAllwaysVisible']}"
+			    	paginatorTemplate="#{cfgview['generalPaginator']}"
+			    	currentPageReportTemplate="#{cfgview['generalPageReportTemplate']}"
+			    	resizableColumns="false"
+			    	sortOrder="#{cfgview['generalSortOrder']}">
+			    	
+			    	<f:facet name="header">
+			            <h:outputText value="Clientes del Gestor" /> 
+			        </f:facet>
+
+			        <p:column id="code" headerText="Código" sortBy="codeCustomer" width="125px;">
+			            <h:outputText value="#{customer.codeCustomer}" />
+			        </p:column>
+			        
+			        <p:column id="cif" headerText="CIF" sortBy="cifCustomer" width="125px;">
+			            <h:outputText value="#{customer.cifCustomer}" />
+			        </p:column>
+			        
+			        <p:column id="nombre" headerText="Nombre" sortBy="nameCustomer">
+			            <h:outputText value="#{customer.nameCustomer}" />
+			        </p:column>
+			        
+			        <p:column id="address" headerText="Dirección Principal" sortBy="mainAddress">
+			            <h:outputText value="#{customer.mainAddress}" />
+			        </p:column>
+			        
+			        <p:column id="phone" headerText="Teléfono Principal" sortBy="mainPhone" width="100px;">
+			            <h:outputText value="#{customer.mainPhone}" />
+			        </p:column>
+			        
+			        <p:column id="mail" headerText="Correo Principal" sortBy="mainMail" width="150px;">
+			            <h:outputText value="#{customer.mainMail}" />
+			        </p:column>
+		    	</p:dataTable>
+			</p:outputPanel>
+
+			<p:outputPanel  layout="blobk" styleClass="buttonContainer">
+				<h:outputText rendered="#{managerBean.pageOption eq applicationBean.optionDelete}"	value="¿Está seguro de que desea BORRAR el Cliente?"		styleClass="error" />
+				<h:outputText rendered="#{managerBean.pageOption eq applicationBean.optionUpdate}"	value="¿Está seguro de que desea ACTUALIZAR el Cliente?"	styleClass="error" />
+				
+				
+		   		<p:commandButton value="Guardar"	action="#{managerBean.save}"	title="#{msg['boton.save']}"	ajax="false" icon="ui-icon-disk" rendered="#{managerBean.pageOption eq applicationBean.optionSave}"	update=":messages" />
+		   		<p:commandButton value="Actualizar" action="#{managerBean.update}"	title="#{msg['boton.update']}"	ajax="false" icon="ui-icon-disk" rendered="#{managerBean.pageOption eq applicationBean.optionUpdate}"	update=":messages" />
+		   		<p:commandButton value="Borrar" 	action="#{managerBean.delete}"	title="#{msg['boton.delete']}"	ajax="false" icon="ui-icon-disk" rendered="#{managerBean.pageOption eq applicationBean.optionDelete}"	update=":messages" />
+	           
+				<p:commandButton value="Volver" 	action="#{managerBean.back}"	title="#{msg['boton.volver']}"	ajax="true" icon="ui-icon-arrowreturnthick-1-w" rendered="#{managerBean.pageOption eq applicationBean.optionView}"	update=":messages" />
+				<p:commandButton value="Cancelar"	action="#{managerBean.cancel}"	title="#{msg['boton.cancel']}"	ajax="true" icon="ui-icon-cancel" 				rendered="#{managerBean.pageOption ne applicationBean.optionView}"	update=":messages" />
+			</p:outputPanel>
+		
+	</h:form>
+
+</ui:component>
