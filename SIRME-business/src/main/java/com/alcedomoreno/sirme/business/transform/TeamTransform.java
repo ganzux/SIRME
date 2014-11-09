@@ -28,6 +28,7 @@ public class TeamTransform extends DefaultTransformator implements Transformator
 		return business;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public DataObject toDataObject(BusinessObject businessObject) {
 		
@@ -40,7 +41,8 @@ public class TeamTransform extends DefaultTransformator implements Transformator
 		data.setPhoneNumber( business.getPhoneNumber() );
 		data.setEnabled( business.isEnabled() );
 		data.setCanUploadPhotos( business.isCanUploadPhotos() );
-		data.setUsers( new HashSet( (Collection<User>)TransformFactory.getTransformator(User.class).toDataObject( business.getUsers() ) ) );
+		// TODO error raro
+		//data.setUsers( new HashSet( (Collection<User>)TransformFactory.getTransformator(User.class).toDataObject( business.getUsers() ) ) );
 
 		return data;
 	}
