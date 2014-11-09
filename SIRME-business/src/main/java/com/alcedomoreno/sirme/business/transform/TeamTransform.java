@@ -8,6 +8,7 @@ import com.alcedomoreno.sirme.business.data.Team;
 import com.alcedomoreno.sirme.business.data.User;
 import com.alcedomoreno.sirme.core.data.DataObject;
 import com.alcedomoreno.sirme.core.data.TeamData;
+import com.alcedomoreno.sirme.core.data.UserData;
 
 public class TeamTransform extends DefaultTransformator implements Transformator{
 
@@ -42,7 +43,7 @@ public class TeamTransform extends DefaultTransformator implements Transformator
 		data.setEnabled( business.isEnabled() );
 		data.setCanUploadPhotos( business.isCanUploadPhotos() );
 		if (business.getUsers() != null) {
-			Collection<User> users = (Collection<User>)TransformFactory.getTransformator(User.class).toDataObject(business.getUsers());
+			Collection<UserData> users = (Collection<UserData>)TransformFactory.getTransformator(User.class).toDataObject(business.getUsers());
 			data.setUsers(new HashSet(users));
 		}
 
