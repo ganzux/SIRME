@@ -41,8 +41,10 @@ public class TeamTransform extends DefaultTransformator implements Transformator
 		data.setPhoneNumber( business.getPhoneNumber() );
 		data.setEnabled( business.isEnabled() );
 		data.setCanUploadPhotos( business.isCanUploadPhotos() );
-		// TODO error raro
-		//data.setUsers( new HashSet( (Collection<User>)TransformFactory.getTransformator(User.class).toDataObject( business.getUsers() ) ) );
+		if (business.getUsers() != null) {
+			Collection<User> users = (Collection<User>)TransformFactory.getTransformator(User.class).toDataObject(business.getUsers());
+			data.setUsers(new HashSet(users));
+		}
 
 		return data;
 	}
