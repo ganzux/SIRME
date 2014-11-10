@@ -42,5 +42,11 @@ public class Reply implements BusinessObject,Cloneable{
 	public Class<? extends Transformator> getTransformator() {
 		return ReplyTransform.class;
 	}
+	@Override
+	public String toString() {
+		return "Reply [idReply=" + idReply + ", question=" + question
+				+ ", reply=" + reply + ", replyGroup=" + replyGroup + "]";
+	}
+	
 
 }

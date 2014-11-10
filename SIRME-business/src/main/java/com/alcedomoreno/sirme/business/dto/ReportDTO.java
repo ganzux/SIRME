@@ -66,6 +66,13 @@ public class ReportDTO {
 		this.questionGroups = questionGroups;
 	}
 
+	@Override
+	public String toString() {
+		return "ReportDTO [idReport=" + idReport + ", nameReport=" + nameReport
+				+ ", replyGroups=" + replyGroups + ", questionGroups="
+				+ questionGroups + "]";
+	}
+
 
 	
 

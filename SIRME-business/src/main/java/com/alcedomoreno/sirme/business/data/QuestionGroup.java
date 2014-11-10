@@ -19,12 +19,12 @@ public class QuestionGroup implements BusinessObject,Cloneable{
 	// Elemnto
 	public static final int QUG_4_1_ELEMENTO		= 4;
 	
-	// Caracter�sticas de la central, Sistema Distribuci�n y Elementos
+	// Características de la central, Sistema Distribución y Elementos
 	public static final int QUG_5_1_CARACTERISTICAS = 5;
 	public static final int QUG_5_2_SISTEMA 		= 6;
 	public static final int QUG_5_3_ELEMENTOS		= 7;
 
-	// Caracter�sticas de la central, Sistema Distribuci�n y Elementos
+	// Características de la central, Sistema Distribución y Elementos
 	public static final int QUG_6_1_CARACTERISTICAS = 8;
 	public static final int QUG_6_2_SISTEMA 		= 9;
 	public static final int QUG_6_3_ELEMENTOS 		= 10;
@@ -40,7 +40,7 @@ public class QuestionGroup implements BusinessObject,Cloneable{
 	public static final int QUG_9_1_GENERAL			= 14;
 	public static final int QUG_9_2_ELEMENTOS		= 15;
 
-	// Carac, Element, Detectores, V�lvulas y Cilindros
+	// Carac, Element, Detectores, Válvulas y Cilindros
 	public static final int QUG_10_1_CARACTERISTICAS= 16;
 	public static final int QUG_10_2_ELEMENTOS		= 17;
 	public static final int QUG_10_3_DETECTORES		= 18;
@@ -51,7 +51,7 @@ public class QuestionGroup implements BusinessObject,Cloneable{
 	public static final int QUG_11_1_GENERAL		= 21;
 	public static final int QUG_11_2_PREGUNTAS		= 22;
 	
-	// Grupo de Presi�n Sanitario
+	// Grupo de Presión Sanitario
 	public static final int QUG_12_1_GENERAL		= 23;
 
 	private int idQuestionGroup;
@@ -99,6 +99,14 @@ public class QuestionGroup implements BusinessObject,Cloneable{
 	}
 	public void setTimes(Integer times) {
 		this.times = times;
+	}
+
+	@Override
+	public String toString() {
+		return "QuestionGroup [idQuestionGroup=" + idQuestionGroup
+				+ ", nameQuestionGroup=" + nameQuestionGroup + ", times="
+				+ times + ", report=" + report + ", questions=" + questions
+				+ "]";
 	}
 
 }

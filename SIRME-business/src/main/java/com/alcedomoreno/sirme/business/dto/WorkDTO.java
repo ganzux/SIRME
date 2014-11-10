@@ -30,4 +30,11 @@ public class WorkDTO extends AdviceDTO{
 		this.reports = reports;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + " - WorkDTO [reports=" + reports + "]";
+	}
+	
+	
+
 }

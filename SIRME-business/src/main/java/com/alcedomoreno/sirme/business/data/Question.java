@@ -74,14 +74,18 @@ public class Question implements BusinessObject,Cloneable{
 	public void setReplyType(ReplyType replyType) {
 		this.replyType = replyType;
 	}
-
-
 	public Boolean getTotalize() {
 		return totalize;
 	}
-
-
 	public void setTotalize(Boolean totalize) {
 		this.totalize = totalize;
 	}
+	
+	@Override
+	public String toString() {
+		return "Question [idQuestion=" + idQuestion + ", question=" + question
+				+ ", order=" + order + ", totalize=" + totalize
+				+ ", replyType=" + replyType + "]";
+	}
+	
 }

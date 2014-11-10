@@ -63,6 +63,12 @@ public class ReplyGroup implements BusinessObject,Cloneable{
 	public Class<? extends Transformator> getTransformator() {
 		return ReplyGroupTransform.class;
 	}
+	@Override
+	public String toString() {
+		return "ReplyGroup [idReplyGroup=" + idReplyGroup + ", nameReplyGroup="
+				+ nameReplyGroup + ", questionGroup="
+				+ questionGroup + ", replies=" + replies + "]";
+	}
 
 
 }

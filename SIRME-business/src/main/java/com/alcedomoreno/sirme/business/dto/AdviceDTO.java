@@ -95,13 +95,17 @@ public class AdviceDTO {
 	public void setAlertId(String alertId) {
 		this.alertId = alertId;
 	}
+
+	
 	@Override
 	public String toString() {
 		return "AdviceDTO [team=" + team + ", password=" + password
 				+ ", idClient=" + idClient + ", workText=" + workText
-				+ ", alertId=" + alertId + "]";
+				+ ", alertId=" + alertId + ", downloaded=" + downloaded
+				+ ", address=" + address + ", postalCode=" + postalCode
+				+ ", town=" + town + ", province=" + province + ", phone="
+				+ phone + "]";
 	}
-	
 	public AdviceDTO() {
 		super();
 	}

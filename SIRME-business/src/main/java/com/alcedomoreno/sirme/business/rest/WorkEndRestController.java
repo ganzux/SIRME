@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -38,7 +37,6 @@ import com.alcedomoreno.sirme.business.dto.ReportDTO;
 import com.alcedomoreno.sirme.business.dto.WorkDTO;
 import com.alcedomoreno.sirme.business.services.AdviceService;
 import com.alcedomoreno.sirme.business.services.ApplicationsService;
-import com.alcedomoreno.sirme.business.services.ApplicationsServiceImpl;
 import com.alcedomoreno.sirme.business.services.ConfigService;
 import com.alcedomoreno.sirme.business.services.CustomerService;
 import com.alcedomoreno.sirme.business.services.TeamService;
@@ -105,7 +103,7 @@ public class WorkEndRestController {
 				}
 			}
 			
-			
+			log.info("Dato de entrada: " + data);
 			
 			Team team = teamService.get( data.getTeam(),data.getPassword() );
 			if ( team != null  ) {
