@@ -134,7 +134,7 @@ public class SettingsBean extends ManagedBean {
 		try{
 			MyLogger.debug(log, CLASS_NAME, "save", "IN");
 			usersService.updatePassword(getUser().getIdUser(), newPass1, newPass2);
-			applicationBean.sendMessageInfo("web.operacion.correcta", "Se cambio la contraseña con exito");
+			applicationBean.sendMessageInfo("web.operacion.correcta", "Se cambio la contrasena con exito");
 			MyLogger.debug(log, CLASS_NAME, "save", "OUT");
 		} catch(ValidationException e){
 			applicationBean.sendMessageError("web.error.general.validacion", e.getMessage() );
