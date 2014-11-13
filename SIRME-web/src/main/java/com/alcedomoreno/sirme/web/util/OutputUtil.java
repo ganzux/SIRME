@@ -33,7 +33,7 @@ public class OutputUtil {
 
 
 	///////////////////////////////////////////////////////////////
-	//                          Métodos                          //
+	//                          Metodos                          //
 	///////////////////////////////////////////////////////////////
 
 	public static void getPDFFile(HttpServletResponse response, ByteArrayOutputStream data, String fileName, boolean attach) {
@@ -82,6 +82,6 @@ public class OutputUtil {
     }
 
 	///////////////////////////////////////////////////////////////
-	//                      Fin de Métodos                       //
+	//                      Fin de Metodos                       //
 	///////////////////////////////////////////////////////////////
 }
