@@ -51,7 +51,7 @@ public class IPCronService {
 		MyLogger.info(log,CLASS_NAME,"resetDynDNSCron", (new Date()).toString() );
 
 		if ( !cfg.isDNSEnabled() )
- 			MyLogger.info(log,CLASS_NAME,"resetDynDNSCron","Actualización de DNS desactivada");
+ 			MyLogger.info(log,CLASS_NAME,"resetDynDNSCron","Actualizacion de DNS desactivada");
 		else 
 			resetDynDNS( DynDNSUpdater.getInstance().getPublicIP() );
 
@@ -76,7 +76,7 @@ public class IPCronService {
  		MyLogger.info(log,CLASS_NAME,"updateIPDynDNS","Iniciado cron");
  		
  		if ( !cfg.isDNSEnabled() )
- 			MyLogger.info(log,CLASS_NAME,"updateIPDynDNS","Actualización de DNS desactivada");
+ 			MyLogger.info(log,CLASS_NAME,"updateIPDynDNS","Actualizacion de DNS desactivada");
  		else{
 			MyLogger.info(log,CLASS_NAME,"updateIPDynDNS","Recuperando IP actual...");
 			String nowPublicIP = DynDNSUpdater.getInstance().getPublicIP();
