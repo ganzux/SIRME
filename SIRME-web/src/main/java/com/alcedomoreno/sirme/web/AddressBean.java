@@ -83,7 +83,7 @@ public class AddressBean extends ManagedBean {
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Públicos                     //
+	//                      Metodos Publicos                     //
 	///////////////////////////////////////////////////////////////
 	
 	@Override
@@ -146,7 +146,7 @@ public class AddressBean extends ManagedBean {
 			applicationBean.sendMessageError("web.error.general.validacion", "web.error.general.xp", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "Código del Cliente o CIF repetido" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "Codigo del Cliente o CIF repetido" );
 			return null;
 		}
 
@@ -182,7 +182,7 @@ public class AddressBean extends ManagedBean {
 			applicationBean.sendMessageInfo("web.operacion.correcta", "web.operacion.correcta.delete");
 			MyLogger.debug(log, CLASS_NAME, "delete", "OUT");
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "No se ha podido borrar la Dirección porque tiene Trabajos asociados", e.getMessage() );
+			applicationBean.sendMessageError("web.error.general.transaccion", "No se ha podido borrar la Direccion porque tiene Trabajos asociados", e.getMessage() );
 			return null;
 		}
 		return doInit();
@@ -214,7 +214,7 @@ public class AddressBean extends ManagedBean {
 
 		// Resto de Tipos, tenemos la fecha en cuenta
 		if ( filterForDate== null ){
-			applicationBean.sendMessageInfo("Info", "No se ha seleccionado fecha, aparecerán todas las Direcciones");
+			applicationBean.sendMessageInfo("Info", "No se ha seleccionado fecha, apareceran todas las Direcciones");
 			return BeanNameUtil.PAGE_PRINCIPAL_ADDRESS;
 		}
 		
@@ -235,19 +235,19 @@ public class AddressBean extends ManagedBean {
 	}
 	
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Públicos               //
+	//                 Fin de los Metodos Publicos               //
 	///////////////////////////////////////////////////////////////
 	
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Privados                     //
+	//                      Metodos Privados                     //
 	///////////////////////////////////////////////////////////////
 
 	
 
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Privados               //
+	//                 Fin de los Metodos Privados               //
 	///////////////////////////////////////////////////////////////
 
 
