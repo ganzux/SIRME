@@ -76,7 +76,7 @@ public class TeamsBean extends ManagedBean {
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Públicos                     //
+	//                      Metodos Publicos                     //
 	///////////////////////////////////////////////////////////////
 	
 	@Override
@@ -129,7 +129,7 @@ public class TeamsBean extends ManagedBean {
 			applicationBean.sendMessageError("web.error.general.validacion", "web.error.general.xp", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "Código del Cliente repetido" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "Codigo del Cliente repetido" );
 			return null;
 		}
 		return doInit();
@@ -146,7 +146,7 @@ public class TeamsBean extends ManagedBean {
 			applicationBean.sendMessageError("web.error.general.validacion", "web.error.general.xp", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "Código del Cliente repetido" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "Codigo del Cliente repetido" );
 			return null;
 		}
 		return doInit();
@@ -160,7 +160,7 @@ public class TeamsBean extends ManagedBean {
 			applicationBean.sendMessageInfo("web.operacion.correcta", "web.operacion.correcta.delete");
 			MyLogger.debug(log, CLASS_NAME, "delete", "OUT");
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "El Equipo está asignado a algún Parte de Trabajo. Desactívelo en su lugar." );
+			applicationBean.sendMessageError("web.error.general.transaccion", "El Equipo esta asignado a algun Parte de Trabajo. Desactivelo en su lugar." );
 			return null;
 		}
 		return doInit();
@@ -182,7 +182,7 @@ public class TeamsBean extends ManagedBean {
 	public void addUser(){
 		if ( selectedUser != null ){
 			if ( selectedTeam != null ){
-				// Si no hay colección, se crea
+				// Si no hay coleccion, se crea
 				if( selectedTeam.getUsers() == null )
 					selectedTeam.setUsers( new ArrayList<User>() );
 
@@ -206,25 +206,25 @@ public class TeamsBean extends ManagedBean {
 		try{
 			MyLogger.debug(log, CLASS_NAME, "save", "IN");
 			teamService.updatePassword(selectedTeam.getIdTeam(), newPass1, newPass2);
-			applicationBean.sendMessageInfo("web.operacion.correcta", "Se cambió la contraseña con éxito");
+			applicationBean.sendMessageInfo("web.operacion.correcta", "Se cambio la contrasena con exito");
 			MyLogger.debug(log, CLASS_NAME, "save", "OUT");
 		} catch(ValidationException e){
 			applicationBean.sendMessageError("web.error.general.validacion", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "No se puede cambiar la contraseña" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "No se puede cambiar la contrasena" );
 			return null;
 		}
 		return null;
 	}
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Públicos               //
+	//                 Fin de los Metodos Publicos               //
 	///////////////////////////////////////////////////////////////
 	
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Privados                     //
+	//                      Metodos Privados                     //
 	///////////////////////////////////////////////////////////////
 	public void reloadTeams(ActionEvent event){
 		teams = teamService.getAll();
@@ -235,7 +235,7 @@ public class TeamsBean extends ManagedBean {
 		filter();
 	}
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Privados               //
+	//                 Fin de los Metodos Privados               //
 	///////////////////////////////////////////////////////////////
 	
 	
