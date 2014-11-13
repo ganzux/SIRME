@@ -309,7 +309,7 @@ public class GenerateReport {
 				.append("app.hideMenuItem(\"PUBSEC:AddressBook\");")
 				// Turn off Auto-Complete
 				.append("this.noautocomplete = true;")
-				// Turn off Acrobats forms caching 
+				// Turn off Acrobat forms caching 
 				.append("this.nocache = true;");
 
 			exporter.setParameter(JRPdfExporterParameter.PDF_JAVASCRIPT, javaScript.toString() );
