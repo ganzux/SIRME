@@ -104,7 +104,7 @@ public class ApplicationBean implements Serializable {
 		activeOptions = new SelectItem[ 3 ];
 
 		activeOptions[ 0 ] = new SelectItem(""		, "Seleccione...");  
-		activeOptions[ 1 ] = new SelectItem("true", "Sí");
+		activeOptions[ 1 ] = new SelectItem("true", "Si");
 		activeOptions[ 2 ] = new SelectItem("false", "No");
 		
 		allTypeCustomers = new ArrayList<TypeCustomer>();
@@ -391,7 +391,7 @@ public class ApplicationBean implements Serializable {
 	/////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////////////////////
-	//                       Mensajes de la Aplicación                     //
+	//                       Mensajes de la Aplicacion                     //
 	/////////////////////////////////////////////////////////////////////////
 	private ResourceBundle messages = 	ResourceBundle.getBundle("resources.messages");
 	private ResourceBundle configs = 	ResourceBundle.getBundle("resources.configview");
@@ -422,7 +422,7 @@ public class ApplicationBean implements Serializable {
 	
 		// Si el keyMessage contiene alguna coma (,), cogeremos el primer valos como mensaje y el resto
 		// lo colocaremos como las cadenas restantes. Esto nos permite mandar desde cualquier capa de la
-		// aplicación un mensaje con sólo keytitle y keymessage.
+		// aplicacion un mensaje con solo keytitle y keymessage.
 		if ( keyMessage.contains(",") && (strings==null || strings.length==0) ){
 			String[] chains = keyMessage.split(",");
 			keyMessage = chains[0];
@@ -453,7 +453,7 @@ public class ApplicationBean implements Serializable {
 		return content;
 	}
 	/////////////////////////////////////////////////////////////////////////
-	//                   Fin de Mensajes de la Aplicación                  //
+	//                   Fin de Mensajes de la Aplicacion                  //
 	/////////////////////////////////////////////////////////////////////////
 
 
