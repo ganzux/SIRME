@@ -45,7 +45,7 @@ public class BSAuthenticationProvider extends DaoAuthenticationProvider {
         } else if (password == null || password.trim().length() == 0) {
         	throw new BadCredentialsException("Password obligatoria", null);
         } else if (details == null || !details.getPassword().equals(passwordMD5)) {
-			throw new BadCredentialsException("Usuario y/o password no v�lidos", null);
+			throw new BadCredentialsException("Usuario y/o password no validos", null);
 		} else if (!details.isEnabled()) {
 			throw new DisabledException("La cuenta ha sido inhabilitada. Contacte con el administrador del sistema.");
 		} else if (!details.isAccountNonLocked()) {
