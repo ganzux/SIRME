@@ -17,7 +17,7 @@ import com.alcedomoreno.sirme.business.data.TypeCustomer;
 
 public class CustomerXLSExtract {
 
-	private static final String C_NUM_CLIENTE 	= "Nº Cliente";
+	private static final String C_NUM_CLIENTE 	= "Cliente";
 
 	private static CustomerXLSExtract instance;
 	private CustomerXLSExtract(){}
