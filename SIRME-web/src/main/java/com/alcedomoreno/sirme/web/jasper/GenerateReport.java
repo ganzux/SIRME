@@ -81,7 +81,7 @@ public class GenerateReport {
 	if ( report.getReplyGroups() != null )
 		Collections.sort( report.getReplyGroups(), new ReplyGroupComparator() );
 
-	// Tipos Básicos, con datos en forma de tabla
+	// Tipos Basicos, con datos en forma de tabla
 	if ( report.getIdReport() == Report.REPORT_EXTINTORES 
 	  || report.getIdReport() == Report.REPORT_BIES
 	  || report.getIdReport() == Report.REPORT_ALUMBRADO_EMERGENCIA
@@ -103,13 +103,13 @@ public class GenerateReport {
 		
 		for ( ReplyGroup  rg : report.getReplyGroups() ){
 			
-			// CARACTERÍSTICAS DE LA CENTRAL
+			// CARACTERISTICAS DE LA CENTRAL
 			if ( rg.getQuestionGroup().getIdQuestionGroup() == QuestionGroup.QUG_5_1_CARACTERISTICAS
 			  || rg.getQuestionGroup().getIdQuestionGroup() == QuestionGroup.QUG_6_1_CARACTERISTICAS )
 				for ( Reply r:rg.getReplies() )
 					pars.put("CAR_CEN_" + r.getQuestion().getIdQuestion(), r.getReply() );
 
-			// ELEMENTOS DEL SISTEMA Y DISTRIBUCIÓN
+			// ELEMENTOS DEL SISTEMA Y DISTRIBUCION
 			else if ( rg.getQuestionGroup().getIdQuestionGroup() == QuestionGroup.QUG_5_2_SISTEMA
 				   || rg.getQuestionGroup().getIdQuestionGroup() == QuestionGroup.QUG_6_2_SISTEMA )
 				for ( Reply r:rg.getReplies() )
@@ -127,7 +127,7 @@ public class GenerateReport {
 	}
 	
 	
-	// DETECCIÓN Y EXTINCIÓN DE INCENDIOS
+	// DETECCION Y EXTINCION DE INCENDIOS
 	else if ( report.getIdReport() == Report.REPORT_EXTINCON_DE_INCENDIOS ){
 		int size1 = 0;
 		int size2 = 0;
@@ -136,12 +136,12 @@ public class GenerateReport {
 		
 		for ( ReplyGroup  rg : report.getReplyGroups() ){
 			
-			// CARACTERÍSTICAS DE LA CENTRAL
+			// CARACTERISTICAS DE LA CENTRAL
 			if ( rg.getQuestionGroup().getIdQuestionGroup() == QuestionGroup.QUG_10_1_CARACTERISTICAS )
 				for ( Reply r:rg.getReplies() )
 					pars.put("CAR_CEN_" + r.getQuestion().getIdQuestion(), r.getReply() );
 
-			// ELEMENTOS DEL SISTEMA Y DISTRIBUCIÓN
+			// ELEMENTOS DEL SISTEMA Y DISTRIBUCION
 			else if ( rg.getQuestionGroup().getIdQuestionGroup() == QuestionGroup.QUG_10_2_ELEMENTOS
 				   || rg.getQuestionGroup().getIdQuestionGroup() == QuestionGroup.QUG_10_4_VALVULAS )
 				for ( Reply r:rg.getReplies() )
@@ -223,12 +223,12 @@ public class GenerateReport {
 
 		for ( ReplyGroup  rg : report.getReplyGroups() ){
 			
-			// CARACTERÍSTICAS DE LA CENTRAL
+			// CARACTERISTICAS DE LA CENTRAL
 			if ( rg.getQuestionGroup().getIdQuestionGroup() == QuestionGroup.QUG_11_1_GENERAL )
 				for ( Reply r:rg.getReplies() )
 					pars.put("CAR_CEN_" + r.getQuestion().getIdQuestion(), r.getReply() );
 
-			// ELEMENTOS DEL SISTEMA Y DISTRIBUCIÓN
+			// ELEMENTOS DEL SISTEMA Y DISTRIBUCION
 			else if ( rg.getQuestionGroup().getIdQuestionGroup() == QuestionGroup.QUG_11_2_PREGUNTAS )
 				repliesButGeneral.add( rg );
 		}
@@ -237,7 +237,7 @@ public class GenerateReport {
 		pars.put("DS", dataSourceTable );
 	}
 	
-	// GRUPO DE PRESIÓN SANITARIO
+	// GRUPO DE PRESION SANITARIO
 	else if ( report.getIdReport() == Report.REPORT_GRUPO_DE_PRESION ){
 
 		Collection<ReplyGroup> repliesButGeneral = new ArrayList<ReplyGroup>();
@@ -309,7 +309,7 @@ public class GenerateReport {
 				.append("app.hideMenuItem(\"PUBSEC:AddressBook\");")
 				// Turn off Auto-Complete
 				.append("this.noautocomplete = true;")
-				// Turn off Acrobat’s forms caching 
+				// Turn off AcrobatÂ’s forms caching 
 				.append("this.nocache = true;");
 
 			exporter.setParameter(JRPdfExporterParameter.PDF_JAVASCRIPT, javaScript.toString() );
@@ -331,7 +331,7 @@ public class GenerateReport {
        parameters.put("CLI_ADD", work.getCustomer().getMainAddress() );
        parameters.put("CLI_TEC", work.getTeam().getNameTec() );
        parameters.put("PATH", "C:\\wsfirext\\Firext_local\\WebContent\\WEB-INF\\reports\\" );
-       parameters.put("TITULO", "CERTIFICADO DE REVISIÓN DE EXTINTORES" );
+       parameters.put("TITULO", "CERTIFICADO DE REVISION DE EXTINTORES" );
 
 	   JasperReport jasperReport;
        JasperPrint jasperPrint;
