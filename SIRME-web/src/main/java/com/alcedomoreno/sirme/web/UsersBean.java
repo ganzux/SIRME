@@ -76,7 +76,7 @@ public class UsersBean extends ManagedBean {
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Públicos                     //
+	//                      Metodos Publicos                     //
 	///////////////////////////////////////////////////////////////
 	
 	@Override
@@ -129,7 +129,7 @@ public class UsersBean extends ManagedBean {
 			applicationBean.sendMessageError("web.error.general.validacion", "web.error.general.xp", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "Código de Usuario repetido" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "Codigo de Usuario repetido" );
 			return null;
 		}
 		return doInit();
@@ -146,7 +146,7 @@ public class UsersBean extends ManagedBean {
 			applicationBean.sendMessageError("web.error.general.validacion", "web.error.general.xp", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "Código del Cliente repetido" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "Codigo del Cliente repetido" );
 			return null;
 		}
 		return doInit();
@@ -160,7 +160,7 @@ public class UsersBean extends ManagedBean {
 			applicationBean.sendMessageInfo("web.operacion.correcta", "web.operacion.correcta.delete");
 			MyLogger.debug(log, CLASS_NAME, "delete", "OUT");
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "El Equipo está asignado a algún Parte de Trabajo. Desactívelo en su lugar." );
+			applicationBean.sendMessageError("web.error.general.transaccion", "El Equipo esta asignado a algun Parte de Trabajo. Desactivelo en su lugar." );
 			return null;
 		}
 		return doInit();
@@ -209,13 +209,13 @@ public class UsersBean extends ManagedBean {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			applicationBean.sendMessageInfo("web.operacion.correcta", "Se cambió la contraseña con éxito");
+			applicationBean.sendMessageInfo("web.operacion.correcta", "Se cambio la contraseÃ±a con exito");
 			MyLogger.debug(log, CLASS_NAME, "save", "OUT");
 		} catch(ValidationException e){
 			applicationBean.sendMessageError("web.error.general.validacion", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "No se puede cambiar la contraseña" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "No se puede cambiar la contraseÃ±a" );
 			return null;
 		}
 		return null;
@@ -223,13 +223,13 @@ public class UsersBean extends ManagedBean {
 
 
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Públicos               //
+	//                 Fin de los Metodos Publicos               //
 	///////////////////////////////////////////////////////////////
 
 
 
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Privados                     //
+	//                      Metodos Privados                     //
 	///////////////////////////////////////////////////////////////
 	public void reloadUsers(ActionEvent event){
 		users = usersService.getAll();
@@ -244,7 +244,7 @@ public class UsersBean extends ManagedBean {
 		filter();
 	}
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Privados               //
+	//                 Fin de los Metodos Privados               //
 	///////////////////////////////////////////////////////////////
 
 
