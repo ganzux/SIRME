@@ -68,7 +68,7 @@ public class ManagerBean extends ManagedBean {
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Públicos                     //
+	//                      Metodos Publicos                     //
 	///////////////////////////////////////////////////////////////
 	
 	@Override
@@ -191,20 +191,20 @@ public class ManagerBean extends ManagedBean {
 	}
 	
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Públicos               //
+	//                 Fin de los Metodos Publicos               //
 	///////////////////////////////////////////////////////////////
 	
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Privados                     //
+	//                      Metodos Privados                     //
 	///////////////////////////////////////////////////////////////
 	public void reloadManagers(ActionEvent event){
 		managers = customerService.getAllManagers();
 		filter();
 	}
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Privados               //
+	//                 Fin de los Metodos Privados               //
 	///////////////////////////////////////////////////////////////
 	
 	
