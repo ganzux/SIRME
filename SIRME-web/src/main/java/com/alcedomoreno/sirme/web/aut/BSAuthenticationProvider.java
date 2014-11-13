@@ -36,7 +36,7 @@ public class BSAuthenticationProvider extends DaoAuthenticationProvider {
 		String principal = (String) auth.getPrincipal();
         String password = (String) auth.getCredentials();
         
-        //Transformaci�n de password a MD5
+        //Transformacion de password a MD5
         String passwordMD5 = getPasswordEncoder().encodePassword(password, null);        
 
 		UserDetails details = getUserDetailsService().loadUserByUsername(principal);
