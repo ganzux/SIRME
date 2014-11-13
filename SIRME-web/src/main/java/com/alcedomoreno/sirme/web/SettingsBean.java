@@ -95,7 +95,7 @@ public class SettingsBean extends ManagedBean {
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Públicos                     //
+	//                      Metodos Publicos                     //
 	///////////////////////////////////////////////////////////////
 	
 	@Override
@@ -134,13 +134,13 @@ public class SettingsBean extends ManagedBean {
 		try{
 			MyLogger.debug(log, CLASS_NAME, "save", "IN");
 			usersService.updatePassword(getUser().getIdUser(), newPass1, newPass2);
-			applicationBean.sendMessageInfo("web.operacion.correcta", "Se cambió la contraseña con éxito");
+			applicationBean.sendMessageInfo("web.operacion.correcta", "Se cambio la contraseÃ±a con exito");
 			MyLogger.debug(log, CLASS_NAME, "save", "OUT");
 		} catch(ValidationException e){
 			applicationBean.sendMessageError("web.error.general.validacion", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "No se puede cambiar la contraseña" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "No se puede cambiar la contrasena" );
 			return null;
 		}
 		return doInit();
@@ -279,7 +279,7 @@ public class SettingsBean extends ManagedBean {
 	public void forceDNS(){
 		try{
 			cronService.resetDynDNS();
-			applicationBean.sendMessageInfo("web.operacion.correcta", "Se actualizó DynDNS con éxito");
+			applicationBean.sendMessageInfo("web.operacion.correcta", "Se actualizo DynDNS con exito");
 		} catch (Exception e){
 			applicationBean.sendMessageError("web.error.general.transaccion", "Error actualizando DynDNS" );
 		}
@@ -288,7 +288,7 @@ public class SettingsBean extends ManagedBean {
 	public void resetConnections(){
 		try{
 			applicationBean.resetUserAccess();
-			applicationBean.sendMessageInfo("web.operacion.correcta", "Se resetearon las conexiones con éxito");
+			applicationBean.sendMessageInfo("web.operacion.correcta", "Se resetearon las conexiones con exito");
 		} catch (Exception e){
 			applicationBean.sendMessageError("web.error.general.transaccion", "Error reseteando las conexiones" );
 		}
@@ -297,7 +297,7 @@ public class SettingsBean extends ManagedBean {
 	public void launchSql(){
 		try{
 			int i = otherService.launchQuery( sql );
-			applicationBean.sendMessageInfo("web.operacion.correcta", "Se lanzó la query con resultado " + i);
+			applicationBean.sendMessageInfo("web.operacion.correcta", "Se lanzo la query con resultado " + i);
 		} catch (Exception e){
 			applicationBean.sendMessageError("web.error.general.transaccion", "Error lanzando la query: ?", e.getMessage() );
 		}
@@ -377,17 +377,17 @@ public class SettingsBean extends ManagedBean {
 		}
 	}
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Públicos               //
+	//                 Fin de los Metodos Publicos               //
 	///////////////////////////////////////////////////////////////
 	
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Privados                     //
+	//                      Metodos Privados                     //
 	///////////////////////////////////////////////////////////////
 
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Privados               //
+	//                 Fin de los Metodos Privados               //
 	///////////////////////////////////////////////////////////////
 	
 	
