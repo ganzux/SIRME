@@ -183,7 +183,7 @@ public class CustomersBean extends ManagedBean {
 			if ( selectedCustomer.getAddress()==null )
 				selectedCustomer.setAddress( new ArrayList<Address>() );
 			selectedCustomer.getAddress().add( newAddress );
-			applicationBean.sendMessageInfo("clientes.contacto.nuevo.contacto", "Se ha añadido una nueva direccion con localizacion ? y direccion ?", newAddress.getLocation(), newAddress.getMainAddress());
+			applicationBean.sendMessageInfo("clientes.contacto.nuevo.contacto", "Se ha anadido una nueva direccion con localizacion ? y direccion ?", newAddress.getLocation(), newAddress.getMainAddress());
 			newAddress = new Address();
 		}
 	}
