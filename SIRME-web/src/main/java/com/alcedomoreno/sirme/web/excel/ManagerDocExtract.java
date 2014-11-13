@@ -34,7 +34,7 @@ public class ManagerDocExtract {
         String addresess = fileData.substring( fileData.indexOf("\r\n"), fileData.toLowerCase().indexOf("tel") );
         for ( String data:addresess.split("\r\n") )
         	if ( !data.isEmpty() )
-        		manager.addContact("Dirección",data);
+        		manager.addContact("Direccion",data);
         
         fileData = fileData.substring( fileData.toLowerCase().indexOf("tel") );
 
@@ -94,7 +94,7 @@ public class ManagerDocExtract {
 	
 	private Manager getPhone(Manager manager, String chain){
 		
-		if ( chain.trim().toLowerCase().startsWith("teléfono") || chain.trim().toLowerCase().startsWith("telefono") ){
+		if ( chain.trim().toLowerCase().startsWith("tel") || chain.trim().toLowerCase().startsWith("telefono") ){
 			String tlf = "";
 			if ( chain.indexOf(";") != chain.lastIndexOf(";") )
 				tlf = ( cleanString( chain.substring( chain.indexOf(";")+1, chain.lastIndexOf(";")-3 )) );
@@ -132,7 +132,7 @@ public class ManagerDocExtract {
 		    			phone = true;
 		    		}
 		    		else
-		    			manager.addContact("Teléfono", cleanString( currentPhone ) );
+		    			manager.addContact("Telefono", cleanString( currentPhone ) );
 		    		currentPhone = "";
 		    	}
 		    }
