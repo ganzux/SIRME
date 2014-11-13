@@ -92,7 +92,7 @@ public class CustomersBean extends ManagedBean {
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Públicos                     //
+	//                      Metodos Publicos                     //
 	///////////////////////////////////////////////////////////////
 	
 	@Override
@@ -157,7 +157,7 @@ public class CustomersBean extends ManagedBean {
         Object newValue = event.getNewValue();  
           
         if(newValue != null && !newValue.equals(oldValue) )
-        	applicationBean.sendMessageInfo("Dirección del Servicio cambiada", "Antes ?, ahora ?", oldValue.toString(), newValue.toString());
+        	applicationBean.sendMessageInfo("Direccion del Servicio cambiada", "Antes ?, ahora ?", oldValue.toString(), newValue.toString());
     }
 	
 	public void addNewContact(){
@@ -178,12 +178,12 @@ public class CustomersBean extends ManagedBean {
 		
 		if ( newAddress.getLocation() == null || newAddress.getLocation().trim().isEmpty()
 			|| newAddress.getMainAddress() == null || newAddress.getMainAddress().trim().isEmpty() )
-			applicationBean.sendMessageInfo("web.error.general.validacion", "Tiene que introducir Ubicación y Dirección");
+			applicationBean.sendMessageInfo("web.error.general.validacion", "Tiene que introducir Ubicacion y Direccion");
 		else {
 			if ( selectedCustomer.getAddress()==null )
 				selectedCustomer.setAddress( new ArrayList<Address>() );
 			selectedCustomer.getAddress().add( newAddress );
-			applicationBean.sendMessageInfo("clientes.contacto.nuevo.contacto", "Se ha añadido una nueva dirección con localización ? y dirección ?", newAddress.getLocation(), newAddress.getMainAddress());
+			applicationBean.sendMessageInfo("clientes.contacto.nuevo.contacto", "Se ha aÃ±adido una nueva direccion con localizacion ? y direccion ?", newAddress.getLocation(), newAddress.getMainAddress());
 			newAddress = new Address();
 		}
 	}
@@ -215,7 +215,7 @@ public class CustomersBean extends ManagedBean {
 			applicationBean.sendMessageError("web.error.general.validacion", "web.error.general.xp", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "Código del Cliente repetido" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "Codigo del Cliente repetido" );
 			return null;
 		}
 
@@ -279,7 +279,7 @@ public class CustomersBean extends ManagedBean {
 
 			// if exists and the id is not current, the cif is repeated
 			if ( existing != null && selectedCustomer.getIdCustomer() != existing.getIdCustomer() ){
-				applicationBean.sendMessageInfo("CIF Existente", "El CIF ? ya existe como Cliente. Compruébelo antes de continuar", cif);
+				applicationBean.sendMessageInfo("CIF Existente", "El CIF ? ya existe como Cliente. Compruebelo antes de continuar", cif);
 			}
 		} catch( Exception e){
 			
@@ -324,7 +324,7 @@ public class CustomersBean extends ManagedBean {
 					
 			applicationBean.sendMessageInfo("web.operacion.correcta", "Se han cargado los datos del contrato correctamente. REVISELOS.");
 		} catch (Exception e) {
-			applicationBean.sendMessageError("web.error.general", "Ha ocurrido un error al procesar el contrato. Remítaselo al administrador" );
+			applicationBean.sendMessageError("web.error.general", "Ha ocurrido un error al procesar el contrato. Remitaselo al administrador" );
 		}
     }
 	
@@ -336,17 +336,17 @@ public class CustomersBean extends ManagedBean {
 	}
 	
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Públicos               //
+	//                 Fin de los Metodos Publicos               //
 	///////////////////////////////////////////////////////////////
 	
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Privados                     //
+	//                      Metodos Privados                     //
 	///////////////////////////////////////////////////////////////
 
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Privados               //
+	//                 Fin de los Metodos Privados               //
 	///////////////////////////////////////////////////////////////
 
 
