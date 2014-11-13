@@ -142,7 +142,7 @@ public class WorksBean extends ManagedBean {
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Públicos                     //
+	//                      Metodos Publicos                     //
 	///////////////////////////////////////////////////////////////
 	
 	@Override
@@ -236,7 +236,7 @@ public class WorksBean extends ManagedBean {
 			applicationBean.sendMessageError("web.error.general.validacion", "web.error.general.xp", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "Código del Cliente repetido" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "Codigo del Cliente repetido" );
 			return null;
 		}
 		return doInit();
@@ -257,7 +257,7 @@ public class WorksBean extends ManagedBean {
 			applicationBean.sendMessageError("web.error.general.validacion", "web.error.general.xp", e.getMessage() );
 			return null;
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "Código del Cliente repetido" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "Codigo del Cliente repetido" );
 			return null;
 		}
 		return doInit();
@@ -335,7 +335,7 @@ public class WorksBean extends ManagedBean {
 			updateService.refreshDate();
 			MyLogger.debug(log, CLASS_NAME, "delete", "OUT");
 		} catch(TransactionException e){
-			applicationBean.sendMessageError("web.error.general.transaccion", "Código del Cliente repetido" );
+			applicationBean.sendMessageError("web.error.general.transaccion", "Codigo del Cliente repetido" );
 			return null;
 		}
 		return doInit();
@@ -418,9 +418,9 @@ public class WorksBean extends ManagedBean {
 			selectedWork.setReports( lastWork.getReports() );
 
 			if ( lastWork.getReports() == null || lastWork.getReports().isEmpty() )
-				applicationBean.sendMessageInfo("Revise los Datos", "No se han encontrado Fichas para esa dirección del Servicio");
+				applicationBean.sendMessageInfo("Revise los Datos", "No se han encontrado Fichas para esa direccion del Servicio");
 			else
-				applicationBean.sendMessageInfo("Revise los Datos", "Se han cargado las últimas Fichas para esa dirección del Servicio");
+				applicationBean.sendMessageInfo("Revise los Datos", "Se han cargado las ultimas Fichas para esa direccion del Servicio");
 
 			reloadAvaiableReports();
 			
@@ -523,7 +523,7 @@ public class WorksBean extends ManagedBean {
 		for ( Report all:applicationBean.getReportsCollection() ){
 			add = true;
 
-			// Si el Report está incluído en el trabajo activo, no se incluye
+			// Si el Report esta incluÃ­do en el trabajo activo, no se incluye
 			if ( selectedWork != null && selectedWork.getReports() != null )
 				for ( Report r2:selectedWork.getReports() )
 					if ( all.getIdReport() == r2.getIdReport() ){
@@ -531,7 +531,7 @@ public class WorksBean extends ManagedBean {
 						break;
 					}
 
-			// Si no estaba incluído, lo incluímos entre los candidatos
+			// Si no estaba incluÃ­do, lo incluÃ­mos entre los candidatos
 			if ( add )
 				avaiableReports.add( all );
 		}
@@ -561,7 +561,7 @@ public class WorksBean extends ManagedBean {
 			pdf = GenerateReport.getInstance().fillPDF( new Report(Report.REPORT_ALBARAN), selectedWork );
 			return BeanNameUtil.PAGE_PDF;
 		} catch ( Exception e ){
-			applicationBean.sendMessageError("web.error.general.transaccion", "No se puede generar el Albarán." );
+			applicationBean.sendMessageError("web.error.general.transaccion", "No se puede generar el Albaran." );
 		}
 		return null;
 	}
@@ -636,7 +636,7 @@ public class WorksBean extends ManagedBean {
 		try{
 			MyLogger.debug(log, CLASS_NAME, "rotate", "IN");
 			ImageUtil.getInstance().rotate90Right(selectedWork.getSignpath(), selectedWork.getSignpath(), "JPG");
-			applicationBean.sendMessageInfo("web.operacion.correcta", "Ha rotado la imagen 90º a la derecha de manera correcta" );
+			applicationBean.sendMessageInfo("web.operacion.correcta", "Ha rotado la imagen 90 grados a la derecha de manera correcta" );
 			updateService.refreshDate();
 			MyLogger.debug(log, CLASS_NAME, "rotate", "OUT");
 		} catch(Exception e){
@@ -649,13 +649,13 @@ public class WorksBean extends ManagedBean {
 	}
 	
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Públicos               //
+	//                 Fin de los Metodos Publicos               //
 	///////////////////////////////////////////////////////////////
 	
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Privados                     //
+	//                      Metodos Privados                     //
 	///////////////////////////////////////////////////////////////
 
 	private boolean testReplies( Collection<ReplyGroup> replieGroups ){
@@ -697,7 +697,7 @@ public class WorksBean extends ManagedBean {
 				if ( rg.getQuestionGroup().getIdQuestionGroup() == myId )
 					count++;
 			if ( count >= maxTimes ){
-				applicationBean.sendMessageError("web.error.general", "Ya ha añadido " + count + " zona " + selectedQuestionGroups.getNameQuestionGroup() );
+				applicationBean.sendMessageError("web.error.general", "Ya ha anadido " + count + " zona " + selectedQuestionGroups.getNameQuestionGroup() );
 				return false;
 			}
 		}
@@ -705,7 +705,7 @@ public class WorksBean extends ManagedBean {
 		return true;
 	}
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los Métodos Privados               //
+	//                 Fin de los Metodos Privados               //
 	///////////////////////////////////////////////////////////////
 	
 	
