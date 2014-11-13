@@ -61,7 +61,7 @@ public class BSUserAuthenticationSuccessHandler implements AuthenticationSuccess
 	    String redirection = defaultTargetUrl;
 	    boolean isRedirect = false;
 
-	    /** Redireccionamos a la p�gina que nos indique el primer PROFILE que encontremos.
+	    /** Redireccionamos a la pagina que nos indique el primer PROFILE que encontremos.
 	     * OJO: En la lista de GrantedAuthority van a venir tanto los perfiles como sus permisos asociados. Debemos diferenciarlos.**/
 	    if (auth.getAuthorities().size() > 0) {
 	    	Iterator<GrantedAuthority> itr = auth.getAuthorities().iterator();
