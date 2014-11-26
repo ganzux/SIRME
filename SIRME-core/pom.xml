@@ -2,6 +2,7 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>com.alcedomoreno.sirme</groupId>
 		<artifactId>SIRME_</artifactId>
@@ -19,6 +20,7 @@
 		<spring.security.version>3.0.8.RELEASE</spring.security.version>
 		<junit.version>4.11</junit.version>
 		<jdk.version>1.7</jdk.version>
+		<guava.version>16.0.1</guava.version>
 	</properties>
 
 	<dependencies>
@@ -70,6 +72,12 @@
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
 		</dependency>
 		
 		<!-- Test dependencies -->
