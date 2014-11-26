@@ -25,7 +25,9 @@ public class ApplicationsDaoTest extends TestCase{
 	public void testApp(){
 		try {
 			ApplicationData root = applicationsDao.getRootApplication();
-			Collection<ApplicationData> childs = applicationsDao.getChildApplications(root.getIdApplication());
+			assertNull(root);
+			
+			Collection<ApplicationData> clientes = applicationsDao.getChildApplications(0);
 
 			assertTrue( true );
 		} catch (Exception e){
