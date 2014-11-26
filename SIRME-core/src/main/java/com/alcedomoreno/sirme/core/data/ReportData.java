@@ -39,13 +39,13 @@ public class ReportData implements Serializable,DataObject {
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idReport;
 	
-	@Column(name="[nameReport]", nullable=false, unique=true, length=50)	
+	@Column(name="nameReport", nullable=false, unique=true, length=50)	
 	private String nameReport;
 	
-	@Column(name="[titleReport]", nullable=false, unique=true, length=250)	
+	@Column(name="titleReport", nullable=false, unique=true, length=250)	
 	private String titleReport;
 	
-	@Column(name="[fileReport]", nullable=false, unique=true, length=20)	
+	@Column(name="fileReport", nullable=false, unique=true, length=20)	
 	private String fileReport;
 
 	@OneToMany(mappedBy="report", targetEntity=QuestionGroupData.class)	
