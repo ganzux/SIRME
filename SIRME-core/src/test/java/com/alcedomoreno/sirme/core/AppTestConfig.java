@@ -16,12 +16,11 @@ import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "com.alcedomoreno.sirme.core.dao" })
+@ComponentScan({ "com.alcedomoreno.sirme.core.dao", "com.alcedomoreno.sirme.core.dao.common" })
 public class AppTestConfig {
 	
 	@Bean
