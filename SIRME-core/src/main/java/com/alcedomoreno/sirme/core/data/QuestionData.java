@@ -43,7 +43,7 @@ public class QuestionData implements Serializable,DataObject {
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idQuestion;
 	
-	@Column(name="[question]", nullable=false, unique=false, length=255)	
+	@Column(name="question", nullable=false, unique=false, length=255)	
 	private String question;
 	
 	@Column(name="[order]", nullable=true, unique=false, length=3)	
