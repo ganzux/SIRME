@@ -7,51 +7,53 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import com.alcedomoreno.sirme.core.dao.common.AbstractHibernateDao;
 import com.alcedomoreno.sirme.core.data.RoleData;
 import com.alcedomoreno.sirme.core.util.DAOConstants;
 import com.alcedomoreno.sirme.core.util.MyLogger;
 
 @Repository( DAOConstants.ROLE_DAO )
-public class RolesDaoImpl extends HibernateDaoSupport implements RolesDao{
+public class RolesDaoImpl extends AbstractHibernateDao<RoleData> implements RolesDao{
 
 	///////////////////////////////////////////////////////////////
-	//                         Atributos                         //
+	//                         Attributes                        //
 	///////////////////////////////////////////////////////////////
-	
+
 	private static Logger log = LoggerFactory.getLogger( RolesDaoImpl.class );
 	private static final String CLASS_NAME = "RolesDaoImpl";
 	
 	///////////////////////////////////////////////////////////////
-	//                    Fin de los Atributos                   //
+	//                      End of Attributes                    //
 	///////////////////////////////////////////////////////////////
 	
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                       Constructores                       //
+	//                          Builders                         //
 	///////////////////////////////////////////////////////////////
 	
 	public RolesDaoImpl(){
 		MyLogger.info(log, CLASS_NAME, "RolesDaoImpl", "New Instance");
+		setClazz(RoleData.class);
 	}
 	
 	@Autowired  
 	public RolesDaoImpl(SessionFactory sessionFactory) {
 		MyLogger.info( log , CLASS_NAME, "RolesDaoImpl", "New Instance");
+		setClazz(RoleData.class);
 		super.setSessionFactory(sessionFactory);
 	}
 	
 	///////////////////////////////////////////////////////////////
-	//                  Fin de los Constructores                 //
+	//                       End of Builders                     //
 	///////////////////////////////////////////////////////////////
-	
-	
-	
+
+
+
 	///////////////////////////////////////////////////////////////
-	//                      M�todos P�blicos                     //
+	//                        Public Methods                     //
 	///////////////////////////////////////////////////////////////
 	
 	@Override
@@ -152,15 +154,15 @@ public class RolesDaoImpl extends HibernateDaoSupport implements RolesDao{
 		
 	}
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los M�todos P�blicos               //
+	//                    End Of Public Methods                  //
 	///////////////////////////////////////////////////////////////
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      M�todos Privados                     //
+	//                       Private Methods                     //
 	///////////////////////////////////////////////////////////////
 	
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los M�todos Privados               //
+	//                   End of Private Methods                  //
 	///////////////////////////////////////////////////////////////
 }
