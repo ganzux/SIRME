@@ -42,10 +42,10 @@ public class QuestionGroupData implements Serializable,DataObject {
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idQuestionGroup;
 	
-	@Column(name="[times]", nullable=true, unique=false)	
+	@Column(name="times", nullable=true, unique=false)	
 	private Integer times;
 	
-	@Column(name="[nameQuestionGroup]", nullable=false, unique=false)
+	@Column(name="nameQuestionGroup", nullable=false, unique=false)
 	private String nameQuestionGroup;
 
 	public String getNameQuestionGroup() {
