@@ -32,7 +32,7 @@ public class ReplyTypeData implements Serializable,DataObject {
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idReplyType;
 	
-	@Column(name="[nameReplyType]", nullable=false, unique=true, length=20)	
+	@Column(name="nameReplyType", nullable=false, unique=true, length=20)	
 	private String nameReplyType;
 
 	public int getIdReplyType() {
