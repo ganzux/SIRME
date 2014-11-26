@@ -9,53 +9,54 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import com.alcedomoreno.sirme.core.dao.common.AbstractHibernateDao;
 import com.alcedomoreno.sirme.core.data.ApplicationData;
 import com.alcedomoreno.sirme.core.util.DAOConstants;
 import com.alcedomoreno.sirme.core.util.MyLogger;
 
 
 @Repository( DAOConstants.APPLICATION_DAO )
-public class ApplicationsDaoImpl extends HibernateDaoSupport implements ApplicationsDao{
+public class ApplicationsDaoImpl extends AbstractHibernateDao<ApplicationData> implements ApplicationsDao{
 	
 	///////////////////////////////////////////////////////////////
-	//                         Atributos                         //
+	//                         Attributes                        //
 	///////////////////////////////////////////////////////////////
 	
 	private static Logger log = LoggerFactory.getLogger( ApplicationsDaoImpl.class );
 	private static final String CLASS_NAME = "ApplicationsDaoImpl";
 
 	///////////////////////////////////////////////////////////////
-	//                    Fin de los Atributos                   //
+	//                      End of Attributes                    //
 	///////////////////////////////////////////////////////////////
 
 
 
 	///////////////////////////////////////////////////////////////
-	//                       Constructores                       //
+	//                          Builders                         //
 	///////////////////////////////////////////////////////////////
 	
 	public ApplicationsDaoImpl(){
 		MyLogger.info(log, CLASS_NAME, "ApplicationsDaoImpl", "New Instance");
+		setClazz(ApplicationData.class);
 	}
 	
 	@Autowired  
 	public ApplicationsDaoImpl(SessionFactory sessionFactory) {
 		MyLogger.info( log , CLASS_NAME, "ApplicationsDaoImpl", "New Instance");
+		setClazz(ApplicationData.class);
 	    super.setSessionFactory(sessionFactory);
-	    
 	}
 	
 	///////////////////////////////////////////////////////////////
-	//                  Fin de los Constructores                 //
+	//                       End of Builders                     //
 	///////////////////////////////////////////////////////////////
 
 
 
 	///////////////////////////////////////////////////////////////
-	//                      M�todos P�blicos                     //
+	//                        Public Methods                     //
 	///////////////////////////////////////////////////////////////
 
 	@SuppressWarnings("unchecked")
@@ -91,15 +92,15 @@ public class ApplicationsDaoImpl extends HibernateDaoSupport implements Applicat
 	}
 
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los M�todos P�blicos               //
+	//                    End Of Public Methods                  //
 	///////////////////////////////////////////////////////////////
 	
 	
 	///////////////////////////////////////////////////////////////
-	//                      M�todos Privados                     //
+	//                       Private Methods                     //
 	///////////////////////////////////////////////////////////////
 	
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los M�todos Privados               //
+	//                   End of Private Methods                  //
 	///////////////////////////////////////////////////////////////
 }
