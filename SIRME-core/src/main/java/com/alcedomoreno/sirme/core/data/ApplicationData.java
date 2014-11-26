@@ -1,7 +1,6 @@
 package com.alcedomoreno.sirme.core.data;
 
-
-
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,13 +16,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @org.hibernate.annotations.Proxy(lazy=true)
 @Table(name="applications")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class ApplicationData implements DataObject {
-	
+public class ApplicationData implements DataObject, Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	public static final byte ROOT_LEVEL = 0;
 	public static final byte MAX_LEVEL = 3;
 	
