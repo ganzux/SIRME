@@ -47,13 +47,27 @@ public class AdvicedInitRestControllerTest extends TestCase {
 			when(customerService.getAddressById(any(Integer.class))).thenReturn(getMockAddress());
 
 			AdviceDTO advice = new AdviceDTO();
-			advice.setAlertId("01");
-			advice.setAddress("address");
-			advice.setPassword("password");
 			advice.setIdClient("288");
 			
 			CodeDTO dto = adviceController.openWork(advice);
 			assertEquals(dto.getCode(), CodeDTO.OK);
+
+		} catch (Exception e){
+			fail(e.getMessage());
+		}
+    }
+	
+	@Test
+	public void testKOAdviceOnt(){
+		try {
+			when(teamService.get(any(String.class), any(String.class))).thenReturn(getMockTeam());
+			when(customerService.getAddressById(any(Integer.class))).thenReturn(getMockAddress());
+
+			AdviceDTO advice = new AdviceDTO();
+			advice.setIdClient("noInt");
+			
+			CodeDTO dto = adviceController.openWork(advice);
+			assertEquals(dto.getCode(), CodeDTO.KO);
 
 		} catch (Exception e){
 			fail(e.getMessage());
