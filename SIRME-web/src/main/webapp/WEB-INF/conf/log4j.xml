@@ -10,7 +10,7 @@
 	</appender>
 
 	<appender name="app" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="${catalina.base}/logs/firext/firext.log" />		
+		<param name="File" value="${catalina.base}/logs/sirme/sirme.log" />		
 		<param name="Threshold" value="ALL" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -19,7 +19,7 @@
 	</appender>
 	
 	<appender name="schedulers" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="${catalina.base}/logs/firext/firextsch.log" />		
+		<param name="File" value="${catalina.base}/logs/sirme/sirmesch.log" />		
 		<param name="Threshold" value="ALL" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -28,7 +28,7 @@
 	</appender>
 	
 	<appender name="hbn" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="${catalina.base}/logs/firext/firexthibernate.log" />		
+		<param name="File" value="${catalina.base}/logs/sirme/firexthibernate.log" />		
 		<param name="Threshold" value="ALL" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -40,6 +40,35 @@
 		<level value="ALL" />
 		<appender-ref ref="console" />
 		<appender-ref ref="app" />
+	</logger>
+	
+	<logger name="org.springframework">
+		<level value="INFO" />
+		<appender-ref ref="console" />
+		<appender-ref ref="app" />
+	</logger>
+	
+	<logger name="org.hibernate">
+		<level value="INFO" />
+		<appender-ref ref="console" />
+		<appender-ref ref="app" />
+	</logger>
+	
+	<logger name="net.bull.javamelody">
+		<level value="INFO" />
+		<appender-ref ref="console" />
+		<appender-ref ref="app" />
+	</logger>
+	
+	<logger name="com.mchange">
+		<level value="INFO" />
+		<appender-ref ref="console" />
+		<appender-ref ref="app" />
+	</logger>
+	
+	<logger name="*">
+		<level value="DEBUG" />
+		<appender-ref ref="console" />
 	</logger>
 	
 	
