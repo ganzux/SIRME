@@ -38,40 +38,35 @@
   
   	<logger name="com.alcedomoreno">
 		<level value="ALL" />
-		<appender-ref ref="console" />
 		<appender-ref ref="app" />
 	</logger>
 	
 	<logger name="org.springframework">
 		<level value="INFO" />
-		<appender-ref ref="console" />
 		<appender-ref ref="app" />
 	</logger>
 	
 	<logger name="org.hibernate">
 		<level value="INFO" />
-		<appender-ref ref="console" />
 		<appender-ref ref="app" />
 	</logger>
 	
 	<logger name="net.bull.javamelody">
 		<level value="INFO" />
-		<appender-ref ref="console" />
 		<appender-ref ref="app" />
 	</logger>
 	
 	<logger name="com.mchange">
 		<level value="INFO" />
-		<appender-ref ref="console" />
 		<appender-ref ref="app" />
 	</logger>
 	
 	<logger name="com">
-		<level value="DEBUG" />
+		<level value="ALL" />
 		<appender-ref ref="console" />
 	</logger>
 	<logger name="org">
-		<level value="DEBUG" />
+		<level value="ALL" />
 		<appender-ref ref="console" />
 	</logger>
 	

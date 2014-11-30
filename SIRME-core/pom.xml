@@ -16,10 +16,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>3.1.1.RELEASE</spring.version>
-		<spring.security.version>3.0.8.RELEASE</spring.security.version>
-		<junit.version>4.11</junit.version>
-		<jdk.version>1.7</jdk.version>
 		<guava.version>16.0.1</guava.version>
 	</properties>
 
@@ -42,8 +38,17 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.9</version>
+			<version>5.1.15</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
+		
+		
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -51,6 +56,11 @@
 		</dependency>
 		
 
+<dependency>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate-c3p0</artifactId>
+	<version>3.3.2.GA</version>
+</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -58,11 +68,16 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>${spring.security.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
@@ -73,18 +88,31 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring.security.version}</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.webflow</groupId> -->
-<!-- 			<artifactId>spring-faces</artifactId> -->
-<!-- 			<version>2.3.0.RELEASE</version> -->
-<!-- 		</dependency> -->
-		
-		
 		<dependency>
-			<groupId>c3p0</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>0.9.1.2</version>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-faces</artifactId>
+			<version>2.2.1.RELEASE</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.1.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>mchange-commons-java</artifactId>
+			<version>0.2.8</version>
+		</dependency>
+		
+
+		
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>c3p0</groupId> -->
+<!-- 			<artifactId>c3p0</artifactId> -->
+<!-- 			<version>0.9.1.2</version> -->
+<!-- 		</dependency> -->
 		
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -96,6 +124,22 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jta_1.1_spec</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.code.gson</groupId> -->
+<!-- 			<artifactId>gson</artifactId> -->
+<!-- 			<version>2.3.1</version> -->
+<!-- 		</dependency> -->
+		
 		
 		
 		<!-- Test dependencies -->
@@ -138,5 +182,10 @@
 		    <id>java.net</id>
 		    <url>http://download.java.net/maven/2/</url>
 		</repository>
+		
+		 <repository>
+	      <id>JBoss repository</id>
+	      <url>http://repository.jboss.com/maven2/</url>
+	    </repository>
 	</repositories>
 </project>
