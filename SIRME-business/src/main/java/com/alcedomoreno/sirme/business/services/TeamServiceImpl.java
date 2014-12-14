@@ -74,7 +74,7 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public Team get( String teamName,String passWord ){
+	public Team get(String teamName, String passWord){
 		MyLogger.info(log, CLASS_NAME, "get", "IN", teamName);
 		
 		Team team = null;

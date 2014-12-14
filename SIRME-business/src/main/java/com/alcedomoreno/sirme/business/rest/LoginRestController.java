@@ -42,14 +42,15 @@ public class LoginRestController {
 
 		Team team = teamService.get( loginInData.getTeam(),loginInData.getPassword() );
 		
+		logonDTO.setServerOnTime(cfg.getTimeUp());
+		logonDTO.setTeamName(loginInData.getTeam());
+
 		if ( team != null  ) {
 			MyLogger.info(log, CLASS_NAME, "login", "Equipo encontrado", loginInData);
-			logonDTO.setTeamName( loginInData.getTeam() );
-			logonDTO.setSuccesful( true );
-			logonDTO.setTeamId( team.getIdTeam() );
-			logonDTO.setCanUploadPhotos( team.isCanUploadPhotos() );
-			logonDTO.setServerOnTime( cfg.getTimeUp() );
-			
+			logonDTO.setTeamName(team.getNameTeam());
+			logonDTO.setSuccesful(true);
+			logonDTO.setTeamId(team.getIdTeam());
+			logonDTO.setCanUploadPhotos(team.isCanUploadPhotos());
 //			applicationBean.addRestLogin( team,loginInData.getDeviceId() );
 		}
 		

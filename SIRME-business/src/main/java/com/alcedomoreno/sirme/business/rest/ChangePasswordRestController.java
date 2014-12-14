@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alcedomoreno.sirme.business.data.Team;
 import com.alcedomoreno.sirme.business.dto.ChangePassWordInDTO;
 import com.alcedomoreno.sirme.business.dto.ChangePassWordOutDTO;
+import com.alcedomoreno.sirme.business.dto.CodeDTO;
 import com.alcedomoreno.sirme.business.services.TeamService;
 import com.alcedomoreno.sirme.business.util.ServiceConstants;
+import com.alcedomoreno.sirme.core.data.TeamData;
 import com.alcedomoreno.sirme.core.util.MyLogger;
 
 @Controller("passwordRestController")
@@ -39,13 +41,13 @@ public class ChangePasswordRestController {
 
 		ChangePassWordOutDTO logonDTO = new ChangePassWordOutDTO();
 		logonDTO.setError("Team Not Found");
-		logonDTO.setOperation("KO");
-		logonDTO.setTeam( loginInData.getTeam() );
+		logonDTO.setOperation(CodeDTO.KO);
+		logonDTO.setTeam(loginInData.getTeam());
 
 		try{
-			Collection<Team> teams = teamService.getAll();
+			Team team = teamService.get(loginInData.getTeam(), loginInData.getPassword());
 	
-			for (Team team : teams) {
+			if (team != null) {
 	
 				if (team.getNameTeam().equals(loginInData.getTeam()) && team.getPassWord().equals(loginInData.getPassword())) {
 					
@@ -56,19 +58,18 @@ public class ChangePasswordRestController {
 					MyLogger.info(log, CLASS_NAME, "changePassword", "password cambiado", loginInData);
 	
 					logonDTO.setError( null );
-					logonDTO.setOperation("OK");
+					logonDTO.setOperation(CodeDTO.OK);
 					logonDTO.setTeam( loginInData.getTeam() );
 					
 //					applicationBean.addRestPassword( team );
-	
-					break;
+
 				}
 	
 			}
 		} catch (Exception e){
 			MyLogger.error(log, CLASS_NAME, "changePassword", "Error de cambio de password desde terminal", e.getMessage());
 			logonDTO.setError( e.getMessage() );
-			logonDTO.setOperation("KO");
+			logonDTO.setOperation(CodeDTO.KO);
 			logonDTO.setTeam( loginInData.getTeam() );
 		}
 

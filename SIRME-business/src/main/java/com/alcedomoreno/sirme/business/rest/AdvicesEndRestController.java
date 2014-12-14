@@ -31,20 +31,20 @@ public class AdvicesEndRestController {
 	protected UpdatedService updateService;
 
 	@RequestMapping( produces="application/json", method = RequestMethod.POST )
-	public @ResponseBody CodeDTO changeStatus(@RequestBody IntDTO work ) {
+	public @ResponseBody CodeDTO changeStatus(@RequestBody IntDTO workInDTO ) {
 		
-		MyLogger.info(log, CLASS_NAME, "changeStatus", "IN", work.getId());
+		MyLogger.info(log, CLASS_NAME, "changeStatus", "IN", workInDTO.getId());
 
 		try{
-			worksService.changeStatus(work.getId(), Work.STATUS_DESCARGADO);
+			worksService.changeStatus(workInDTO.getId(), Work.STATUS_DESCARGADO);
 			updateService.refreshDate();
 		} catch (Exception e){
-			MyLogger.error(log, CLASS_NAME, "changeStatus", work.getId(), e.getMessage());
-			return new CodeDTO( CodeDTO.KO, work.getId() + "-" + e.getMessage());
+			MyLogger.error(log, CLASS_NAME, "changeStatus", workInDTO.getId(), e.getMessage());
+			return new CodeDTO( CodeDTO.KO, workInDTO.getId() + "-" + e.getMessage());
 		}
 
-		MyLogger.info(log, CLASS_NAME, "changeStatus", "OUT", work.getId());
-		return new CodeDTO( CodeDTO.OK, String.valueOf(work.getId() ) );
+		MyLogger.info(log, CLASS_NAME, "changeStatus", "OUT", workInDTO.getId());
+		return new CodeDTO( CodeDTO.OK, String.valueOf(workInDTO.getId() ) );
 
 	}
 }

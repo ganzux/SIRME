@@ -34,7 +34,7 @@ import com.alcedomoreno.sirme.business.util.ServiceConstants;
 public class WorkReportsController {
 
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(TeamsRestController.class);
+			.getLogger(WorkReportsController.class);
 
 	@Resource(name = ServiceConstants.TEAM_SERVICE)
 	protected TeamService teamService;
