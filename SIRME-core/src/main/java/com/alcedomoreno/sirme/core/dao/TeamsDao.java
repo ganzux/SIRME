@@ -16,5 +16,5 @@ public interface TeamsDao {
 	
 	public void delete(TeamData cd);
 	
-	public void updatePass(int idUser,String pass);
+	public void updatePass(int idTeam,String pass);
 }

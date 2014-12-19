@@ -38,13 +38,13 @@ public class TeamData implements Serializable,DataObject {
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idTeam;
 	
-	@Column(name="[nameTeam]", nullable=false, unique=true, length=50)	
+	@Column(name="nameTeam", nullable=false, unique=true, length=50)	
 	private String nameTeam;
 
-	@Column(name="[phoneNumber]", nullable=false, unique=true, length=20)	
+	@Column(name="phoneNumber", nullable=false, unique=true, length=20)	
 	private String phoneNumber;
 	
-	@Column(name="[passWord]", nullable=false, unique=true, length=30)	
+	@Column(name="passWord", nullable=false, unique=true, length=30)	
 	private String passWord;
 	
 	@Column(name = "enabled", nullable = false, length = 1)
