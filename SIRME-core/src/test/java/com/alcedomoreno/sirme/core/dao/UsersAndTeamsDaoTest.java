@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -275,14 +274,14 @@ public class UsersAndTeamsDaoTest {
 	@Test
 	@Transactional
 	public void deleteTeamTest() {
-		TeamData team = teamsDao.get("team1", "pass 1");
+		TeamData team = teamsDao.get("team2", "pass 2");
 		
 		try {
 			teamsDao.delete(team);
-			team = teamsDao.get("team1", "pass 1");
+			team = teamsDao.get("team2", "pass 2");
 			assertNull(team);
 			
-			UserData user = usersDao.getByCodeUserLoadAllData("user1");
+			UserData user = usersDao.getByCodeUserLoadAllData("user2");
 			assertNotNull(user);
 			
 		} catch (Exception e) {
