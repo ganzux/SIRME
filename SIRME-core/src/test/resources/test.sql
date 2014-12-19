@@ -238,9 +238,9 @@ INSERT INTO question (idQuestion, question, idQuestionGroup, idReplyType, totali
 INSERT INTO question (idQuestion, question, idQuestionGroup, idReplyType, totalize) VALUES (165, 'Reducción 70 x 45', 13, 4, NULL);
 INSERT INTO question (idQuestion, question, idQuestionGroup, idReplyType, totalize) VALUES (166, 'Tubería de Acero Galvanizado de 3"', 14,  1, NULL);
 
-INSERT INTO users (idUser, codeUser, nameUser, firstSurnameUser, secondSurnameUser, passwordUser, phoneNumberUser, emailUser, addedDateUser, expirationDateUser, expirationDateUserPassword, locked, enabled, lastAccess) VALUES (1, 'user1', 'Name 1', '1st Sur 1', '2nd Sur 1', 'cypherPass 1', 'phone 1', 'mail1', '2014-12-30', NULL, NULL, FALSE, TRUE, NULL);
-INSERT INTO users (idUser, codeUser, nameUser, firstSurnameUser, secondSurnameUser, passwordUser, phoneNumberUser, emailUser, addedDateUser, expirationDateUser, expirationDateUserPassword, locked, enabled, lastAccess) VALUES (2, 'user2', 'Name 2', '1st Sur 2', '2nd Sur 2', 'cypherPass 2', 'phone 2', 'mail2', '2014-12-31', NULL, NULL, FALSE, TRUE, NULL);
-INSERT INTO users (idUser, codeUser, nameUser, firstSurnameUser, secondSurnameUser, passwordUser, phoneNumberUser, emailUser, addedDateUser, expirationDateUser, expirationDateUserPassword, locked, enabled, lastAccess) VALUES (3, 'user3', 'Name 3', '1st Sur 3', '2nd Sur 3', 'cypherPass 3', 'phone 3', 'mail3', '2013-12-31', NULL, NULL, FALSE, TRUE, NULL);
+INSERT INTO users (idUser, codeUser, nameUser, firstSurnameUser, secondSurnameUser, passwordUser, phoneNumberUser, emailUser, addedDateUser, expirationDateUser, expirationDateUserPassword, locked, enabled, lastAccess, outOpen) VALUES (1, 'user1', 'Name 1', '1st Sur 1', '2nd Sur 1', 'cypherPass 1', 'phone 1', 'mail1', '2014-12-30', NULL, NULL, FALSE, TRUE, NULL, FALSE);
+INSERT INTO users (idUser, codeUser, nameUser, firstSurnameUser, secondSurnameUser, passwordUser, phoneNumberUser, emailUser, addedDateUser, expirationDateUser, expirationDateUserPassword, locked, enabled, lastAccess, outOpen) VALUES (2, 'user2', 'Name 2', '1st Sur 2', '2nd Sur 2', 'cypherPass 2', 'phone 2', 'mail2', '2014-12-31', NULL, NULL, FALSE, TRUE, NULL, TRUE);
+INSERT INTO users (idUser, codeUser, nameUser, firstSurnameUser, secondSurnameUser, passwordUser, phoneNumberUser, emailUser, addedDateUser, expirationDateUser, expirationDateUserPassword, locked, enabled, lastAccess, outOpen) VALUES (3, 'user3', 'Name 3', '1st Sur 3', '2nd Sur 3', 'cypherPass 3', 'phone 3', 'mail3', '2013-12-31', NULL, NULL, FALSE, TRUE, NULL, FALSE);
 
 INSERT INTO team (idTeam, nameTeam, enabled, canUploadPhotos, phoneNumber, password) VALUES (1, 'team1', 1, 0, '1', 'pass 1');
 INSERT INTO team (idTeam, nameTeam, enabled, canUploadPhotos, phoneNumber, password) VALUES (2, 'team2', 1, 0, '2', 'pass 2');
@@ -254,5 +254,18 @@ INSERT INTO team_user (idTeam, idUser) VALUES (2, 1);
 INSERT INTO team_user (idTeam, idUser) VALUES (2, 2);
 
 INSERT INTO users_roles (IdUser, IdRole) VALUES (1, 1);
+
+INSERT INTO customers (idCustomer, nameCustomer, cifCustomer, codeCustomer, mainAddress, mainProv, mainPobl, mainPostalCode, mainMail, mainPhone, idManager, idUser, typeCustomer, dateCreated, active) VALUES (1, 'nameCustomer', 'cifCustomer', 1, 'mainAddress', 'mainProv', 'mainPobl', 28020, 'mail', 'mainPhone', NULL, NULL, 1, '2014-05-31', 1);
+INSERT INTO address (idaddress, address, idCustomer, prov, pobl, postalCode, other, location, monthMask, amount) VALUES (1, 'CL. Camarillas, 11 ', 1, 'Madrid ', 'Pueblo de Barajas', 28020, '', 'Comunidad de Propietarios', 'MAY', '');
+INSERT INTO work (idWork, year, albaran, idTeam, idAddress, memo, data, status, typeWork, dateCreated, signpath, signName) VALUES (1, 2015, 1, 1, 1, 'HA SALTADO LA ALARMA ', 'averia', 1, 1, '2014-05-27', NULL, NULL);
+
+
+
+
+
+
+
+
+
 
 

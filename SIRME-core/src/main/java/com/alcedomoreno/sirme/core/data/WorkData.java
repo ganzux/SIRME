@@ -62,25 +62,25 @@ private static final long serialVersionUID = 1L;
 	@JoinColumns({ @JoinColumn(name="idTeam", referencedColumnName="idTeam") })	
 	private TeamData team;
 	
-	@Column(name="[memo]", nullable=true, unique=false)	
+	@Column(name="memo", nullable=true, unique=false)	
 	private String memo;
 	
-	@Column(name="[data]", nullable=true, unique=false)	
+	@Column(name="data", nullable=true, unique=false)	
 	private String data;
 	
-	@Column(name="[signpath]", nullable=true, unique=false)	
+	@Column(name="signpath", nullable=true, unique=false)	
 	private String signpath;
 	
-	@Column(name="[signName]", nullable=true, unique=false)	
+	@Column(name="signName", nullable=true, unique=false)	
 	private String signName;
 	
-	@Column(name="[status]", nullable=false, unique=false)	
+	@Column(name="status", nullable=false, unique=false)	
 	private int status;
 	
-	@Column(name="[typeWork]", nullable=false, unique=false)	
+	@Column(name="typeWork", nullable=false, unique=false)	
 	private int typeWork;
 	
-	@Column(name="`dateCreated`")
+	@Column(name="dateCreated")
 	@Type(type="timestamp")
 	private Date dateCreated;
 	

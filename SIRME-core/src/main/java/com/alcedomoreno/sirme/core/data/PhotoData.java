@@ -41,7 +41,7 @@ private static final long serialVersionUID = 1L;
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idPhoto;
 
-	@Column(name="`dateCreated`")
+	@Column(name="dateCreated")
 	@Type(type="timestamp")
 	private Date dateCreated;
 	
@@ -50,10 +50,10 @@ private static final long serialVersionUID = 1L;
 	@JoinColumns({ @JoinColumn(name="idWork", referencedColumnName="idWork") })	
 	private WorkData work;
 	
-	@Column(name="[path]", nullable=false, unique=true)	
+	@Column(name="path", nullable=false, unique=true)	
 	private String path;
 	
-	@Column(name="[comments]", nullable=true, unique=false)	
+	@Column(name="comments", nullable=true, unique=false)	
 	private String comments;
 	
 

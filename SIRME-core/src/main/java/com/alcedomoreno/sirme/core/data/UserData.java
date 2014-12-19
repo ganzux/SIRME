@@ -89,6 +89,9 @@ public class UserData implements DataObject {
 	@Column(name = "enabled", nullable = false, length = 1)
 	private boolean enabled;
 	
+	@Column(name = "outOpen", nullable = true, length = 1)
+	private boolean outOpen;
+	
 	@Column(name = "lastAccess", nullable = true)
 	private Date lastAccess;
 
@@ -208,11 +211,15 @@ public class UserData implements DataObject {
 	public void setRoles(Set<RoleData> roles) {
 		this.roles = roles;
 	}
-
+	public boolean isOutOpen() {
+		return outOpen;
+	}
+	public void setOutOpen(boolean outOpen) {
+		this.outOpen = outOpen;
+	}
 	public Date getLastAccess() {
 		return lastAccess;
 	}
-
 	public void setLastAccess(Date lastAccess) {
 		this.lastAccess = lastAccess;
 	}

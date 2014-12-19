@@ -40,13 +40,13 @@ public class ManagerData implements Serializable,DataObject {
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idManager;
 	
-	@Column(name="[nameManager]", nullable=false, unique=false, length=50)	
+	@Column(name="nameManager", nullable=false, unique=false, length=50)	
 	private String nameManager;
 	
-	@Column(name="[phoneManager]", nullable=true, unique=false, length=20)	
+	@Column(name="phoneManager", nullable=true, unique=false, length=20)	
 	private String phoneManager;
 	
-	@Column(name="[mailManager]", nullable=true, unique=false, length=50)	
+	@Column(name="mailManager", nullable=true, unique=false, length=50)	
 	private String mailManager;
 
 	@OneToMany(mappedBy="manager", targetEntity=CustomerData.class)	

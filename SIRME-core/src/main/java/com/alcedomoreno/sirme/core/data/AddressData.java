@@ -40,28 +40,28 @@ public class AddressData implements Serializable,DataObject {
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idaddress;
 	
-	@Column(name="[address]", nullable=false, unique=false, length=300)	
+	@Column(name="address", nullable=false, unique=false, length=300)	
 	private String address;
 	
-	@Column(name="[location]", nullable=true, unique=false, length=120)	
+	@Column(name="location", nullable=true, unique=false, length=120)	
 	private String location;
 
-	@Column(name="[prov]", nullable=true, unique=true, length=50)	
+	@Column(name="prov", nullable=true, unique=true, length=50)	
 	private String prov;
 	
-	@Column(name="[pobl]", nullable=true, unique=false, length=300)	
+	@Column(name="pobl", nullable=true, unique=false, length=300)	
 	private String pobl;
 	
-	@Column(name="[postalCode]", nullable=true, unique=false, length=5)	
+	@Column(name="postalCode", nullable=true, unique=false, length=5)	
 	private Integer postalCode;
 	
-	@Column(name="[other]", nullable=true, unique=false, length=300)	
+	@Column(name="other", nullable=true, unique=false, length=300)	
 	private String other;
 	
-	@Column(name="[monthMask]", nullable=true, unique=false, length=20)	
+	@Column(name="monthMask", nullable=true, unique=false, length=20)	
 	private String monthMask;
 	
-	@Column(name="[amount]", nullable=true, unique=false, length=20)	
+	@Column(name="amount", nullable=true, unique=false, length=20)	
 	private String amount;
 	
 	@ManyToOne(targetEntity=CustomerData.class,fetch=FetchType.LAZY)

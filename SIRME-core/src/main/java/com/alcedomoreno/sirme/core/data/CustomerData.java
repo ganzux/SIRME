@@ -2,6 +2,7 @@ package com.alcedomoreno.sirme.core.data;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -42,39 +43,42 @@ public class CustomerData implements Serializable,DataObject {
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idCustomer;
 	
-	@Column(name="[nameCustomer]", nullable=false, unique=false, length=50)	
+	@Column(name="nameCustomer", nullable=false, unique=false, length=50)	
 	private String nameCustomer;
 
-	@Column(name="[cifCustomer]", nullable=false, unique=true, length=20)	
+	@Column(name="cifCustomer", nullable=false, unique=true, length=20)	
 	private String cifCustomer;
 	
-	@Column(name="[codeCustomer]", nullable=false, unique=true, length=20)	
+	@Column(name="codeCustomer", nullable=false, unique=true, length=20)	
 	private Integer codeCustomer;
 	
-	@Column(name="[mainAddress]", nullable=true, unique=false, length=300)	
+	@Column(name="mainAddress", nullable=true, unique=false, length=300)	
 	private String mainAddress;
 	
-	@Column(name="[mainProv]", nullable=true, unique=false, length=50)	
+	@Column(name="mainProv", nullable=true, unique=false, length=50)	
 	private String mainProv;
 	
-	@Column(name="[mainPobl]", nullable=true, unique=false, length=300)	
+	@Column(name="mainPobl", nullable=true, unique=false, length=300)	
 	private String mainPobl;
 	
-	@Column(name="[mainPostalCode]", nullable=true, unique=false, length=5)	
+	@Column(name="mainPostalCode", nullable=true, unique=false, length=5)	
 	private Integer mainPostalCode;
 	
-	@Column(name="[mainMail]", nullable=true, unique=false, length=100)	
+	@Column(name="mainMail", nullable=true, unique=false, length=100)	
 	private String mainMail;
 	
-	@Column(name="[mainPhone]", nullable=true, unique=false, length=20)	
+	@Column(name="mainPhone", nullable=true, unique=false, length=20)	
 	private String mainPhone;
 	
-	@Column(name="[typeCustomer]", nullable=true, unique=false, length=1)	
+	@Column(name="typeCustomer", nullable=true, unique=false, length=1)	
 	private Integer typeCustomer;
 
 	@OneToMany(mappedBy="customer",fetch=FetchType.LAZY)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     private Set<ContactData> contacts;
+	
+	@Column(name = "dateCreated", nullable = false)
+	private Date dateCreated;
 	
 	@OneToMany(mappedBy="customer",fetch=FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
@@ -188,5 +192,11 @@ public class CustomerData implements Serializable,DataObject {
 	}
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 }
