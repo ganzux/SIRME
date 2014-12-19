@@ -41,7 +41,7 @@ public class ReplyData implements Serializable,DataObject {
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idReply;
 
-	@Column(name="[reply]", nullable=true, unique=false, length=255)	
+	@Column(name="reply", nullable=true, unique=false, length=255)	
 	private String reply;
 	
 	@ManyToOne(targetEntity=QuestionData.class,fetch=FetchType.EAGER)

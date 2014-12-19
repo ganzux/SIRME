@@ -42,7 +42,7 @@ public class ReplyGroupData implements Serializable,DataObject {
 	@GenericGenerator(name="VC0A80160139DDDAA5D008132", strategy="native")	
 	private int idReplyGroup;
 	
-	@Column(name="[nameReplyGroup]", nullable=false, unique=false, length=100)	
+	@Column(name="nameReplyGroup", nullable=false, unique=false, length=100)	
 	private String nameReplyGroup;
 
 	@OneToMany(mappedBy="replyGroup", targetEntity=ReplyData.class)	
