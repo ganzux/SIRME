@@ -7,11 +7,11 @@ import java.util.Map;
 public class Validator {
 	
 	public static final int TYPE_TEXT = 1;		// TEXTO
-	public static final int TYPE_NUMBER = 2;	// N�MERO ENTERO >= 0
+	public static final int TYPE_NUMBER = 2;	// NUMERO ENTERO >= 0
 	public static final int TYPE_DATE = 3;		// FECHA dd/mm/yyyy
-	public static final int TYPE_SN = 4;		// S� | No
+	public static final int TYPE_SN = 4;		// Sí | No
 	public static final int TYPE_BM = 5;		// Bien | Mal
-	public static final int TYPE_DECIMAL = 6;	// N�mero Decimal
+	public static final int TYPE_DECIMAL = 6;	// Numero Decimal
 	public static final int TYPE_MONTHYEAR = 7;	// mm/yyyy
 	public static final int TYPE_YEAR = 8;		// yyyy
 	public static final int TYPE_AUTOINC = 9;	// Auntoincrementable con respecto al reporte
@@ -57,7 +57,7 @@ public class Validator {
 						if ( n < 0 )
 							throw new ValidationException(chain + " es menor que 0");
 					} catch ( Exception e ){
-						throw new ValidationException(chain + " no es un n�mero entero v�lido");
+						throw new ValidationException(chain + " no es un numero entero valido");
 					}
 				break;
 				
@@ -65,20 +65,20 @@ public class Validator {
 					try{
 						formatter.parse( chain );
 					} catch ( Exception e ){
-						throw new ValidationException(chain + " no es una fecha v�lida");
+						throw new ValidationException(chain + " no es una fecha valida");
 					}
 				break;
 				
 				case TYPE_SN:
 					try{
 						if ( !snValues.containsKey( chain.trim().toLowerCase() ) )
-							throw new ValidationException(chain + " tiene que ser 'S�' o 'No'");
+							throw new ValidationException(chain + " tiene que ser 'Sí' o 'No'");
 						if ( chain.equalsIgnoreCase("no") )
 							convertedChain = "No";
 						else
-							convertedChain = "S�";
+							convertedChain = "Sí";
 					} catch ( Exception e ){
-						throw new ValidationException(chain + " tiene que ser 'S�' o 'No'");
+						throw new ValidationException(chain + " tiene que ser 'Sí' o 'No'");
 					}
 				break;
 				
@@ -101,9 +101,9 @@ public class Validator {
 						Integer.valueOf( ed[0] );
 						Integer.valueOf( ed[1] );
 						if ( ed.length>2 )
-							throw new ValidationException(chain + " tiene que ser un n�mero decimal");
+							throw new ValidationException(chain + " tiene que ser un numero decimal");
 					} catch ( Exception e ){
-						throw new ValidationException(chain + " tiene que ser un n�mero decimal");
+						throw new ValidationException(chain + " tiene que ser un numero decimal");
 					}
 				break;
 				
@@ -113,13 +113,13 @@ public class Validator {
 						int m = Integer.valueOf( ed[0] );
 						int y = Integer.valueOf( ed[1] );
 						if ( ed.length>2 )
-							throw new ValidationException(chain + " tiene que ser Mes/A�o");
+							throw new ValidationException(chain + " tiene que ser Mes/Año");
 						if ( m < 1 || m > 12 )
-							throw new ValidationException(chain + " tiene que ser Mes/A�o (mes no v�lido)");
+							throw new ValidationException(chain + " tiene que ser Mes/Año (mes no valido)");
 						if ( y < 2000 || y > 2050 )
-							throw new ValidationException(chain + " tiene que ser Mes/A�o (a�o no v�lido)");
+							throw new ValidationException(chain + " tiene que ser Mes/Año (año no alido)");
 					} catch ( Exception e ){
-						throw new ValidationException(chain + " tiene que ser Mes/A�o");
+						throw new ValidationException(chain + " tiene que ser Mes/Año");
 					}
 				break;
 
@@ -127,14 +127,14 @@ public class Validator {
 					try{
 						int y = Integer.valueOf( chain );
 						if ( y < 2000 || y > 2050 )
-							throw new ValidationException(chain + " tiene que ser un A�o v�lido (4 d�gitos)");
+							throw new ValidationException(chain + " tiene que ser un Año valido (4 digitos)");
 					} catch ( Exception e ){
-						throw new ValidationException(chain + " tiene que ser un A�o v�lido (4 d�gitos)");
+						throw new ValidationException(chain + " tiene que ser un Año valido (4 digitos)");
 					}
 				break;
 
 				default:
-					throw new ValidationException("Tipo de dato (" + type + ") no v�lido.");
+					throw new ValidationException("Tipo de dato (" + type + ") no valido.");
 			}
 		}
 		

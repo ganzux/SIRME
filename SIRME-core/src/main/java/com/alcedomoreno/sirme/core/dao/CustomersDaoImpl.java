@@ -20,7 +20,7 @@ import com.alcedomoreno.sirme.core.data.ManagerData;
 import com.alcedomoreno.sirme.core.util.MyLogger;
 import com.alcedomoreno.sirme.core.util.DAOConstants;
 
-@Repository( DAOConstants.CUSTOMER_DAO)
+@Repository(DAOConstants.CUSTOMER_DAO)
 public class CustomersDaoImpl extends HibernateDaoSupport implements CustomersDao{
 
 	///////////////////////////////////////////////////////////////
