@@ -1,6 +1,7 @@
 package com.alcedomoreno.sirme.business.data;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +13,8 @@ public class Customer implements BusinessObject,Cloneable{
 
 	private int idCustomer;
 	private String cifCustomer;
-	private String nameCustomer;	// Raz�n Social
-	private String codeCustomer;	// N� Cliente
+	private String nameCustomer;	// Razon Social
+	private String codeCustomer;	// NIF Cliente
 
 	private String mainAddress;
 	private String mainProv;
@@ -24,7 +25,9 @@ public class Customer implements BusinessObject,Cloneable{
 	private String observations;
 	private Boolean active;
 	
-	// Los siguientes datos son de la direcci�n donde se realiza el servicio
+	private Date dateCreated;
+	
+	// Los siguientes datos son de la direccion donde se realiza el servicio
 	private String serviceLocation;
 	private String serviceAddress;
 	private String serviceProv;
@@ -261,6 +264,12 @@ public class Customer implements BusinessObject,Cloneable{
 	@Override
 	public Class<? extends Transformator> getTransformator() {
 		return CustomerTransform.class;
+	}
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 	
 }

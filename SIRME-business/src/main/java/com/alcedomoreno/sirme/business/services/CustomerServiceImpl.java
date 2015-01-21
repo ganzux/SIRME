@@ -2,6 +2,7 @@ package com.alcedomoreno.sirme.business.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -67,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService{
 
 
 	///////////////////////////////////////////////////////////////
-	//                      M�todos P�blicos                     //
+	//                      Metodos Publicos                     //
 	///////////////////////////////////////////////////////////////
 
 	@Override
@@ -171,6 +172,7 @@ public class CustomerServiceImpl implements CustomerService{
 		
 		try{
 			CustomerData cd = getCustomerData( customer );
+			cd.setDateCreated(new Date());
 			customersDao.save( cd );
 		} catch (Exception e){
 			try{

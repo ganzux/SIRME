@@ -32,7 +32,7 @@ public class MyLogger {
 			for ( Object param:params )
 				sb.append( param ).append( " | " );
 		
-		// Se retorna la cadena menos los 2 �ltimos caracteres (espacio en blanco y barra separadora)
+		// Se retorna la cadena menos los 2 ultimos caracteres (espacio en blanco y barra separadora)
 		return sb.substring( 0, sb.length()-2 );
 	}
 }

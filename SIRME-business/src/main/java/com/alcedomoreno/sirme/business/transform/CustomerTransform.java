@@ -14,13 +14,14 @@ public class CustomerTransform extends DefaultTransformator implements Transform
 		Customer business = new Customer();
 		CustomerData data = (CustomerData) dataObject;
 
-		business.setIdCustomer( data.getIdCustomer() );
-		business.setCifCustomer( data.getCifCustomer() );
-		try{ business.setCodeCustomer( String.valueOf(data.getCodeCustomer()) );}catch(Exception e){}
-		business.setNameCustomer( data.getNameCustomer() );
-		business.setMainAddress( data.getMainAddress() );
-		business.setMainMail( data.getMainMail() );
-		business.setMainPhone( data.getMainPhone() );
+		business.setIdCustomer(data.getIdCustomer());
+		business.setCifCustomer(data.getCifCustomer());
+		try{ business.setCodeCustomer(String.valueOf(data.getCodeCustomer()));}catch(Exception e){}
+		business.setNameCustomer(data.getNameCustomer());
+		business.setMainAddress(data.getMainAddress());
+		business.setMainMail(data.getMainMail());
+		business.setMainPhone(data.getMainPhone());
+		business.setDateCreated(data.getDateCreated());
 		
 		try {
 			business.setTypeCustomer( new TypeCustomer(data.getTypeCustomer().intValue()) );
@@ -49,14 +50,16 @@ public class CustomerTransform extends DefaultTransformator implements Transform
 		data.setMainMail( business.getMainMail() );
 		data.setMainPhone( business.getMainPhone() );
 		data.setActive( business.getActive() );
+		data.setDateCreated(business.getDateCreated());
+		
 		try{
 			data.setTypeCustomer( business.getTypeCustomer().getIdTypeCustomer() );
 		} catch ( Exception e ){
 			data.setTypeCustomer( 0 );
 		}
-		data.setMainPobl( business.getMainPobl() );
-		data.setMainProv( business.getMainProv() );
-		try {data.setMainPostalCode( Integer.valueOf( business.getMainPostalCode() ) );}catch(Exception e){}
+		data.setMainPobl(business.getMainPobl());
+		data.setMainProv(business.getMainProv());
+		try {data.setMainPostalCode(business.getMainPostalCode());}catch(Exception e){}
 
 		return data;
 	}

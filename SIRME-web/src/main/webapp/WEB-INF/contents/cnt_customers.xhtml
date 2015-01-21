@@ -112,11 +112,18 @@
 		            <h:outputText value="#{customer.monthsStr}" />
 		        </p:column>
 		        
-		        <p:column id="amount" sortBy="amount" width="125px;" filterMatchMode="contains" filterBy="amount" exportable="false" rendered="false">
+		        <p:column id="amount" sortBy="amount" width="125px;" filterMatchMode="contains" filterBy="amount" exportable="false" rendered="${settingsBean.superUser}">
 		        	<f:facet name="header">
 		        		<h:outputText value="Importe" />
 		        	</f:facet>
 		            <h:outputText value="#{customer.amount}" />
+		        </p:column>
+
+				<p:column id="dateCreated" sortBy="dateCreated" width="125px;" filterMatchMode="contains" filterBy="dateCreated" exportable="false" rendered="${settingsBean.superUser}">
+		        	<f:facet name="header">
+		        		<h:outputText value="Fecha" />
+		        	</f:facet>
+		            <h:outputText value="#{customer.dateCreated}" />
 		        </p:column>
 
 		        <p:column id="opt" width="125px;" style="text-align:center" rendered="${empty customersBean.stackBean.navigationStack}" exportable="false">

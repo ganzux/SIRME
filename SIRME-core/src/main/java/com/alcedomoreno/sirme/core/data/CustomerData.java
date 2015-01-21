@@ -1,10 +1,12 @@
 package com.alcedomoreno.sirme.core.data;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -62,7 +64,7 @@ public class CustomerData implements Serializable,DataObject {
 	private String mainPobl;
 	
 	@Column(name="mainPostalCode", nullable=true, unique=false, length=5)	
-	private Integer mainPostalCode;
+	private String mainPostalCode;
 	
 	@Column(name="mainMail", nullable=true, unique=false, length=100)	
 	private String mainMail;
@@ -181,10 +183,10 @@ public class CustomerData implements Serializable,DataObject {
 	public void setMainPobl(String mainPobl) {
 		this.mainPobl = mainPobl;
 	}
-	public Integer getMainPostalCode() {
+	public String getMainPostalCode() {
 		return mainPostalCode;
 	}
-	public void setMainPostalCode(Integer mainPostalCode) {
+	public void setMainPostalCode(String mainPostalCode) {
 		this.mainPostalCode = mainPostalCode;
 	}
 	public Boolean getActive() {
