@@ -50,7 +50,7 @@ public class AdviceServiceImpl implements AdviceService{
 
 
 	///////////////////////////////////////////////////////////////
-	//                      M�todos P�blicos                     //
+	//                      Metodos Publicos                     //
 	///////////////////////////////////////////////////////////////
 
 	@Override
@@ -88,7 +88,7 @@ public class AdviceServiceImpl implements AdviceService{
 		Advice adv = advices.get( key );
 
 		if ( adv.getSign() != null )
-			throw new Exception("Hay m�s de una firma");
+			throw new Exception("Hay mas de una firma");
 
 		adv.setSign( file );
 		advices.put(key, adv);
@@ -126,15 +126,15 @@ public class AdviceServiceImpl implements AdviceService{
 	}
 	
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los M�todos P�blicos               //
+	//                 Fin de los Metodos Publicos               //
 	///////////////////////////////////////////////////////////////
 
 
 	///////////////////////////////////////////////////////////////
-	//                      M�todos Privados                     //
+	//                      Metodos Privados                     //
 	///////////////////////////////////////////////////////////////
 
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los M�todos Privados               //
+	//                 Fin de los Metodos Privados               //
 	///////////////////////////////////////////////////////////////
 }

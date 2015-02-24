@@ -17,9 +17,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alcedomoreno.sirme.core.util.MyLogger;
+
 public class FileUtil {
 
-private static Logger log = LoggerFactory.getLogger( FileUtil.class );
+	private static Logger log = LoggerFactory.getLogger( FileUtil.class );
+	private static final String CLASS_NAME = "FileUtil";
 	
 	///////////////////////////////////////////////////////////////
 	//                         Constantes                        //
@@ -47,7 +50,7 @@ private static Logger log = LoggerFactory.getLogger( FileUtil.class );
 	///////////////////////////////////////////////////////////////
 	
 	///////////////////////////////////////////////////////////////
-	//                          M�todos                          //
+	//                          Metodos                          //
 	///////////////////////////////////////////////////////////////
 
 	public boolean isAccesible( String path ){
@@ -251,6 +254,7 @@ private static Logger log = LoggerFactory.getLogger( FileUtil.class );
 
 		OutputStream outputStream = null;
 		try {
+			MyLogger.info(log, CLASS_NAME, "saveFile", "IN", "Path", path);
 			outputStream = new FileOutputStream( new File( path ) );
 	 
 			int read = 0;
@@ -259,8 +263,10 @@ private static Logger log = LoggerFactory.getLogger( FileUtil.class );
 			while ((read = inputStream.read(bytes)) != -1) {
 				outputStream.write(bytes, 0, read);
 			}
+			MyLogger.info(log, CLASS_NAME, "saveFile", "OK");
 		} catch (IllegalStateException | IOException e) {
 			returned = false;
+			MyLogger.error(log, CLASS_NAME, "saveFile", e.getMessage());
 			throw new Exception( e.getMessage() );
 		} finally {
 			if (inputStream != null) {
@@ -279,10 +285,11 @@ private static Logger log = LoggerFactory.getLogger( FileUtil.class );
 			}
 		}
 
+		MyLogger.info(log, CLASS_NAME, "saveFile", "OUT", "Path", path);
 		return returned;
 	}
 
 	///////////////////////////////////////////////////////////////
-	//                      Fin de M�todos                       //
+	//                      Fin de Metodos                       //
 	///////////////////////////////////////////////////////////////
 }

@@ -62,6 +62,7 @@ public class AdvicedEndRestController {
 		
 		MyLogger.info(log, CLASS_NAME, "closeWork", data);
 		Work w = new Work();
+		boolean removedFrmQeue = false;
 
 		try{
 			Team team = teamService.get( data.getTeam(),data.getPassword() );
@@ -144,6 +145,7 @@ public class AdvicedEndRestController {
 
 			MyLogger.info(log, CLASS_NAME, "closeWork", data.getAlertId(), "Eliminando de cola de trabajos...");
 			adviceService.close( data.getAlertId(), new Advice(data) );
+			removedFrmQeue = true;
 			MyLogger.info(log, CLASS_NAME, "closeWork", data.getAlertId(), "Eliminando de cola de trabajos OK");
 		} catch (Exception e){
 			MyLogger.error(log, CLASS_NAME, "closeWork", e.getMessage());
@@ -151,7 +153,9 @@ public class AdvicedEndRestController {
 			return new CodeDTO( CodeDTO.KO, e.getMessage());
 		} finally{
 			try {
-				adviceService.close(data.getAlertId(), null);
+				if (!removedFrmQeue){
+					adviceService.close(data.getAlertId(), null);
+				}
 			} catch (Exception e) {
 				MyLogger.error(log, CLASS_NAME, "removeOldPicturesAndWork", "Error Cerrando trabajo", e.getMessage() );
 			}

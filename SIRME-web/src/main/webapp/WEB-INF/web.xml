@@ -33,14 +33,14 @@
 	   <param-value>true</param-value>
 	</context-param>
 	
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>ServletImages</servlet-name> -->
-<!-- 		<servlet-class>com.sirme.util.ImageServlet</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 	    <servlet-name>ServletImages</servlet-name> -->
-<!-- 	    <url-pattern>/pages/imgsSrvlt/*</url-pattern> -->
-<!-- 	</servlet-mapping> -->
+	<servlet>
+		<servlet-name>ServletImages</servlet-name>
+		<servlet-class>com.alcedomoreno.sirme.web.util.ImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ServletImages</servlet-name>
+	    <url-pattern>/pages/imgsSrvlt/*</url-pattern>
+	</servlet-mapping>
 	
 	<filter>
 	    <filter-name>encodingFilter</filter-name>
