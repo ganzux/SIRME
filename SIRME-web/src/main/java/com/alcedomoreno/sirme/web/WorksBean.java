@@ -344,6 +344,9 @@ public class WorksBean extends ManagedBean {
 	@Override
 	public String back(){
 		filteredWorks = works;
+		if (applicationBean.getOptionAllFiles().equalsIgnoreCase(getPageOption())){
+			setPageOption(applicationBean.getOptionView());
+		}
 		String pop = getStackBean().popPage();
 		return ( pop == null?BeanNameUtil.PAGE_PRINCIPAL_WORKS:pop) ;
 	}

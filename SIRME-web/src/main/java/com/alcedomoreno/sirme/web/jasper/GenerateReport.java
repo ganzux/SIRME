@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
@@ -27,6 +28,11 @@ import net.sf.jasperreports.engine.data.JRCsvDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.export.ExporterInput;
+import net.sf.jasperreports.export.PdfReportConfiguration;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 import com.alcedomoreno.sirme.business.data.QuestionGroup;
 import com.alcedomoreno.sirme.business.data.Reply;
@@ -289,8 +295,8 @@ public class GenerateReport {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	
 		try{
-			JRPdfExporter exporter = new  JRPdfExporter();
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			//JRPdfExporter exporter = new  JRPdfExporter();
+			//exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 			
 			StringBuilder javaScript = new StringBuilder("this.zoom=").append( "50" ).append(";")
 				// Hide the Preferences menu item
@@ -312,12 +318,26 @@ public class GenerateReport {
 				// Turn off Acrobat forms caching 
 				.append("this.nocache = true;");
 
-			exporter.setParameter(JRPdfExporterParameter.PDF_JAVASCRIPT, javaScript.toString() );
-		    exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM,baos); 
-		    exporter.exportReport(); 
-		    //JasperExportManager.exportReportToPdfStream(exporter, baos);
-		}catch (Throwable e){
+			List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
+			jasperPrintList.add(jasperPrint);
+	
+			JRPdfExporter exporter = new JRPdfExporter();
+
+			exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList));
 			
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(baos));
+			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+			configuration.setCreatingBatchModeBookmarks(true);
+			exporter.setConfiguration(configuration);
+
+			exporter.exportReport();
+			
+			/*exporter.setParameter(JRPdfExporterParameter.PDF_JAVASCRIPT, javaScript.toString() );
+		    exporter.setParameter(JRPdfExporterParameter.OUTPUT_STREAM,baos); */
+		    exporter.exportReport(); 
+		    //JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
+		}catch (Throwable e){
+			e.printStackTrace();
 		}
 		
 		return baos;
