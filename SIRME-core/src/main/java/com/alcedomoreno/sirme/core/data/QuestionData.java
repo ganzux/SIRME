@@ -52,6 +52,9 @@ public class QuestionData implements Serializable,DataObject {
 	@Column(name = "totalize", nullable = true, length = 1)
 	private Boolean totalize;
 	
+	@Column(name = "search", nullable = true, length = 1)
+	private Boolean search;
+	
 	@ManyToOne(targetEntity=QuestionGroupData.class,fetch=FetchType.LAZY)
 	@Cascade({CascadeType.LOCK})
 	@JoinColumns({ @JoinColumn(name="idQuestionGroup", referencedColumnName="idQuestionGroup") })	
@@ -67,59 +70,55 @@ public class QuestionData implements Serializable,DataObject {
 	@LazyCollection(LazyCollectionOption.TRUE)	
 	private Set<ReplyData> replies = new HashSet<ReplyData>();
 
+
+
 	public int getIdQuestion() {
 		return idQuestion;
 	}
-
 	public void setIdQuestion(int idQuestion) {
 		this.idQuestion = idQuestion;
 	}
-
 	public String getQuestion() {
 		return question;
 	}
-
 	public void setQuestion(String question) {
 		this.question = question;
 	}
 	public QuestionGroupData getQuestionGroup() {
 		return questionGroup;
 	}
-
 	public void setQuestionGroup(QuestionGroupData questionGroup) {
 		this.questionGroup = questionGroup;
 	}
-
 	public Integer getOrder() {
 		return order;
 	}
-
 	public void setOrder(Integer order) {
 		this.order = order;
 	}
-
 	public ReplyTypeData getReplyType() {
 		return replyType;
 	}
-
 	public void setReplyType(ReplyTypeData replyType) {
 		this.replyType = replyType;
 	}
-
 	public Set<ReplyData> getReplies() {
 		return replies;
 	}
-
 	public void setReplies(Set<ReplyData> replies) {
 		this.replies = replies;
 	}
-
 	public Boolean getTotalize() {
 		return totalize;
 	}
-
 	public void setTotalize(Boolean totalize) {
 		this.totalize = totalize;
+	}
+	public Boolean getSearch() {
+		return search;
+	}
+	public void setSearch(Boolean search) {
+		this.search = search;
 	}
 
 }

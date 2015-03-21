@@ -37,7 +37,7 @@ public class Question implements BusinessObject,Cloneable{
 	private Boolean totalize;
 	private ReplyType replyType;
 
-
+	private Boolean search;
 
 	public Question() {
 		super();
@@ -80,7 +80,14 @@ public class Question implements BusinessObject,Cloneable{
 	public void setTotalize(Boolean totalize) {
 		this.totalize = totalize;
 	}
-	
+	public Boolean getSearch() {
+		return search;
+	}
+	public void setSearch(Boolean search) {
+		this.search = search;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Question [idQuestion=" + idQuestion + ", question=" + question
