@@ -359,6 +359,10 @@ public class BussinessDataTest {
 		try {
 			PKWorkData pKWorkData = new PKWorkData();
 			
+			pKWorkData = new PKWorkData(3, 2);
+			assertEquals(pKWorkData.getIdWork(), 3);
+			assertEquals(pKWorkData.getYear(), 2);
+			
 			pKWorkData.setIdWork(6);
 			assertEquals(pKWorkData.getIdWork(), 6);
 			
