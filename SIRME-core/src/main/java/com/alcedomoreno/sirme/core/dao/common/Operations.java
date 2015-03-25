@@ -47,21 +47,21 @@ public interface Operations<T extends Serializable> {
     void deleteById(final Integer entityId);
     
     /**
-     * Saca de la sesión de la caché de la sesión la entidad
-     * @param entity entidad sobre la que se realizará la operación
+     * Saca de la sesiÃ³n de la cachÃ© de la sesiÃ³n la entidad
+     * @param entity entidad sobre la que se realizarÃ¡ la operaciÃ³n
      */
     void evict(final T entity);
 
     /**
-     * Devuelve el tamaño de la Entidad
-     * @return número de elementos que existen
+     * Devuelve el tamaÃ±o de la Entidad
+     * @return nÃºmero de elementos que existen
      */
-    public long count();
+    public Integer count();
     
     /**
-     * Recupera todas las entidades de una tabla peginándola
-     * @param rowId El registro de inicio (El índice empieza en el 0)
-     * @param size El tamaño de salida de la lista
+     * Recupera todas las entidades de una tabla peginÃ¡ndola
+     * @param rowId El registro de inicio (El Ã­ndice empieza en el 0)
+     * @param size El tamaÃ±o de salida de la lista
      * @return lista paginada
      */
     List<T> findAll(int rowId, int size);
