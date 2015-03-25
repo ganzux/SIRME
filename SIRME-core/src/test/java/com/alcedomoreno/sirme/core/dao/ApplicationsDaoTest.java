@@ -28,6 +28,10 @@ public class ApplicationsDaoTest extends TestCase{
 			assertNull(root);
 			
 			Collection<ApplicationData> clientes = applicationsDao.getChildApplications(0);
+			assertTrue(clientes.isEmpty());
+			
+			ApplicationsDaoImpl impl = new ApplicationsDaoImpl();
+			assertNotNull(impl);
 
 			assertTrue( true );
 		} catch (Exception e){
