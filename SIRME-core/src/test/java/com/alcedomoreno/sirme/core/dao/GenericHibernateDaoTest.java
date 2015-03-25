@@ -1,5 +1,6 @@
 package com.alcedomoreno.sirme.core.dao;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -27,6 +28,18 @@ public class GenericHibernateDaoTest {
 
 		try {
 			genericDao.loadAll(QuestionData.class);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void loadByIdTest(){
+
+		try {
+			QuestionData question = genericDao.findById(QuestionData.class, 1);
+			assertEquals(question.getIdQuestion(), 1);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
