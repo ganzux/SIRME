@@ -16,8 +16,8 @@ import com.alcedomoreno.sirme.core.dao.ApplicationsDaoImpl;
 import com.google.common.base.Preconditions;
 
 /**
- * Clase que implementa todos los métodos genéricos
- * @param <T> tipo con el que se extenderá la clase
+ * Clase que implementa todos los mÃ©todos genÃ©ricos
+ * @param <T> tipo con el que se extenderÃ¡ la clase
  */
 @SuppressWarnings("unchecked")
 public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSupport implements Operations<T> {
@@ -88,8 +88,8 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 
 
 	@Override
-	public long count() {
-		return (Long) getCurrentSession().createCriteria( clazz.getName() )
+	public Integer count() {
+		return (Integer) getCurrentSession().createCriteria( clazz.getName() )
 				.setProjection( Projections.rowCount() ).uniqueResult();
 	}
 	
