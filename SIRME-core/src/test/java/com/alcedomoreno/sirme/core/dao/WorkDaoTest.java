@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alcedomoreno.sirme.core.AppTestConfig;
+import com.alcedomoreno.sirme.core.data.AddressData;
 import com.alcedomoreno.sirme.core.data.QuestionData;
 import com.alcedomoreno.sirme.core.data.QuestionGroupData;
 import com.alcedomoreno.sirme.core.data.ReplyData;
@@ -31,10 +33,13 @@ public class WorkDaoTest {
 	@Autowired
 	WorkDao workDao;
 
+	@Autowired
+	CustomersDao customerDao;
+
 	 
 	@Test
 	@Transactional
-	public void saveTest() {
+	public void updateTest() {
 
 		try {
 			Collection<WorkData> works = workDao.getAll();
@@ -59,6 +64,119 @@ public class WorkDaoTest {
 		
 	}
 	
+	@Test
+	@Transactional
+	public void updateStatusTest() {
+
+		try {
+			workDao.updateStatus(1, 25);
+			
+			WorkData work = workDao.get(1);
+
+			assertEquals(work.getAddress().getPostalCode(), new Integer(28850));
+			assertEquals(work.getAddress().getPobl(), "Torrejon de Ardoz");
+			assertEquals(work.getReplyGroups().size(), 0);
+			assertEquals(work.getStatus(), 25);
+			
+			for (ReplyGroupData rgd : work.getReplyGroups()) {
+				assertEquals(rgd.getReplies().size(), 10);
+			}
+			
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	@Transactional
+	public void updateSignTest() {
+
+		try {
+			WorkData oldWork = workDao.get(1);
+
+			workDao.updateSign(1, "newPath", "newSigner");
+
+			WorkData work = workDao.get(1);
+
+			assertEquals(work.getSignName(), "newSigner");
+			assertEquals(work.getSignpath(), "newPath");
+			assertEquals(work.getIdWork(), oldWork.getIdWork());
+			assertEquals(work.getAlbaran(), oldWork.getAlbaran());
+			assertEquals(work.getTypeWork(), oldWork.getTypeWork());
+			assertEquals(work.getMemo(), oldWork.getMemo());
+			
+			for (ReplyGroupData rgd : work.getReplyGroups()) {
+				assertEquals(rgd.getReplies().size(), 10);
+			}
+			
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	@Transactional
+	public void saveTest() {
+
+		try {
+
+			WorkData work = new WorkData(0);
+			work = generateMock(work);
+			
+			work.setDate(new Date());
+			work.setDateCreated(new Date());
+			work.setSignName("iTo");
+			work.setSignpath("/photos/signs/");
+			work.setStatus(2);
+			work.setYear(2015);
+			work.setTypeWork(1);
+			work.setMemo("memo");
+
+			AddressData address = customerDao.getAddressById(1);
+			work.setAddress(address);
+			
+			int id = workDao.save(work);
+			
+			work = workDao.get(id);
+			
+			assertEquals(work.getAddress().getPostalCode(), new Integer(28850));
+			assertEquals(work.getAddress().getPobl(), "Torrejon de Ardoz");
+			assertEquals(work.getReplyGroups().size(), 2);
+			assertEquals(work.getIdWork(), 2);
+			
+			for (ReplyGroupData rgd : work.getReplyGroups()) {
+				assertEquals(rgd.getReplies().size(), 10);
+			}
+			
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	@Transactional
+	public void deleteTest() {
+
+		try {
+
+			WorkData work = new WorkData(1);
+			workDao.delete(work);
+			
+			Collection<WorkData> works = workDao.getAll();
+			
+			assertEquals(works.size(), 0);
+			
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		
+	}
+	
+
 	private WorkData generateMock(WorkData work){
 		
 		Set<ReplyGroupData> replyGroups = new HashSet<ReplyGroupData>();
