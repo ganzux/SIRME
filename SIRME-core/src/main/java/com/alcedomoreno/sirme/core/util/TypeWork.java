@@ -4,6 +4,9 @@ public class TypeWork {
 	
 	public static String TYPE_PARTE	= "Parte de Trabajo";
 	public static String TYPE_AVISO	= "Aviso";
+	
+	public static int ID_PARTE	= 1;
+	public static int ID_AVISO	= 2;
 
 	public TypeWork(int idTypeWork) {
 		super();
@@ -26,14 +29,16 @@ public class TypeWork {
 	}
 
 	public String getNameTypeWork(){
-		if ( idTypeWork == 1 )
+		if (idTypeWork == ID_PARTE){
 			return TYPE_PARTE;
+		}
 		return TYPE_AVISO;
 	}
 	
-	public static int getIdTypeWork( String type ){
-		if ( TYPE_PARTE.equalsIgnoreCase( type ) )
-			return 2;
-		return 1;
+	public static int getIdTypeWork(String type){
+		if (TYPE_PARTE.equalsIgnoreCase(type)){
+			return ID_PARTE;
+		}
+		return ID_AVISO;
 	}
 }
