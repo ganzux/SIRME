@@ -6,6 +6,10 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alcedomoreno.sirme.core.dao.ApplicationsDaoImpl;
 
 public class UtilTest {
 
@@ -106,5 +110,20 @@ public class UtilTest {
 			fail(e.getMessage());
 		}
 
+	}
+	
+	@Test
+	public void testLog(){
+		try {
+			Logger log = LoggerFactory.getLogger(UtilTest.class);
+			MyLogger logger = new MyLogger();
+			MyLogger.debug(log, "className", "method");
+			MyLogger.info(log, "className", "method","a");
+			MyLogger.error(log, "className", "method","b","c");
+			logger.warn(log, "className", "method", null);
+			assertTrue(true);
+		} catch (Exception e){
+			fail(e.getMessage());
+		}
 	}
 }
