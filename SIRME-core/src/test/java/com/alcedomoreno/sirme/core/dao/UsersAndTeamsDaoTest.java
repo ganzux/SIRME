@@ -313,4 +313,22 @@ public class UsersAndTeamsDaoTest {
 			fail(e.getMessage());
 		}
 	}
+	
+	@Test
+	@Transactional
+	public void SameCodeTest() {
+
+		try {
+			UsersDaoImpl impl = new UsersDaoImpl();
+			assertNotNull(impl);
+			TeamsDaoImpl impl2 = new TeamsDaoImpl();
+			assertNotNull(impl2);
+
+			UserData user = usersDao.getByCode("killLicense-007");
+			assertNull(user);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
 }
