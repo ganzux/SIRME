@@ -158,6 +158,40 @@ public class WorkDaoTest {
 	
 	@Test
 	@Transactional
+	public void albaranNumberTest() {
+
+		try {
+			int next14 = workDao.getMaxAlbaranByYear(2014);
+			int next15 = workDao.getMaxAlbaranByYear(2015);
+
+			assertEquals(next14, 0);
+			assertEquals(next15, 1);
+
+			
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	@Transactional
+	public void reportsTypeTest() {
+
+		try {
+			Collection<ReportData> reports = workDao.getAllReportsType();
+
+			assertEquals(reports.size(), 12);
+
+			
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	@Transactional
 	public void deleteTest() {
 
 		try {
@@ -169,6 +203,42 @@ public class WorkDaoTest {
 			
 			assertEquals(works.size(), 0);
 			
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	@Transactional
+	public void getWorksFromAddressTest() {
+
+		try {
+
+			Collection<WorkData> works = workDao.getFromAddress(1);
+			assertEquals(works.size(), 1);
+			
+			works = workDao.getFromAddress(0);
+			assertEquals(works.size(), 0);
+
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	@Transactional
+	public void getWorksFromTeamTest() {
+
+		try {
+
+			Collection<WorkData> works = workDao.getOpenAdvicesOrWorksFromTeam(1, new Date(), false);
+			//assertEquals(works.size(), 1);
+			
+			//works = workDao.getFromAddress(0);
+			//assertEquals(works.size(), 0);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
