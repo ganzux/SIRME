@@ -1,6 +1,7 @@
 package com.alcedomoreno.sirme.core.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
@@ -42,7 +43,11 @@ public class WorkDaoTest {
 	public void updateTest() {
 
 		try {
+			WorkDaoImpl impl = new WorkDaoImpl();
+			assertNotNull(impl);
+			
 			Collection<WorkData> works = workDao.getAll();
+			assertEquals(works.size(), 1);
 			
 			WorkData work = workDao.get(1);
 			work = generateMock(work);
@@ -227,7 +232,7 @@ public class WorkDaoTest {
 		}
 		
 	}
-	
+
 	@Test
 	@Transactional
 	public void getWorksFromTeamTest() {
@@ -235,11 +240,13 @@ public class WorkDaoTest {
 		try {
 
 			Collection<WorkData> works = workDao.getOpenAdvicesOrWorksFromTeam(1, new Date(), false);
+			Collection<WorkData> works2 = workDao.getOpenAdvicesOrWorksFromTeam(1, new Date(), true);
+			
+			Collection<WorkData> works3 = workDao.getOpenAdvicesOrWorksFromTeam(1, null, false);
 			//assertEquals(works.size(), 1);
 			
 			//works = workDao.getFromAddress(0);
 			//assertEquals(works.size(), 0);
-
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

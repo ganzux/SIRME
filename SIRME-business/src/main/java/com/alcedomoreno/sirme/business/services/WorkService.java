@@ -17,7 +17,6 @@ public interface WorkService {
 	public Collection<Work> get( Address address );
 	public Collection<Work> getOpenAdvicesOrWorksFromTeam( int idTeam, Date date, boolean work );
 	public int getNextAlbaran(int year);
-	public Collection<Report> getReportsFormWork( int idWork );
 	public Collection<Report> getAllKindReports();
 	public int save(Work work) throws ValidationException, TransactionException;
 	public void changeStatus(int idWork, int newStatus) throws TransactionException;

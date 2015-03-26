@@ -48,7 +48,7 @@ public class CustomerData implements Serializable,DataObject {
 	@Column(name="nameCustomer", nullable=false, unique=false, length=50)	
 	private String nameCustomer;
 
-	@Column(name="cifCustomer", nullable=false, unique=true, length=20)	
+	@Column(name="cifCustomer", nullable=false, unique=false, length=20)	
 	private String cifCustomer;
 	
 	@Column(name="codeCustomer", nullable=false, unique=true, length=20)	

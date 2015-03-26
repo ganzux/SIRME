@@ -4,9 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -149,33 +147,6 @@ public class WorkServiceImpl implements WorkService {
 		MyLogger.info(log, CLASS_NAME, "getNextAlbaran", "OUT", year);
 
 		return max;
-	}
-
-	@Override
-	public Collection<Report> getReportsFormWork( int idWork ){
-		MyLogger.info(log, CLASS_NAME, "getReportsFormWork", "IN", idWork);
-
-		Collection<ReplyData> replies = workDao.getRepliesFromWork( idWork );
-		
-		Collection<Report> reportsFromWork = new ArrayList<Report>();
-
-		Map<Integer,Report> repliesMap = new HashMap<Integer,Report>();
-			for ( ReplyData reply:replies ){
-
-				/*int idReport = reply.getReport().getIdReport();
-
-				if ( repliesMap.get( idReport ) == null ){
-					Report report = (Report) TransformFactory.getTransformator(Report.class).toBusinessObject( reply.getReport() );
-					report.setReplies( new ArrayList<Reply>() );
-					repliesMap.put( idReport, report );
-				}
-				repliesMap.get( idReport ).getReplies().add( (Reply) TransformFactory.getTransformator(Reply.class).toBusinessObject( reply ) );
-*/
-			}
-		
-		
-		MyLogger.info(log, CLASS_NAME, "getReportsFormWork", "OUT", idWork);
-		return new ArrayList<Report>( repliesMap.values() );
 	}
 
 	@Override

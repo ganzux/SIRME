@@ -46,7 +46,7 @@ public class AddressData implements Serializable,DataObject {
 	@Column(name="location", nullable=true, unique=false, length=120)	
 	private String location;
 
-	@Column(name="prov", nullable=true, unique=true, length=50)	
+	@Column(name="prov", nullable=true, unique=false, length=50)	
 	private String prov;
 	
 	@Column(name="pobl", nullable=true, unique=false, length=300)	

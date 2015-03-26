@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.alcedomoreno.sirme.core.data.ReplyData;
 import com.alcedomoreno.sirme.core.data.ReportData;
 import com.alcedomoreno.sirme.core.data.WorkData;
 import com.alcedomoreno.sirme.core.util.DAOConstants;
@@ -29,20 +28,20 @@ import com.alcedomoreno.sirme.core.util.TypeWork;
 public class WorkDaoImpl extends HibernateDaoSupport implements WorkDao{
 
 	///////////////////////////////////////////////////////////////
-	//                         Atributos                         //
+	//                         Atributtes                        //
 	///////////////////////////////////////////////////////////////
 
 	private static Logger log = LoggerFactory.getLogger( WorkDaoImpl.class );
 	private static final String CLASS_NAME = "WorkDaoImpl";
 
 	///////////////////////////////////////////////////////////////
-	//                    Fin de los Atributos                   //
+	//                      End of Atributtes                    //
 	///////////////////////////////////////////////////////////////
 
 
 
 	///////////////////////////////////////////////////////////////
-	//                       Constructores                       //
+	//                        Constructors                       //
 	///////////////////////////////////////////////////////////////
 	
 	public WorkDaoImpl(){
@@ -57,13 +56,13 @@ public class WorkDaoImpl extends HibernateDaoSupport implements WorkDao{
 	}
 	
 	///////////////////////////////////////////////////////////////
-	//                  Fin de los Constructores                 //
+	//                     End of Constructors                   //
 	///////////////////////////////////////////////////////////////
 
 
 
 	///////////////////////////////////////////////////////////////
-	//                      Métodos Públicos                     //
+	//                       Public Methods                      //
 	///////////////////////////////////////////////////////////////
 
 	@Override
@@ -94,17 +93,22 @@ public class WorkDaoImpl extends HibernateDaoSupport implements WorkDao{
 		MyLogger.info( log , CLASS_NAME, "getAdvicesFromTeam", "INIT", idTeam);
 
 		Calendar dateCalendar = Calendar.getInstance();
-		dateCalendar.setTime( date );
+		
+		if (date != null){
+			dateCalendar.setTime(date);
+		} else {
+			dateCalendar.setTime(new Date());
+		}
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
 		Date startDate = date;
+
 		try {
 			startDate = format.parse(dateCalendar.get(Calendar.YEAR) + "-" +
 											(dateCalendar.get(Calendar.MONTH)+1) + "-" +
 											dateCalendar.get(Calendar.DAY_OF_MONTH) + " 23:59:59");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MyLogger.info( log , CLASS_NAME, "getOpenAdvicesOrWorksFromTeam", "null date");
 		}  
 
 		StringBuilder querys = new StringBuilder(" from WorkData w ");
@@ -169,21 +173,6 @@ public class WorkDaoImpl extends HibernateDaoSupport implements WorkDao{
 	}
 
 	@Override
-	public Collection<ReplyData> getRepliesFromWork(int idWork){
-		MyLogger.info( log , CLASS_NAME, "getRepliesFromWork", "INIT", idWork);
-		
-		StringBuilder querys = new StringBuilder(" from ReplyData r ");
-		querys.append(" WHERE r.work.idWork = :idw ");
-        Query query = getSessionFactory().getCurrentSession().createQuery( querys.toString() );
-
-		query.setParameter("idw", idWork);
-		Collection<ReplyData> workList = query.list();
-
-		MyLogger.info( log , CLASS_NAME, "getRepliesFromWork", "END", idWork);
-		return workList;
-	}
-
-	@Override
 	public int save(WorkData cd){
 		MyLogger.info( log , CLASS_NAME, "save", "INIT", cd);
 		getHibernateTemplate().save( cd );
@@ -236,15 +225,15 @@ public class WorkDaoImpl extends HibernateDaoSupport implements WorkDao{
 	}
 	
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los M�todos P�blicos               //
+	//                    End Of Public Methods                  //
 	///////////////////////////////////////////////////////////////
 
 
 	///////////////////////////////////////////////////////////////
-	//                      M�todos Privados                     //
+	//                       Private Methods                     //
 	///////////////////////////////////////////////////////////////
 	
 	///////////////////////////////////////////////////////////////
-	//                 Fin de los M�todos Privados               //
+	//                    End Of Private Methods                 //
 	///////////////////////////////////////////////////////////////
 }

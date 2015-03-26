@@ -259,8 +259,8 @@ INSERT INTO customers (idCustomer, nameCustomer, cifCustomer, codeCustomer, main
 INSERT INTO address (idaddress, address, idCustomer, prov, pobl, postalCode, other, location, monthMask, amount) VALUES (1, 'CL. Camarillas, 11 ', 1, 'Madrid ', 'Torrejon de Ardoz', 28850, '', 'Comunidad de Propietarios', 'MAY', '');
 INSERT INTO work (idWork, year, albaran, idTeam, idAddress, memo, data, status, typeWork, dateCreated, signpath, signName) VALUES (1, 2015, 1, 1, 1, 'HA SALTADO LA ALARMA ', 'averia', 1, 1, '2014-05-27', NULL, NULL);
 
-
-
+INSERT INTO customers (idCustomer, nameCustomer, cifCustomer, codeCustomer, mainAddress, mainProv, mainPobl, mainPostalCode, mainMail, mainPhone, idManager, idUser, typeCustomer, dateCreated, active) VALUES (2, 'name2', 'cifr2', 2, 'mainAddress', 'mainProv', 'mainPobl', 28020, 'mail', 'mainPhone', NULL, NULL, 1, '2014-05-31', 1);
+INSERT INTO address (idaddress, address, idCustomer, prov, pobl, postalCode, other, location, monthMask, amount) VALUES (2, 'CL. Camarillas, 22 ', 2, 'Madrid ', 'Torrejon de Ardoz', 28850, '', 'Comunidad de Propietarios', 'MAY', '');
 
 
 

@@ -229,6 +229,7 @@ public class CustomersDaoImpl extends HibernateDaoSupport implements CustomersDa
 		Query query = getSessionFactory().getCurrentSession().createQuery("delete AddressData where idCustomer = :id");
 		query.setParameter("id", idCustomer);
 		int result = query.executeUpdate();
+		getHibernateTemplate().flush();
 		MyLogger.info( log , CLASS_NAME, "deleteAddress", "END");
 		return result;
 	}
@@ -239,6 +240,7 @@ public class CustomersDaoImpl extends HibernateDaoSupport implements CustomersDa
 		Query query = getSessionFactory().getCurrentSession().createQuery("delete AddressData where idAddress = :id");
 		query.setParameter("id", addressData.getIdaddress());
 		int result = query.executeUpdate();
+		getHibernateTemplate().flush();
 		MyLogger.info( log , CLASS_NAME, "deleteAddress", "END");
 		return result;
 	}
