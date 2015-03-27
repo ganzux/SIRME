@@ -109,8 +109,7 @@ public class ProfilesDaoImpl extends HibernateDaoSupport implements ProfilesDao{
 		
 		MyLogger.info(log, CLASS_NAME, "getAll", "", "START");
 
-		String query = "from ProfileData profile"+    
-        " where profile.idProfile <> 1";   
+		String query = "from ProfileData profile";   
 		
 		Collection<ProfileData> data = getHibernateTemplate().find(query);
 		

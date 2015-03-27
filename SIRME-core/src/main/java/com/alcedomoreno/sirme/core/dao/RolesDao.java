@@ -10,13 +10,11 @@ public interface RolesDao extends Operations<RoleData> {
     
 	public RoleData getByCode(String codeRole);
 	
-	public RoleData getWithPermissions(int idRole);
-	
 	public RoleData get(int idRole);
 			
 	public Collection<RoleData> getAll();
  	
 	public void save(RoleData profile); 	  	  	
  	
-	public void delete(int idRole);
+	public int delete(int idRole);
 }

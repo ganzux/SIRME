@@ -46,41 +46,39 @@ public class ProfileData implements DataObject{
 	@Column(name="descriptionProfile", nullable=true, length=255)
 	private String descriptionProfile;
 
-	
+	@Column(name="URLSuccessLogin", nullable=true, length=255)
+	private String URLSuccessLogin;
 
 	public void setIdProfile(int value) {
 		this.idProfile = value;
 	}
-	
 	public int getIdProfile() {
 		return this.idProfile;
-	}
-	
+	}	
 	public int getORMID() {
 		return getIdProfile();
 	}
-		
 	public void setCodeProfile(String value) {
 		this.codeProfile = value;
 	}
-	
 	public String getCodeProfile() {
 		return this.codeProfile;
 	}
-
 	public String getAuthority() {
 		return this.codeProfile;
 	}
-	
 	public void setDescriptionProfile(String value) {
 		this.descriptionProfile = value;
 	}
-	
 	public String getDescriptionProfile() {
 		return this.descriptionProfile;
 	}
-
-
+	public String getURLSuccessLogin() {
+		return URLSuccessLogin;
+	}
+	public void setURLSuccessLogin(String uRLSuccessLogin) {
+		URLSuccessLogin = uRLSuccessLogin;
+	}
 	public String toString() {
 		return String.valueOf(getIdProfile());
 	}

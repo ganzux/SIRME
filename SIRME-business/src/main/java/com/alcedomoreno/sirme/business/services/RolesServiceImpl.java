@@ -85,19 +85,6 @@ public class RolesServiceImpl implements RolesService{
 	}
 
 	@Override
-	public Role getWithPermissions(int idRole) {
-		MyLogger.info(log, CLASS_NAME, "getRoleWithPermissions", "idRole="+idRole, "START");
-		RoleData data = rolesDao.getWithPermissions(idRole);
-		if(data == null){
-			MyLogger.info(log, CLASS_NAME, "getRoleWithPermissions", "idRole=null", "END");
-			return null;
-		}
-		Role business = (Role) TransformFactory.getTransformator(Role.class).toBusinessObject(data);
-		MyLogger.info(log, CLASS_NAME, "getRoleWithPermissions", "idRole="+idRole, "END");
-		return business;
-	}
-
-	@Override
 	public Role get(int idRole) {
 		MyLogger.info(log, CLASS_NAME, "getRole", "idRole="+idRole, "START");
 		RoleData data = rolesDao.get(idRole);

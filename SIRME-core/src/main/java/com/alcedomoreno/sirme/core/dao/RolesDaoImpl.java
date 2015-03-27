@@ -3,6 +3,7 @@ package com.alcedomoreno.sirme.core.dao;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,14 +58,13 @@ public class RolesDaoImpl extends AbstractHibernateDao<RoleData> implements Role
 	///////////////////////////////////////////////////////////////
 	
 	@Override
-	public void delete(int idProfile) {
-		
-		MyLogger.info(log, CLASS_NAME, "delete", "profile="+idProfile, "START");	
-		
-		RoleData data = getHibernateTemplate().get(RoleData.class, idProfile);		
-		getHibernateTemplate().delete(data);
-		
-		MyLogger.info(log, CLASS_NAME, "delete", "user="+idProfile, "END");
+	public int delete(int idRole) {
+		MyLogger.info( log , CLASS_NAME, "delete", "INIT");
+		Query query = getSessionFactory().getCurrentSession().createQuery("delete RoleData where idRole = :id");
+		query.setParameter("id", idRole);
+		int result = query.executeUpdate();
+		MyLogger.info( log , CLASS_NAME, "delete", "END");
+		return result;
 		
 	}
 	
@@ -86,34 +86,14 @@ public class RolesDaoImpl extends AbstractHibernateDao<RoleData> implements Role
 		MyLogger.info(log, CLASS_NAME, "getByCode", "codeProfile="+codeProfile, "END");
 		return result;
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public RoleData getWithPermissions(int idProfile) {
-		MyLogger.info(log, CLASS_NAME, "getWithPermissions", "idProfile="+idProfile, "START");
-		
-		String query = "from RoleData pro "+
-		"left outer join fetch pro.permissions per "+
-		"inner join fetch per.application app "+
-		"where pro.idProfile = ?";
 
-			
-		List<RoleData> list = getHibernateTemplate().find(query, new Object[]{idProfile});
-		RoleData result = null;
-		if (list.size() > 0) {
-			result = list.get(0);
-		}
-		MyLogger.info(log, CLASS_NAME, "getWithPermissions", "idProfile="+idProfile, "END");
-		return result;
-	}
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public RoleData get(int idProfile) {
 		MyLogger.info(log, CLASS_NAME, "getProfile", "idProfile="+idProfile, "START");
 		
 		String query = "from RoleData pro "+		
-		"where pro.idProfile = ?";
+		"where pro.idRole = ?";
 
 			
 		List<RoleData> list = getHibernateTemplate().find(query, new Object[]{idProfile});

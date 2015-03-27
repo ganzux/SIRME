@@ -1,9 +1,10 @@
-INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (1, NULL, 'CLIENTES', 'Clientes', 1);
-INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (2, NULL, 'EQUIPOS', 'Equipos', 1);
-INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (3, NULL, 'PARTES', 'Partes de Trabajo', 1);
-INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (4, NULL, 'USUARIOS', 'Usuarios', 1);
-INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (5, NULL, 'ESTADISTICAS', 'Estadísticas', 1);
-INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (6, NULL, 'GESTORES', 'Gestores', 1);
+INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (7, NULL, 'ROOT', 'ROOT', 0);
+INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (1, 7, 'CLIENTES', 'Clientes', 1);
+INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (2, 7, 'EQUIPOS', 'Equipos', 1);
+INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (3, 7, 'PARTES', 'Partes de Trabajo', 1);
+INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (4, 7, 'USUARIOS', 'Usuarios', 1);
+INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (5, 7, 'ESTADISTICAS', 'Estadísticas', 1);
+INSERT INTO applications (idApplication, idMainApplication, codeApplication, nameApplication, levelApplication) VALUES (6, 7, 'GESTORES', 'Gestores', 1);
 
 INSERT INTO permissions (idPermission, codePermission, descriptionPermission, idApplication) VALUES (1, 'VIEW_CLIENTES', 'Acceso a Clientes', 1);
 INSERT INTO permissions (idPermission, codePermission, descriptionPermission, idApplication) VALUES (2, 'VIEW_EQUIPOS', 'Acceso a Equipos', 2);
@@ -275,6 +276,7 @@ INSERT INTO reply (idReply, idQuestion, reply, idReplyGroup) VALUES (4, 13, 'd',
 INSERT INTO reply (idReply, idQuestion, reply, idReplyGroup) VALUES (5, 12, 'e', 2);
 INSERT INTO reply (idReply, idQuestion, reply, idReplyGroup) VALUES (6, 1, 'f', 3);
 
+INSERT INTO profiles (idProfile, codeProfile, descriptionProfile, URLSuccessLogin) VALUES (1, 'CODE', 'DESC', '/login/...');
 
 
 

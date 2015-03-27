@@ -12,5 +12,4 @@ public interface RolesService {
 	public Collection<Role> getAll();
 	public void save(Role profile); 	  	  	
 	public void delete(int idProfile);
-	public Role getWithPermissions(int idRole);
 }
