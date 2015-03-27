@@ -53,13 +53,13 @@ public class WorkDaoTest {
 			work = generateMock(work);
 			workDao.update(work);
 			
-			work = workDao.get(1);
+			WorkData newWork = workDao.get(1);
 			
-			assertEquals(work.getAddress().getPostalCode(), new Integer(28850));
-			assertEquals(work.getAddress().getPobl(), "Torrejon de Ardoz");
-			assertEquals(work.getReplyGroups().size(), 2);
+			assertEquals(newWork.getAddress().getPostalCode(), new Integer(28850));
+			assertEquals(newWork.getAddress().getPobl(), "Torrejon de Ardoz");
+			assertEquals(newWork.getReplyGroups().size(), 2);
 			
-			for (ReplyGroupData rgd : work.getReplyGroups()) {
+			for (ReplyGroupData rgd : newWork.getReplyGroups()) {
 				assertEquals(rgd.getReplies().size(), 10);
 			}
 			
@@ -259,7 +259,7 @@ public class WorkDaoTest {
 		Set<ReplyGroupData> replyGroups = new HashSet<ReplyGroupData>();
 
 			ReplyGroupData replyGroup1 = new ReplyGroupData();
-			replyGroup1.setIdReplyGroup(1);
+			replyGroup1.setIdReplyGroup(0);
 			replyGroup1.setNameReplyGroup("Extintor 1");
 			replyGroup1.setReplies(generateRepliesMock(1, 10, "Extintores 1 - ", replyGroup1));
 			
@@ -277,7 +277,7 @@ public class WorkDaoTest {
 			
 			
 			ReplyGroupData replyGroup2 = new ReplyGroupData();
-			replyGroup2.setIdReplyGroup(2);
+			replyGroup2.setIdReplyGroup(0);
 			replyGroup2.setNameReplyGroup("Extintor 2");
 			replyGroup2.setReplies(generateRepliesMock(11, 20, "Extintores 1 - ", replyGroup2));
 			
@@ -303,7 +303,7 @@ public class WorkDaoTest {
 		for (int i = init ; i <= times ; i++){
 			ReplyData reply = new ReplyData();
 			
-			reply.setIdReply(i);
+			reply.setIdReply(0);
 			reply.setReply(r + i);
 			reply.setReplyGroup(rgd);
 			
