@@ -262,8 +262,18 @@ INSERT INTO work (idWork, year, albaran, idTeam, idAddress, memo, data, status, 
 INSERT INTO customers (idCustomer, nameCustomer, cifCustomer, codeCustomer, mainAddress, mainProv, mainPobl, mainPostalCode, mainMail, mainPhone, idManager, idUser, typeCustomer, dateCreated, active) VALUES (2, 'name2', 'cifr2', 2, 'mainAddress', 'mainProv', 'mainPobl', 28020, 'mail', 'mainPhone', NULL, NULL, 1, '2014-05-31', 1);
 INSERT INTO address (idaddress, address, idCustomer, prov, pobl, postalCode, other, location, monthMask, amount) VALUES (2, 'CL. Camarillas, 22 ', 2, 'Madrid ', 'Torrejon de Ardoz', 28850, '', 'Comunidad de Propietarios', 'MAY', '');
 
+INSERT INTO work (idWork, year, albaran, idTeam, idAddress, memo, data, status, typeWork, dateCreated, signpath, signName) VALUES (3, 2015, 3, 1, 1, 'HA SALTADO LA ALARMA 2', 'averia2', 1, 1, '2014-05-27', NULL, NULL);
+INSERT INTO replygroup (idReplyGroup, nameReplyGroup, idQuestionGroup, idWork, idReport) VALUES (1, 'Extintor', 1, 3, 1);
+INSERT INTO replygroup (idReplyGroup, nameReplyGroup, idQuestionGroup, idWork, idReport) VALUES (2, 'Extintor', 1, 3, 1);
+INSERT INTO replygroup (idReplyGroup, nameReplyGroup, idQuestionGroup, idWork, idReport) VALUES (3, 'Extintor', 1, 3, 1);
+INSERT INTO replygroup (idReplyGroup, nameReplyGroup, idQuestionGroup, idWork, idReport) VALUES (4, 'Extintor', 1, 3, 1);
 
-
+INSERT INTO reply (idReply, idQuestion, reply, idReplyGroup) VALUES (1, 4, 'a', 1);
+INSERT INTO reply (idReply, idQuestion, reply, idReplyGroup) VALUES (2, 1, 'b', 1);
+INSERT INTO reply (idReply, idQuestion, reply, idReplyGroup) VALUES (3, 7, 'c', 1);
+INSERT INTO reply (idReply, idQuestion, reply, idReplyGroup) VALUES (4, 13, 'd', 2);
+INSERT INTO reply (idReply, idQuestion, reply, idReplyGroup) VALUES (5, 12, 'e', 2);
+INSERT INTO reply (idReply, idQuestion, reply, idReplyGroup) VALUES (6, 1, 'f', 3);
 
 
 

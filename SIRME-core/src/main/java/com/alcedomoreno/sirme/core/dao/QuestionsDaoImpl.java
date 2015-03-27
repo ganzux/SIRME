@@ -63,15 +63,15 @@ public class QuestionsDaoImpl extends HibernateDaoSupport implements QuestionsDa
 
 	@Override
 	public Collection<ReportData> getAll() {
-		MyLogger.info( log , CLASS_NAME, "getAll", "INIT");
+		MyLogger.info(log , CLASS_NAME, "getAll", "INIT");
 		Collection<ReportData> collection = getHibernateTemplate().loadAll( ReportData.class );
-		MyLogger.info( log , CLASS_NAME, "getAll", "END");
+		MyLogger.info(log , CLASS_NAME, "getAll", "END");
 		return collection;
 	}
 	
 	@Override
-	public WorkData getWork( int idAddress ){
-		MyLogger.info( log , CLASS_NAME, "getWork", "INIT");
+	public WorkData getWork(int idAddress){
+		MyLogger.info(log , CLASS_NAME, "getWork", "INIT");
 		
 		WorkData c = (WorkData)  getSessionFactory().getCurrentSession().createCriteria(WorkData.class)
 				.setFetchMode("replyGroups", FetchMode.JOIN)
@@ -82,13 +82,13 @@ public class QuestionsDaoImpl extends HibernateDaoSupport implements QuestionsDa
                 .add( Restrictions.idEq(idAddress) )
                 .uniqueResult();
 
-		MyLogger.info( log , CLASS_NAME, "getWork", "END");
+		MyLogger.info(log , CLASS_NAME, "getWork", "END");
 		return c;
 	}
 
 	@Override
-	public WorkData getWorkByAddress( int idAddress ){
-		MyLogger.info( log , CLASS_NAME, "getWorkByAddress", "INIT");
+	public WorkData getWorkByAddress(int idAddress){
+		MyLogger.info(log , CLASS_NAME, "getWorkByAddress", "INIT");
 		
 		WorkData c0 = null;
 		
@@ -97,14 +97,14 @@ public class QuestionsDaoImpl extends HibernateDaoSupport implements QuestionsDa
 				.setFetchMode("replyGroups", FetchMode.JOIN)
 				.createAlias("replyGroups", "r", CriteriaSpecification.LEFT_JOIN)
 				.setFetchMode("r.replies", FetchMode.JOIN)
-                .add( Restrictions.eq("address.idaddress",idAddress) )
-                .addOrder( Order.desc("dateCreated") )
+                .add(Restrictions.eq("address.idaddress",idAddress))
+                .addOrder(Order.desc("dateCreated"))
                 .list();
 		
-		if ( c != null && !c.isEmpty() )
-			c0 = c.get( 0 );
+		if (!c.isEmpty())
+			c0 = c.get(0);
 
-		MyLogger.info( log , CLASS_NAME, "getWorkByAddress", "END");
+		MyLogger.info(log , CLASS_NAME, "getWorkByAddress", "END");
 		return c0;
 	}
 	

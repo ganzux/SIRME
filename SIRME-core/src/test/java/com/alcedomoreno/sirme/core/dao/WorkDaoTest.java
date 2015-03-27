@@ -47,7 +47,7 @@ public class WorkDaoTest {
 			assertNotNull(impl);
 			
 			Collection<WorkData> works = workDao.getAll();
-			assertEquals(works.size(), 1);
+			assertEquals(works.size(), 2);
 			
 			WorkData work = workDao.get(1);
 			work = generateMock(work);
@@ -149,7 +149,7 @@ public class WorkDaoTest {
 			assertEquals(work.getAddress().getPostalCode(), new Integer(28850));
 			assertEquals(work.getAddress().getPobl(), "Torrejon de Ardoz");
 			assertEquals(work.getReplyGroups().size(), 2);
-			assertEquals(work.getIdWork(), 2);
+			assertEquals(work.getIdWork(), 4);
 			
 			for (ReplyGroupData rgd : work.getReplyGroups()) {
 				assertEquals(rgd.getReplies().size(), 10);
@@ -170,7 +170,7 @@ public class WorkDaoTest {
 			int next15 = workDao.getMaxAlbaranByYear(2015);
 
 			assertEquals(next14, 0);
-			assertEquals(next15, 1);
+			assertEquals(next15, 3);
 
 			
 		} catch (Exception e) {
@@ -206,7 +206,7 @@ public class WorkDaoTest {
 			
 			Collection<WorkData> works = workDao.getAll();
 			
-			assertEquals(works.size(), 0);
+			assertEquals(works.size(), 1);
 			
 
 		} catch (Exception e) {
@@ -222,7 +222,7 @@ public class WorkDaoTest {
 		try {
 
 			Collection<WorkData> works = workDao.getFromAddress(1);
-			assertEquals(works.size(), 1);
+			assertEquals(works.size(), 2);
 			
 			works = workDao.getFromAddress(0);
 			assertEquals(works.size(), 0);
