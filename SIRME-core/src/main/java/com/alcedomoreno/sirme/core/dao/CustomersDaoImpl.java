@@ -89,30 +89,30 @@ public class CustomersDaoImpl extends HibernateDaoSupport implements CustomersDa
 
 	@Override
 	public CustomerData getCustomer(CustomerData cd){
-		MyLogger.info( log , CLASS_NAME, "getCustomer", "INIT");
+		MyLogger.info(log , CLASS_NAME, "getCustomer", "INIT");
 		
 		Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(CustomerData.class)
 				.setFetchMode("contacts", FetchMode.SELECT)
 				.setFetchMode("manager", FetchMode.JOIN)
 				.setFetchMode("commercial", FetchMode.JOIN);
 		
-		if (  cd.getIdCustomer() != 0 )
-			criteria.add( Restrictions.idEq(cd.getIdCustomer()) );
-		else if ( cd.getCodeCustomer() != null && cd.getCodeCustomer() != 0)
-			criteria.add( Restrictions.eq("codeCustomer",Integer.valueOf(cd.getCodeCustomer())) );
-		else if ( cd.getCifCustomer() != null && !cd.getCifCustomer().isEmpty() )
-			criteria.add( Restrictions.eq("cifCustomer",cd.getCifCustomer()) );
+		if (cd.getIdCustomer() != 0)
+			criteria.add(Restrictions.idEq(cd.getIdCustomer()));
+		else if (cd.getCodeCustomer() != null && cd.getCodeCustomer() != 0)
+			criteria.add(Restrictions.eq("codeCustomer",Integer.valueOf(cd.getCodeCustomer())));
+		else if (cd.getCifCustomer() != null && !cd.getCifCustomer().isEmpty())
+			criteria.add(Restrictions.eq("cifCustomer",cd.getCifCustomer()));
 		else
-			criteria.add( Restrictions.idEq( 0 ) );
+			criteria.add(Restrictions.idEq(0));
 			
 
 		List<CustomerData> css = (List<CustomerData>)criteria.list();
 		CustomerData c = null;
 		
-		if ( css != null && !css.isEmpty() )
-			c = css.get( 0 );
+		if (!css.isEmpty())
+			c = css.get(0);
 
-		MyLogger.info( log , CLASS_NAME, "getCustomer", "END");
+		MyLogger.info(log , CLASS_NAME, "getCustomer", "END");
 		return c;
 	}
 

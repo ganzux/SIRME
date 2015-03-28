@@ -108,7 +108,7 @@ public class WorkDaoImpl extends HibernateDaoSupport implements WorkDao{
 											(dateCalendar.get(Calendar.MONTH)+1) + "-" +
 											dateCalendar.get(Calendar.DAY_OF_MONTH) + " 23:59:59");
 		} catch (ParseException e) {
-			MyLogger.info( log , CLASS_NAME, "getOpenAdvicesOrWorksFromTeam", "null date");
+			MyLogger.error( log , CLASS_NAME, "getOpenAdvicesOrWorksFromTeam", "null date", e.getMessage());
 		}  
 
 		StringBuilder querys = new StringBuilder(" from WorkData w ");

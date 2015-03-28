@@ -278,6 +278,7 @@ INSERT INTO reply (idReply, idQuestion, reply, idReplyGroup) VALUES (6, 1, 'f', 
 
 INSERT INTO profiles (idProfile, codeProfile, descriptionProfile, URLSuccessLogin) VALUES (1, 'CODE', 'DESC', '/login/...');
 
+INSERT INTO manager (idManager, nameManager, phoneManager, mailManager) VALUES (1, 'Bruce Wayne', '288', 'batman@superheroes.com');
 
 
 

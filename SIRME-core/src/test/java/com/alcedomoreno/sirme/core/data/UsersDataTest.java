@@ -157,6 +157,9 @@ public class UsersDataTest {
 
 			data.setDescriptionProfile("description");
 			assertEquals(data.getDescriptionProfile(), "description");
+			
+			data.setURLSuccessLogin("uRLSuccessLogin");
+			assertEquals(data.getURLSuccessLogin(), "uRLSuccessLogin");
 
 			data.setIdProfile(288);
 			assertEquals(data.getIdProfile(), 288);
