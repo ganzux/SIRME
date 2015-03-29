@@ -40,7 +40,7 @@ public class TeamsRestController {
 
 		LOGGER.info("Equipo {} pide trabajos a realizar");
 
-		Collection<Work> works = worksService.getAll();
+		Collection<Work> works = worksService.getAll(null);
 		List<WorkDTO> worksByTeam = new ArrayList<WorkDTO>();
 		WorksByTeamDTO worksByTeamDTO = new WorksByTeamDTO();
 
