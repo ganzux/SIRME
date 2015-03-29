@@ -2,6 +2,7 @@ package com.alcedomoreno.sirme.core.dao;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import com.alcedomoreno.sirme.core.data.ReportData;
 import com.alcedomoreno.sirme.core.data.WorkData;
@@ -10,6 +11,8 @@ public interface WorkDao {
 	
 	public Collection<WorkData> getAll();
 	
+	public Collection<WorkData> getAll(List<Integer> selectedYears);
+
 	public Collection<ReportData> getAllReportsType();
 	
 	public WorkData get(int idWork);

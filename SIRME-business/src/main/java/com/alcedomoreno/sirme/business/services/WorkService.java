@@ -12,7 +12,7 @@ import com.alcedomoreno.sirme.business.util.ValidationException;
 
 public interface WorkService {
 
-	public Collection<Work> getAll();
+	public Collection<Work> getAll(String[] selectedYears);
 	public Work get(int idWork);
 	public Collection<Work> get( Address address );
 	public Collection<Work> getOpenAdvicesOrWorksFromTeam( int idTeam, Date date, boolean work );

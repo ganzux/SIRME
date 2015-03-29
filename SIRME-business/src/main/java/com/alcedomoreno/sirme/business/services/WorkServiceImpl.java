@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -83,17 +84,27 @@ public class WorkServiceImpl implements WorkService {
 	///////////////////////////////////////////////////////////////
 
 	@Override
-	public Collection<Work> getAll() {
+	public Collection<Work> getAll(String[] selectedYears) {
 		MyLogger.info(log, CLASS_NAME, "getAll", "IN");
-		
+
 		Collection<Work> dummies = null;
-		dummies = (Collection<Work>) TransformFactory.getTransformator(Work.class).toBusinessObject( workDao.getAll() );
+
+		List<Integer> years = null;
+		try{
+			years = new ArrayList<Integer>();
+			for (String yearStr : selectedYears){
+				years.add(Integer.valueOf(yearStr));
+			}
+		} catch(Exception e){
+		}
+
+		dummies = (Collection<Work>) TransformFactory.getTransformator(Work.class).toBusinessObject(workDao.getAll(years));
 		
 		MyLogger.info(log, CLASS_NAME, "getAll", "OUT");
 
 		return dummies;
 	}
-	
+
 	@Override
 	public Collection<Work> get( Address address ){
 		MyLogger.info(log, CLASS_NAME, "get", "IN", address);

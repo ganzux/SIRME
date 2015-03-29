@@ -46,6 +46,7 @@ import com.alcedomoreno.sirme.business.validator.Validator;
 import com.alcedomoreno.sirme.core.util.MyLogger;
 import com.alcedomoreno.sirme.web.jasper.GenerateReport;
 import com.alcedomoreno.sirme.web.util.BeanNameUtil;
+import com.alcedomoreno.sirme.web.util.DateTimeUtil;
 import com.alcedomoreno.sirme.web.util.ImageUtil;
 import com.alcedomoreno.sirme.web.util.OutputUtil;
 import com.alcedomoreno.sirme.web.util.ZipUtil;
@@ -123,6 +124,9 @@ public class WorksBean extends ManagedBean {
 	
 	private SelectItem[] statusOptions;
 	
+	private String[] selectedYears;   
+    private List<String> years; 
+	
 	///////////////////////////////////////////////////////////////
 	//                    Fin de los Atributos                   //
 	///////////////////////////////////////////////////////////////
@@ -148,10 +152,20 @@ public class WorksBean extends ManagedBean {
 	@Override
 	public String doInit(){
 		MyLogger.debug(log, CLASS_NAME, "doInit", "IN");
+		
+		String currentYear = DateTimeUtil.getInstance().formatDate(new Date(), "yyyy");
+		selectedYears = new String[1];
+		selectedYears[0] = currentYear;
+
+		years = new ArrayList<String>();
+		int actaulYear = Integer.valueOf(currentYear);
+		for (int i = 0;i < 10;i++ ){
+			years.add(String.valueOf(actaulYear - i));
+		}
 
 		allTeams	= teamService.getAll();
 		allCustomers= customerService.getAllCustomers();
-		works		= workService.getAll();
+		works		= workService.getAll(selectedYears);
 		
 		dateFilterI = null;
 		dateFilterE = null;
@@ -177,7 +191,7 @@ public class WorksBean extends ManagedBean {
 		filter();
 		
 		setMyDate( new Date() );
-		
+
 		MyLogger.debug(log, CLASS_NAME, "doInit", "OUT");
 		return BeanNameUtil.PAGE_PRINCIPAL_WORKS;
 	}
@@ -651,6 +665,17 @@ public class WorksBean extends ManagedBean {
 		return ! updateService.isUpdated( getMyDate() );
 	}
 	
+	public String filterByYears(){
+		MyLogger.debug(log, CLASS_NAME, "filterByYears", "IN");
+
+		works = workService.getAll(selectedYears);
+
+		filteredWorks = works;
+		
+		MyLogger.debug(log, CLASS_NAME, "filterByYears", "OUT");
+		return BeanNameUtil.PAGE_PRINCIPAL_WORKS;
+	}
+	
 	///////////////////////////////////////////////////////////////
 	//                 Fin de los Metodos Publicos               //
 	///////////////////////////////////////////////////////////////
@@ -861,6 +886,18 @@ public class WorksBean extends ManagedBean {
 	}
 	public void setStatusOptions(SelectItem[] statusOptions) {
 		this.statusOptions = statusOptions;
+	}
+	public String[] getSelectedYears() {
+		return selectedYears;
+	}
+	public void setSelectedYears(String[] selectedYears) {
+		this.selectedYears = selectedYears;
+	}
+	public List<String> getYears() {
+		return years;
+	}
+	public void setYears(List<String> years) {
+		this.years = years;
 	}
 
 	///////////////////////////////////////////////////////////////

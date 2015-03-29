@@ -2,14 +2,17 @@ package com.alcedomoreno.sirme.core.dao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -67,12 +70,27 @@ public class WorkDaoImpl extends HibernateDaoSupport implements WorkDao{
 
 	@Override
 	public Collection<WorkData> getAll() {
+		return getAll(null);
+	}
+	
+	@Override
+	public Collection<WorkData> getAll(List<Integer> selectedYears) {
 		MyLogger.info( log , CLASS_NAME, "getAll", "INIT");
-		Collection<WorkData> collection = getHibernateTemplate().loadAll( WorkData.class );
+
+		Collection<WorkData> collection = new ArrayList<WorkData>();
+		
+		if (selectedYears == null || selectedYears.isEmpty()){
+			collection = getHibernateTemplate().loadAll(WorkData.class);
+		} else {
+			collection = getHibernateTemplate().findByCriteria(
+					DetachedCriteria.forClass(WorkData.class)
+			        .add( Restrictions.in("year", selectedYears) ));
+		}
+
 		MyLogger.info( log , CLASS_NAME, "getAll", "END");
 		return collection;
 	}
-	
+
 	@Override
 	public Collection<WorkData> getFromAddress(int idAddress){
 		MyLogger.info( log , CLASS_NAME, "getFromAddress", "INIT", idAddress);

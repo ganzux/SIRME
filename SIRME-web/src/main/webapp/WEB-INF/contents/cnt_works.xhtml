@@ -18,10 +18,15 @@
 			<div style="font-size:16px;text-align:right;padding-bottom:15px;">
 			
 				<p:poll interval="60" update="worksChanges" />
-				
-				<p:outputPanel layout="block" id="worksChanges" style="display: inline;margin-right: 50px;">
+
+				<p:outputPanel layout="block" id="worksChanges" style="display:inline;margin-right: 50px;">
 					<p:commandButton value="Recargar Listado" title="Actualizar Lista de Trabajos" action="#{worksBean.doInit}" ajax="true" icon="ui-icon-refresh" rendered="#{worksBean.newWorks}" />
 				</p:outputPanel>
+
+			    <p:selectCheckboxMenu id="menu" value="#{worksBean.selectedYears}" label="Seleccione año" filter="false" style="float:left; padding-right:10px;">
+		            <f:selectItems value="#{worksBean.years}" />
+		        </p:selectCheckboxMenu>
+		        <p:commandButton value="Filtrar" action="filterByYear" icon="ui-icon-circle-zoomin" actionListener="#{worksBean.filterByYears}" title="#{msg['boton.buscar']}" update="dataTable" style="margin-left: 20px;float:left" />
 
 				<p:commandButton value="Nuevo"	title="#{msg['boton.save']}" action="#{worksBean.prepareAction}" ajax="true" icon="ui-icon-disk">
 	            	<f:setPropertyActionListener target="#{worksBean.pageOption}" value="#{applicationBean.optionSave}" />

@@ -4,9 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -45,8 +47,16 @@ public class WorkDaoTest {
 		try {
 			WorkDaoImpl impl = new WorkDaoImpl();
 			assertNotNull(impl);
+
+			List<Integer> badYears = new ArrayList<Integer>();
+			Collection<WorkData> works = workDao.getAll(badYears);
+			assertEquals(works.size(), 2);
 			
-			Collection<WorkData> works = workDao.getAll();
+			badYears.add(2014);
+			works = workDao.getAll(badYears);
+			assertEquals(works.size(), 0);
+
+			works = workDao.getAll();
 			assertEquals(works.size(), 2);
 			
 			WorkData work = workDao.get(1);
