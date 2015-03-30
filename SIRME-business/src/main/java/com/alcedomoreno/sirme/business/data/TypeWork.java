@@ -26,14 +26,14 @@ public class TypeWork {
 	}
 
 	public String getNameTypeWork(){
-		if ( idTypeWork == 1 )
+		if (idTypeWork == 1)
 			return TYPE_PARTE;
 		return TYPE_AVISO;
 	}
 	
-	public static int getIdTypeWork( String type ){
-		if ( TYPE_PARTE.equalsIgnoreCase( type ) )
-			return 2;
-		return 1;
+	public static int getIdTypeWork(String type){
+		if (TYPE_PARTE.equalsIgnoreCase(type))
+			return 1;
+		return 2;
 	}
 }

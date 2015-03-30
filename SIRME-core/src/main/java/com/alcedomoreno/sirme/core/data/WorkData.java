@@ -91,12 +91,12 @@ private static final long serialVersionUID = 1L;
 	
 	@OneToMany(mappedBy="work", targetEntity=ReplyGroupData.class)	
 	@Cascade({CascadeType.SAVE_UPDATE})	
-	@LazyCollection(LazyCollectionOption.FALSE)	
+	@LazyCollection(LazyCollectionOption.TRUE)	
 	private Set<ReplyGroupData> replyGroups = new HashSet<ReplyGroupData>();
 	
 	@OneToMany(mappedBy="work", targetEntity=PhotoData.class)	
 	@Cascade({CascadeType.SAVE_UPDATE})	
-	@LazyCollection(LazyCollectionOption.FALSE)	
+	@LazyCollection(LazyCollectionOption.TRUE)	
 	private Set<PhotoData> photos = new HashSet<PhotoData>();
 
 	public int getIdWork() {

@@ -79,13 +79,23 @@ public class WorkDaoImpl extends HibernateDaoSupport implements WorkDao{
 
 		Collection<WorkData> collection = new ArrayList<WorkData>();
 		
-		if (selectedYears == null || selectedYears.isEmpty()){
+		/*if (selectedYears == null || selectedYears.isEmpty()){
 			collection = getHibernateTemplate().loadAll(WorkData.class);
 		} else {
 			collection = getHibernateTemplate().findByCriteria(
 					DetachedCriteria.forClass(WorkData.class)
 			        .add( Restrictions.in("year", selectedYears) ));
+		}*/
+		
+		Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(WorkData.class, "w");
+		criteria.setFetchMode("w.team", FetchMode.JOIN);
+		criteria.setFetchMode("w.address", FetchMode.JOIN);
+		criteria.setFetchMode("w.address.customer", FetchMode.JOIN);
+
+		if (selectedYears != null && !selectedYears.isEmpty()){
+			criteria.add(Restrictions.in("w.year", selectedYears));
 		}
+		collection = criteria.list();
 
 		MyLogger.info( log , CLASS_NAME, "getAll", "END");
 		return collection;

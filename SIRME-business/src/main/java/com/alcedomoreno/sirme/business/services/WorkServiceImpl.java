@@ -20,6 +20,7 @@ import com.alcedomoreno.sirme.business.data.ReplyGroup;
 import com.alcedomoreno.sirme.business.data.Report;
 import com.alcedomoreno.sirme.business.data.Team;
 import com.alcedomoreno.sirme.business.data.Work;
+import com.alcedomoreno.sirme.business.data.WorkBasic;
 import com.alcedomoreno.sirme.business.transform.TransformFactory;
 import com.alcedomoreno.sirme.business.util.FileUtil;
 import com.alcedomoreno.sirme.business.util.ServiceConstants;
@@ -98,7 +99,7 @@ public class WorkServiceImpl implements WorkService {
 		} catch(Exception e){
 		}
 
-		dummies = (Collection<Work>) TransformFactory.getTransformator(Work.class).toBusinessObject(workDao.getAll(years));
+		dummies = (Collection<Work>) TransformFactory.getTransformator(WorkBasic.class).toBusinessObject(workDao.getAll(years));
 		
 		MyLogger.info(log, CLASS_NAME, "getAll", "OUT");
 
@@ -179,15 +180,22 @@ public class WorkServiceImpl implements WorkService {
 		int nextAlbaran = 0;
 		
 		try{
-			WorkData cd = getWorkNewContacts( work );
+			WorkData cd = getWorkNewContacts(work);
+			if (work.getYear() > 0){
+				cd.setYear(work.getYear());
+			}
 
 			// Estado Abierto
-			if ( cd.getStatus() == 0 )
+			if (cd.getStatus() == 0)
 				cd.setStatus( Work.STATUS_ABIERTO );
 
 			// Siguiente número de Albarán
 			nextAlbaran = getNextAlbaran( cd.getYear() );
-			cd.setAlbaran( nextAlbaran );
+			if (work.getAlbaran() > 0){
+				cd.setAlbaran(work.getAlbaran());
+			} else {
+				cd.setAlbaran( nextAlbaran );
+			}
 			
 			if ( cd.getReplyGroups()!=null )
 				for ( ReplyGroupData rgd:cd.getReplyGroups() ){

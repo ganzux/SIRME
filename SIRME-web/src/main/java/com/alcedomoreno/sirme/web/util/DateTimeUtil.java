@@ -1,6 +1,7 @@
 package com.alcedomoreno.sirme.web.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +57,7 @@ public class DateTimeUtil {
 		return formatDate( new Date(),patternString);
 	}
 	
-	public long convertTimeHMSToSeconds( String timeHMS ){
+	public long convertTimeHMSToSeconds(String timeHMS){
 		long seconds = 0;
 		
 		try{
@@ -72,40 +73,88 @@ public class DateTimeUtil {
 		return seconds;
 	}
 	
-	public String convertMiliSecsToParsedHHMMSS( long millis ){
+	public String convertMiliSecsToParsedHHMMSS(long millis){
 		String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
 	            TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
 	            TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
 	    return hms;
 	}
 	
-	public String convertMiliSecsToParsed2MSS( long millis ){
+	public String convertMiliSecsToParsed2MSS(long millis){
 		String ms = String.format("%02d:%02d", 
 	            TimeUnit.MILLISECONDS.toMinutes(millis),
 	            TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
 	    return ms;
 	}
 	
-	public String convertMiliSecsToParsed3MSS( long millis ){
+	public String convertMiliSecsToParsed3MSS(long millis){
 		String ms = String.format("%03d:%02d", 
 	            TimeUnit.MILLISECONDS.toMinutes(millis),
 	            TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
 	    return ms;
 	}
 	
-	public String formatDate( Date date, String pattern ){
+	public String formatDate(Date date, String pattern){
 		log.debug("IN|" + pattern);
 		String out = "";
 		try{
-			if ( pattern!=null && !pattern.trim().isEmpty() ){
-				DateFormat dateFormat = new SimpleDateFormat( pattern );
-				out = dateFormat.format( date );
+			if (pattern!=null && !pattern.trim().isEmpty()){
+				DateFormat dateFormat = new SimpleDateFormat(pattern);
+				out = dateFormat.format(date);
 			}
 		} catch(Exception e){}
 		log.debug("OUT|" + out);
 		return out;
 	}
 	
+	public Date getDate(String dateStr){
+		Date date = null;
+
+		try {
+			String splitType = null;
+			if (dateStr.contains(":")){
+				splitType = ":";
+			} else if (dateStr.contains("-")){
+				splitType = "-";
+			} else if (dateStr.contains("/")){
+				splitType = "/";
+			} else if (dateStr.contains(" ")){
+				splitType = " ";
+			}
+			else if (dateStr.contains(".")){
+				splitType = "\\.";
+			}
+	
+			String[] splitted = dateStr.split(splitType);
+			String day = splitted[0];
+			String month = splitted[1];
+			String year = splitted[2];
+
+			String dayPattern = "";
+			for (int i = 0;i < day.length();i++){
+				dayPattern += "d";
+			}
+			String monthPattern = "";
+			for (int i = 0;i < month.length();i++){
+				monthPattern += "M";
+			}
+			String yearPattern = "";
+			for (int i = 0;i < year.length();i++){
+				yearPattern += "y";
+			}
+
+			String myFormattedDate = day + "-" + month + "-" + year;
+
+			DateFormat dateFormat = new SimpleDateFormat(dayPattern + "-" + monthPattern + "-" + yearPattern);
+
+			date = dateFormat.parse(myFormattedDate);
+		} catch (ParseException e) {
+			log.error("Fecha no reconocida: " + dateStr);
+		}
+
+		return date;
+		
+	}
 	///////////////////////////////////////////////////////////////
 	//                      Fin de Metodos                       //
 	///////////////////////////////////////////////////////////////

@@ -36,7 +36,9 @@ public class QuestionTransform extends DefaultTransformator implements Transform
 		data.setQuestion(business.getQuestion());
 		data.setOrder(business.getOrder());
 		data.setTotalize(business.getTotalize());
-		data.setReplyType((ReplyTypeData) TransformFactory.getTransformator(ReplyType.class).toDataObject(business.getReplyType()));
+		if (business.getReplyType() != null){
+			data.setReplyType((ReplyTypeData) TransformFactory.getTransformator(ReplyType.class).toDataObject(business.getReplyType()));
+		}
 		//data.setReport((ReportData) TransformFactory.getTransformator(Report.class).toDataObject(business.getReport()));   BUCLE INFINITO!!!!
 
 		
