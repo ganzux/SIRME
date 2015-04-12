@@ -272,4 +272,21 @@ public class Customer implements BusinessObject,Cloneable{
 		this.dateCreated = dateCreated;
 	}
 	
+	@Override
+	public int hashCode() {
+		return idCustomer;
+	}
+ 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		return this.hashCode() == other.hashCode();
+	}
+	
 }

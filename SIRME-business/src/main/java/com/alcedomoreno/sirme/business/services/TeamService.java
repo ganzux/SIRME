@@ -9,7 +9,7 @@ import com.alcedomoreno.sirme.business.util.ValidationException;
 public interface TeamService {
 
 	public Collection<Team> getAll();
-	public Team get( String teamName,String passWord );
+	public Team get(String teamName,String passWord);
 	public void save(Team team) throws ValidationException, TransactionException;
 	public void delete(Team team) throws TransactionException;
 	public void update(Team team) throws ValidationException, TransactionException;

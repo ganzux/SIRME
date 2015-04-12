@@ -24,17 +24,17 @@ import com.alcedomoreno.sirme.core.util.DAOConstants;
 import com.alcedomoreno.sirme.core.util.MyLogger;
 
 @Transactional(readOnly=true)
-@Service( ServiceConstants.TEAM_SERVICE)
+@Service(ServiceConstants.TEAM_SERVICE)
 public class TeamServiceImpl implements TeamService{
 
 	///////////////////////////////////////////////////////////////
 	//                         Atributos                         //
 	///////////////////////////////////////////////////////////////
 
-	private static Logger log = LoggerFactory.getLogger( TeamServiceImpl.class );
+	private static Logger log = LoggerFactory.getLogger(TeamServiceImpl.class);
 	private static final String CLASS_NAME = "TeamServiceImpl";
 	
-	@Resource( name=DAOConstants.TEAM_DAO )
+	@Resource(name=DAOConstants.TEAM_DAO)
 	protected TeamsDao teamDao;
 
 	///////////////////////////////////////////////////////////////

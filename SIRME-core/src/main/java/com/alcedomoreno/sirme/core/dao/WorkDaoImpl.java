@@ -12,7 +12,6 @@ import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -148,7 +147,7 @@ public class WorkDaoImpl extends HibernateDaoSupport implements WorkDao{
 
         query.setParameter("idw", idTeam);
 
-        query.setParameter("tw", TypeWork.getIdTypeWork( work?TypeWork.TYPE_AVISO:TypeWork.TYPE_PARTE ));
+        query.setParameter("tw", TypeWork.getIdTypeWork( work?TypeWork.TYPE_PARTE:TypeWork.TYPE_AVISO));
 
         query.setParameter("sta", com.alcedomoreno.sirme.core.util.Work.STATUS_ABIERTO );
         query.setParameter("dty", startDate );
