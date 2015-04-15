@@ -15,16 +15,19 @@ public class QuestionDTO {
 	private Integer order;
 	@JsonProperty("replyType")
 	private ReplyTypeDTO replyType;
+	@JsonProperty("search")
+	private Boolean search;
 	
 	public QuestionDTO(){
 		super();
 	}
 	
-	public QuestionDTO( Question question ){
+	public QuestionDTO(Question question){
 		idQuestion = question.getIdQuestion();
 		this.question = question.getQuestion();
 		order = question.getOrder();
 		replyType = new ReplyTypeDTO(question.getReplyType());
+		search = question.getSearch();
 	}
 
 	public int getIdQuestion() {
@@ -57,6 +60,14 @@ public class QuestionDTO {
 
 	public void setReplyType(ReplyTypeDTO replyType) {
 		this.replyType = replyType;
+	}
+
+	public Boolean getSearch() {
+		return search;
+	}
+
+	public void setSearch(Boolean search) {
+		this.search = search;
 	}
 
 }

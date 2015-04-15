@@ -41,7 +41,7 @@ public class QuestionsRestController {
 			reports = new ArrayList<ReportDTO>();
 //			applicationBean.addRestQuestions();
 			for (Report report : questionService.getAllWithQuestions())
-				reports.add(  new ReportDTO( report ) );
+				reports.add(new ReportDTO(report));
 		} catch (Exception e){
 			MyLogger.error(log, CLASS_NAME, "Error de Petición de preguntas desde una terminal", e.getMessage());
 			

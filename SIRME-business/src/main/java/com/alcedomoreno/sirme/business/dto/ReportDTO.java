@@ -15,20 +15,20 @@ public class ReportDTO {
 		super();
 	}
 
-	public ReportDTO( Report report ){
+	public ReportDTO(Report report){
 		idReport = report.getIdReport();
 		nameReport = report.getNameReport();
 
-		if ( report.getReplyGroups() != null ){
+		if (report.getReplyGroups() != null){
 			replyGroups = new ArrayList<ReplyGroupDTO>();
-			for ( ReplyGroup q:report.getReplyGroups() )
-				replyGroups.add( new ReplyGroupDTO(q) );
+			for (ReplyGroup q:report.getReplyGroups())
+				replyGroups.add(new ReplyGroupDTO(q));
 		}
 		
-		if ( report.getQuestionGroups() != null ){
+		if (report.getQuestionGroups() != null){
 			questionGroups = new ArrayList<QuestionGroupDTO>();
-			for ( QuestionGroup q:report.getQuestionGroups() )
-				questionGroups.add( new QuestionGroupDTO(q) );
+			for ( QuestionGroup q:report.getQuestionGroups())
+				questionGroups.add(new QuestionGroupDTO(q));
 		}
 	}
 	

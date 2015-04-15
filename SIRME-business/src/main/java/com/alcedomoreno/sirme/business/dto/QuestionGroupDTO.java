@@ -19,15 +19,15 @@ public class QuestionGroupDTO {
 	@JsonProperty("questions")
 	private Collection<QuestionDTO> questions;
 	
-	public QuestionGroupDTO( QuestionGroup questionGroup ){
+	public QuestionGroupDTO(QuestionGroup questionGroup){
 		idQuestionGroup = questionGroup.getIdQuestionGroup();
 		nameQuestionGroup = questionGroup.getNameQuestionGroup();
 		times = questionGroup.getTimes();
 
 		if ( questionGroup.getQuestions() != null ){
 			questions = new ArrayList<QuestionDTO>();
-			for ( Question q:questionGroup.getQuestions() )
-				questions.add( new QuestionDTO(q) );
+			for (Question q:questionGroup.getQuestions())
+				questions.add(new QuestionDTO(q));
 		}
 	}
 	
