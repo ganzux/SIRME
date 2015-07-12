@@ -2,6 +2,7 @@ package com.alcedomoreno.sirme.business.rest;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import javax.annotation.Resource;
 
@@ -40,8 +41,11 @@ public class QuestionsRestController {
 		try{
 			reports = new ArrayList<ReportDTO>();
 //			applicationBean.addRestQuestions();
-			for (Report report : questionService.getAllWithQuestions())
-				reports.add(new ReportDTO(report));
+			for (Report report : questionService.getAllWithQuestions()){
+				ReportDTO dto = new ReportDTO(report);
+				dto.sort();
+				reports.add(dto);
+			}
 		} catch (Exception e){
 			MyLogger.error(log, CLASS_NAME, "Error de Petición de preguntas desde una terminal", e.getMessage());
 			

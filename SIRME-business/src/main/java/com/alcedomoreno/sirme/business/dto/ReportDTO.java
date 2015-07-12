@@ -1,7 +1,10 @@
 package com.alcedomoreno.sirme.business.dto;
 
+import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -9,7 +12,7 @@ import com.alcedomoreno.sirme.business.data.QuestionGroup;
 import com.alcedomoreno.sirme.business.data.ReplyGroup;
 import com.alcedomoreno.sirme.business.data.Report;
 
-public class ReportDTO {
+public class ReportDTO implements Comparable<ReportDTO>{
 
 	public ReportDTO(){
 		super();
@@ -32,14 +35,34 @@ public class ReportDTO {
 		}
 	}
 	
+	public void sort(){
+		if (questionGroups != null){
+			Collections.sort(questionGroups);
+			for (QuestionGroupDTO questionGroupsDTO : questionGroups){
+				if (questionGroupsDTO.getQuestions() != null){
+					Collections.sort(questionGroupsDTO.getQuestions());
+				}
+			}
+		}
+
+		if (replyGroups != null){
+			Collections.sort(replyGroups);
+			for (ReplyGroupDTO replyGroupDTO : replyGroups){
+				if (replyGroupDTO.getReplies() != null){
+					Collections.sort(replyGroupDTO.getReplies());
+				}
+			}
+		}
+	}
+	
 	@JsonProperty
 	private int idReport;
 	@JsonProperty
 	private String nameReport;
 	@JsonProperty
-	private Collection<ReplyGroupDTO> replyGroups;
+	private List<ReplyGroupDTO> replyGroups;
 	@JsonProperty
-	private Collection<QuestionGroupDTO> questionGroups;
+	private List<QuestionGroupDTO> questionGroups;
 
 	public int getIdReport() {
 		return idReport;
@@ -53,16 +76,16 @@ public class ReportDTO {
 	public void setNameReport(String nameReport) {
 		this.nameReport = nameReport;
 	}
-	public Collection<ReplyGroupDTO> getReplyGroups() {
+	public List<ReplyGroupDTO> getReplyGroups() {
 		return replyGroups;
 	}
-	public void setReplyGroups(Collection<ReplyGroupDTO> replyGroups) {
+	public void setReplyGroups(List<ReplyGroupDTO> replyGroups) {
 		this.replyGroups = replyGroups;
 	}
-	public Collection<QuestionGroupDTO> getQuestionGroups() {
+	public List<QuestionGroupDTO> getQuestionGroups() {
 		return questionGroups;
 	}
-	public void setQuestionGroups(Collection<QuestionGroupDTO> questionGroups) {
+	public void setQuestionGroups(List<QuestionGroupDTO> questionGroups) {
 		this.questionGroups = questionGroups;
 	}
 
@@ -71,6 +94,13 @@ public class ReportDTO {
 		return "ReportDTO [idReport=" + idReport + ", nameReport=" + nameReport
 				+ ", replyGroups=" + replyGroups + ", questionGroups="
 				+ questionGroups + "]";
+	}
+
+	@Override
+	public int compareTo(ReportDTO o) {
+		Collator esCollator = Collator.getInstance(new Locale("ES"));
+	    esCollator.setStrength(Collator.PRIMARY);
+	    return esCollator.compare(o.getNameReport(), getNameReport());
 	}
 
 

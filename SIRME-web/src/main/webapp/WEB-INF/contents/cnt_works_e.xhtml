@@ -49,6 +49,9 @@
 			        <h:outputLabel for="date1" value="Fecha Creación" />
 			        <p:calendar locale="es" id="date1" value="#{worksBean.selectedWork.dateCreated}"  pattern="#{cfgview['dateFormat']}"		size="9" disabled="true" />
 
+			        <h:outputLabel for="date3" value="Fecha Recepción" />
+			        <p:calendar locale="es" id="date3" value="#{worksBean.selectedWork.dateReceived}"  pattern="#{cfgview['dateFormat']}"		size="9" disabled="true" />
+
 					<h:outputLabel for="data" value="Clasificación" />
 			        <p:inputText id="data" value="${worksBean.selectedWork.data}" 	label="Clasificación"	disabled="#{worksBean.pageOption ne applicationBean.optionSave and worksBean.pageOption ne applicationBean.optionUpdate}" />
 

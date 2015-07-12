@@ -105,58 +105,59 @@ public class WorkEndRestController {
 			
 			log.info("Dato de entrada: " + data);
 			
-			Team team = teamService.get( data.getTeam(),data.getPassword() );
-			if ( team != null  ) {
+			Team team = teamService.get(data.getTeam(),data.getPassword());
+			if (team != null) {
 				MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Equipo de Trabajo encontrado");
-				w.setTeam( team );
+				w.setTeam(team);
 
-				Advice advice = adviceService.get( data.getAlertId() );
+				Advice advice = adviceService.get(data.getAlertId());
 
-				if ( advice != null ){
+				if (advice != null){
 					MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Trabajo encontrado");
 
-					w.setTypeWork( new TypeWork(1) );
-					w.setDate( new Date() );
-					w.setMemo( advice.getWorkText() );
+					w.setTypeWork(new TypeWork(1));
+					w.setDate(new Date());
+					w.setMemo(advice.getWorkText());
 
 					// Guardamos la firma en el directorio de ficheros
-					if ( advice.getSign() != null ){
+					if (advice.getSign() != null){
 						MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Tratando Firma...", advice.getSign().getName());
-						w = saveFirextFile( true, advice.getSign(), w );
-						Thread.sleep( 2 );
+						w = saveFirextFile(true, advice.getSign(), w);
+						Thread.sleep(2);
 						MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Tratando Firma OK", advice.getSign().getName());
-					} else{
+					} else {
 						MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "No esiste Firma", advice);
 						throw new Exception("La firma del cliente es obligatoria");
 					}
 
-					if ( advice.getPictures() != null ){
-						for ( FirextFile ff:advice.getPictures() ){
+					if (advice.getPictures() != null){
+						for (FirextFile ff:advice.getPictures()){
 							MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Tratando Foto ", ff.getName());
-							w = saveFirextFile( false, ff, w );
-							Thread.sleep( 2 );
+							w = saveFirextFile(false, ff, w);
+							Thread.sleep(2);
 							MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "Tratando Foto OK", ff.getName());
 						}
 					} else
 						MyLogger.info(log, CLASS_NAME, "closeWorkToLoad", "No hay imágenes", advice);
 					
-					w.setStatus( Work.STATUS_RECIBIDO );
-					
+					w.setStatus(Work.STATUS_RECIBIDO);
+
 					Work oldWork = null;
 					try{
-						oldWork = worksService.get( Integer.valueOf( data.getAlertId() ) );
-					} catch ( Exception e ){
+						oldWork = worksService.get(Integer.valueOf(data.getAlertId()));
+					} catch (Exception e){
 						throw new Exception("Ese Aviso no ha sido descargado, es nuevo");
 					}
-					w.setIdWork( Integer.valueOf( data.getAlertId() ) );
-					w.setAlbaran( oldWork.getAlbaran() );
-					w.setDate( oldWork.getDate() );
-					w.setDateCreated( oldWork.getDateCreated() );
-					w.setYear( oldWork.getYear() );
-					w.setCustomer( oldWork.getCustomer() );
-					w.setAddress( oldWork.getAddress() );
+					w.setIdWork(Integer.valueOf(data.getAlertId()));
+					w.setAlbaran(oldWork.getAlbaran());
+					w.setDate(oldWork.getDate());
+					w.setDateCreated(oldWork.getDateCreated());
+					w.setDateReceived(new Date());
+					w.setYear(oldWork.getYear());
+					w.setCustomer(oldWork.getCustomer());
+					w.setAddress(oldWork.getAddress());
 
-					worksService.update( w );
+					worksService.update(w);
 
 					updateService.refreshDate();
 					

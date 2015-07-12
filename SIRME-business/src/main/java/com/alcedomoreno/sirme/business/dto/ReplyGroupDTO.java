@@ -5,11 +5,10 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import com.alcedomoreno.sirme.business.data.QuestionGroup;
 import com.alcedomoreno.sirme.business.data.Reply;
 import com.alcedomoreno.sirme.business.data.ReplyGroup;
 
-public class ReplyGroupDTO {
+public class ReplyGroupDTO implements Comparable<ReplyGroupDTO>{
 
 	@JsonProperty("id")
 	private int idReplyGroup;
@@ -64,6 +63,11 @@ public class ReplyGroupDTO {
 
 	public void setReplies(List<ReplyDTO> replies) {
 		this.replies = replies;
+	}
+
+	@Override
+	public int compareTo(ReplyGroupDTO o) {
+		return questionGroup.compareTo(o.getQuestionGroup());
 	}
 
 }

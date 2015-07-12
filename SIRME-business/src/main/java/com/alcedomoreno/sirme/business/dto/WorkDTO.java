@@ -1,6 +1,7 @@
 package com.alcedomoreno.sirme.business.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -35,6 +36,20 @@ public class WorkDTO extends AdviceDTO{
 		return super.toString() + " - WorkDTO [reports=" + reports + "]";
 	}
 	
-	
+	public void sort(){
+		if (reports != null){
+			Collections.sort(reports);
+			for (ReportDTO reportDTO : reports){
+				if (reportDTO.getQuestionGroups() != null){
+					Collections.sort(reportDTO.getQuestionGroups());
+				}
+				if (reportDTO.getReplyGroups() != null){
+					for(ReplyGroupDTO replyGroupDTO : reportDTO.getReplyGroups()){
+						Collections.sort(replyGroupDTO.getReplies());
+					}
+				}
+			}
+		}
+	}
 
 }

@@ -5,7 +5,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import com.alcedomoreno.sirme.business.data.Reply;
 
 
-public class ReplyDTO {
+public class ReplyDTO implements Comparable<ReplyDTO>{
 
 	@JsonProperty("id")
 	private int idReply;
@@ -44,6 +44,11 @@ public class ReplyDTO {
 
 	public void setReply(String reply) {
 		this.reply = reply;
+	}
+
+	@Override
+	public int compareTo(ReplyDTO o) {
+		return question.compareTo(o.getQuestion());
 	}
 
 }

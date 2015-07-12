@@ -6,8 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -22,16 +24,21 @@ import com.alcedomoreno.sirme.business.data.Customer;
 import com.alcedomoreno.sirme.business.data.Manager;
 import com.alcedomoreno.sirme.business.data.Month.MonthE;
 import com.alcedomoreno.sirme.business.data.Report;
+import com.alcedomoreno.sirme.business.data.Team;
+import com.alcedomoreno.sirme.business.data.Work;
 import com.alcedomoreno.sirme.business.services.CustomerService;
 import com.alcedomoreno.sirme.business.services.OtherService;
 import com.alcedomoreno.sirme.business.services.QuestionService;
+import com.alcedomoreno.sirme.business.services.TeamService;
 import com.alcedomoreno.sirme.business.services.UsersService;
+import com.alcedomoreno.sirme.business.services.WorkService;
 import com.alcedomoreno.sirme.business.util.ServiceConstants;
 import com.alcedomoreno.sirme.business.util.TransactionException;
 import com.alcedomoreno.sirme.business.util.ValidationException;
 import com.alcedomoreno.sirme.core.util.MyLogger;
 import com.alcedomoreno.sirme.web.excel.CustomerXLSExtract;
 import com.alcedomoreno.sirme.web.excel.ManagerDocExtract;
+import com.alcedomoreno.sirme.web.excel.ReportExtintorExtract;
 import com.alcedomoreno.sirme.web.schedulers.IPCronService;
 import com.alcedomoreno.sirme.web.util.BeanNameUtil;
 
@@ -53,6 +60,12 @@ public class SettingsBean extends ManagedBean {
 	@Resource(name = ServiceConstants.CUSTOMER_SERVICE)
 	private CustomerService customerService;
 	
+	@Resource(name = ServiceConstants.WORK_SERVICE)
+	private WorkService workService;
+	
+	@Resource(name = ServiceConstants.TEAM_SERVICE)
+	private TeamService teamService;
+	
 	@Resource(name = ServiceConstants.USER_SERVICE )
 	private UsersService usersService;
 
@@ -71,6 +84,8 @@ public class SettingsBean extends ManagedBean {
 	private String processDir = "C:\\w";
 	
 	private String processDirManager = "C:\\a";
+	
+	private String processDirExtintores = "c:\\extintores";
 	
 	private String sql;
 	
@@ -376,6 +391,92 @@ public class SettingsBean extends ManagedBean {
 			e.printStackTrace();
 		}
 	}
+	
+	public void processDirExtintores(){
+		int correctos = 0;
+		int fallos = 0;
+		List<String> oks = new ArrayList<String>();
+		List<String[]> kos = new ArrayList<String[]>();
+		
+		Collection<Team> allTeams = teamService.getAll();
+
+		Collection<Customer> allCustomers = customerService.getAllCustomers();
+		Map<String, Customer> customersMap = new HashMap<String, Customer>();
+		for (Customer c : allCustomers){
+			customersMap.put(c.getCodeCustomer(), c);
+		}
+
+		try{
+			 File dir = new File(processDirExtintores);
+			  for (File child2 : dir.listFiles())
+				try{
+			    		Work r = ReportExtintorExtract.getInstance().getReportFromDOC(child2);
+			    		
+			    		for (Team team : allTeams){
+			    			if (team.getNameTeam().trim().toLowerCase()
+			    					.contains(r.getTeam().getNameTeam().trim().toLowerCase())){
+			    				r.setTeam(team);
+			    				break;
+			    			}
+			    		}
+			    		
+			    		if (r.getTeam().getIdTeam() == 0){
+			    			r.setTeam(null);
+			    		}
+
+			    		Customer customer = customersMap.get(r.getCustomer().getCodeCustomer());
+			    		r.setCustomer(customer);
+			    		
+			    		for (Address ad : customer.getAddress()){
+			    			String[] addsplit = ad.getMainAddress().split(" ");
+			    			for (String add : addsplit)
+			    				if (r.getAddress().getMainAddress().contains(add)){
+			    					r.setAddress(ad);
+			    				}
+			    		}
+
+			    		int nextAlbaran = workService.save(r);
+
+			    		correctos++;
+			    		oks.add( child2.getName() );
+			    		//child2.delete();
+
+			    		MyLogger.debug(log, CLASS_NAME, "process", "OK",child2.getPath());
+			    	} catch (Exception e){
+			    		
+			    		String errorS = "";
+			    		
+			    		try{
+			    			errorS = ((org.hibernate.exception.ConstraintViolationException)((org.springframework.dao.DataIntegrityViolationException)e.getCause()).getCause()).getCause().getMessage();
+			    		} catch ( Exception e1 ){
+			    			errorS = e.getMessage();
+			    		}
+			    		MyLogger.debug(log, CLASS_NAME, "process", "KO", child2.getPath(),errorS);
+			    		fallos++;
+			    		String[] ko = new String[]{child2.getName(),e.getMessage()};
+			    		kos.add( ko );
+			    	}
+		} catch ( Exception e){
+			applicationBean.sendMessageError("web.error.general", "No se puede leer el directorio" );
+		}
+		applicationBean.sendMessageInfo("Info", "Proceso finalizado con " + correctos + " OK y " + fallos + " KO.");
+		System.out.println("Proceso finalizado con " + correctos + " OK y " + fallos + " KO.");
+		
+		try {
+			FileWriter fichero = new FileWriter(processDirExtintores + "\\ok.txt");
+			for (String ok:oks)
+				fichero.write( ok + "\r\n");
+			fichero.close();
+			
+			FileWriter fichero2 = new FileWriter(processDirExtintores + "\\ko.txt");
+			for (String[] ko:kos)
+				fichero2.write( ko[0] + "\t" + ko[1] + "\r\n");
+			fichero2.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	///////////////////////////////////////////////////////////////
 	//                 Fin de los Metodos Publicos               //
 	///////////////////////////////////////////////////////////////
@@ -437,6 +538,12 @@ public class SettingsBean extends ManagedBean {
 	}
 	public void setRestCalls(List<String> restCalls) {
 		this.restCalls = restCalls;
+	}
+	public String getProcessDirExtintores() {
+		return processDirExtintores;
+	}
+	public void setProcessDirExtintores(String processDirExtintores) {
+		this.processDirExtintores = processDirExtintores;
 	}
 
 	///////////////////////////////////////////////////////////////

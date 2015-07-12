@@ -107,6 +107,17 @@
 		            </h:outputText>
 		        </p:column>
 		        
+		        <p:column id="dateReceived" headerText="Recibido" sortBy="dateReceived" width="100px;" rendered="#{worksBean.superUser}">
+		        	<f:facet name="header">
+					    <p:outputPanel style="float: left">
+					    	Recibido
+					    </p:outputPanel>
+					</f:facet>
+		            <h:outputText value="#{work.dateReceived}">
+		            	<f:convertDateTime pattern="#{cfgview['dateFormat']}" timeZone="#{applicationBean.timeZone}" />
+		            </h:outputText>
+		        </p:column>
+		        
 		        <p:column id="address" headerText="Clasificación" sortBy="data" filterMatchMode="contains" filterBy="data" >
 		            <h:outputText value="#{work.data}" />
 		        </p:column>

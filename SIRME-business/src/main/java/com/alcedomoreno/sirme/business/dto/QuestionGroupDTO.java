@@ -1,14 +1,16 @@
 package com.alcedomoreno.sirme.business.dto;
 
+import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.alcedomoreno.sirme.business.data.Question;
 import com.alcedomoreno.sirme.business.data.QuestionGroup;
 
-public class QuestionGroupDTO {
+public class QuestionGroupDTO implements Comparable<QuestionGroupDTO>{
 
 	@JsonProperty("id")
 	private int idQuestionGroup;
@@ -17,7 +19,7 @@ public class QuestionGroupDTO {
 	@JsonProperty("times")
 	private Integer times;
 	@JsonProperty("questions")
-	private Collection<QuestionDTO> questions;
+	private List<QuestionDTO> questions;
 	
 	public QuestionGroupDTO(QuestionGroup questionGroup){
 		idQuestionGroup = questionGroup.getIdQuestionGroup();
@@ -57,12 +59,19 @@ public class QuestionGroupDTO {
 		this.times = times;
 	}
 
-	public Collection<QuestionDTO> getQuestions() {
+	public List<QuestionDTO> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Collection<QuestionDTO> questions) {
+	public void setQuestions(List<QuestionDTO> questions) {
 		this.questions = questions;
+	}
+
+	@Override
+	public int compareTo(QuestionGroupDTO o) {
+		Collator esCollator = Collator.getInstance(new Locale("ES"));
+	    esCollator.setStrength(Collator.PRIMARY);
+	    return esCollator.compare(o.getNameQuestionGroup(), getNameQuestionGroup());
 	}
 
 }

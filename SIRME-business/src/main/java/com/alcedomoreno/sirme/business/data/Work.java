@@ -25,6 +25,7 @@ public class Work implements BusinessObject, Cloneable {
 	private String signpath;
 	private String signName;
 	private Date dateCreated;
+	private Date dateReceived;
 
 	private String status;
 
@@ -133,6 +134,12 @@ public class Work implements BusinessObject, Cloneable {
 	}
 	public String getSignpath() {
 		return signpath;
+	}
+	public Date getDateReceived() {
+		return dateReceived;
+	}
+	public void setDateReceived(Date dateReceived) {
+		this.dateReceived = dateReceived;
 	}
 	public void setSignpath(String signpath) {
 		this.signpath = signpath;

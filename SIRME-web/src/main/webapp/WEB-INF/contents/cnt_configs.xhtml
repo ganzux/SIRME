@@ -73,6 +73,9 @@
 						
 						<p:inputText id="dir2" value="#{settingsBean.processDirManager}" label="Procesar Directorio de Gestores" />
 						<p:commandButton value="Procesar Directorio de Gestores" title="Procesar Directorio de Gestores" action="#{settingsBean.processDirManager}" ajax="true" icon="ui-icon-disk" />
+						
+						<p:inputText id="dir3" value="#{settingsBean.processDirExtintores}" label="Procesar Directorio de Extintores" />
+						<p:commandButton value="Procesar Directorio de Extintores" title="Procesar Directorio de Extintores" action="#{settingsBean.processDirExtintores}" ajax="true" icon="ui-icon-disk" />
 		
 						<p:inputText value="${settingsBean.sql}" />
 						<p:commandButton action="${settingsBean.launchSql}" value="Lanzar" update=":messages"/>
@@ -116,7 +119,7 @@
 						<hr></hr>
 					</div>
 
-					<div> <h:outputText value="Versión: 2014.09.07" /> </div>
+					<div> <h:outputText value="Versión: 2015.07.12" /> </div>
 					<div> <h:outputText value="Licenciado para FIREXT Sistemas de Extinción el 1 de enero de 2014" /> </div>
 				</div>
 				

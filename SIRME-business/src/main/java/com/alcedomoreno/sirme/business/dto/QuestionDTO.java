@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.alcedomoreno.sirme.business.data.Question;
 
-public class QuestionDTO {
+public class QuestionDTO implements Comparable<QuestionDTO>{
 
 	
 	@JsonProperty("id")
@@ -68,6 +68,11 @@ public class QuestionDTO {
 
 	public void setSearch(Boolean search) {
 		this.search = search;
+	}
+
+	@Override
+	public int compareTo(QuestionDTO o) {
+		return getOrder().compareTo(o.getOrder());
 	}
 
 }

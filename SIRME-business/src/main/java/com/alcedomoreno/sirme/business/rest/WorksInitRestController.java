@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alcedomoreno.sirme.business.data.Report;
 import com.alcedomoreno.sirme.business.data.Work;
 import com.alcedomoreno.sirme.business.dto.IntDTO;
+import com.alcedomoreno.sirme.business.dto.ReportDTO;
 import com.alcedomoreno.sirme.business.dto.WorkDTO;
 import com.alcedomoreno.sirme.business.services.WorkService;
 import com.alcedomoreno.sirme.business.util.ServiceConstants;
@@ -43,9 +45,13 @@ public class WorksInitRestController {
 		try{			
 			Collection<Work> works = worksService.getOpenAdvicesOrWorksFromTeam( teamId.getId(), new Date(), true );
 			
-			if ( works != null && !works.isEmpty() )
-				for ( Work w:works )
-					worksDto.add( new WorkDTO(w) );
+			if ( works != null && !works.isEmpty() ){
+				for (Work w : works){
+					WorkDTO dto = new WorkDTO(w);
+					dto.sort();
+					worksDto.add(dto);
+				}
+			}
 			
 //			applicationBean.addRestWorks( teamId.getId() );
 

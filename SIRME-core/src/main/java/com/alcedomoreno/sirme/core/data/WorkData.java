@@ -83,6 +83,10 @@ private static final long serialVersionUID = 1L;
 	@Column(name="dateCreated")
 	@Type(type="timestamp")
 	private Date dateCreated;
+
+	@Column(name="dateReceived")
+	@Type(type="timestamp")
+	private Date dateReceived;
 	
 	@ManyToOne(targetEntity=AddressData.class,fetch=FetchType.EAGER)
 	@Cascade({CascadeType.LOCK})
@@ -188,5 +192,13 @@ private static final long serialVersionUID = 1L;
 	}
 	public void setPhotos(Set<PhotoData> photos) {
 		this.photos = photos;
+	}
+
+	public Date getDateReceived() {
+		return dateReceived;
+	}
+
+	public void setDateReceived(Date dateReceived) {
+		this.dateReceived = dateReceived;
 	}
 }

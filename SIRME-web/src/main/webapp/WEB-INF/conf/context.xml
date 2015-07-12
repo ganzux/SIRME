@@ -6,7 +6,7 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:sec="http://www.springframework.org/schema/security"
-	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:task="http://www.springframework.org/schema/task" 
 	xsi:schemaLocation="  
          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd  
          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd  
@@ -23,6 +23,7 @@
     <!-- Activates scanning of @Repository and @Service -->
     <context:component-scan base-package="com.alcedomoreno.sirme.web"/>
     <context:component-scan base-package="com.alcedomoreno.sirme.web.aut"/>
+    <context:component-scan base-package="com.alcedomoreno.sirme.web.util"/>
 
     <context:component-scan base-package="com.alcedomoreno.sirme.business.rest"/>
     <context:component-scan base-package="com.alcedomoreno.sirme.business.services"/>
