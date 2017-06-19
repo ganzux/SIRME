@@ -1,0 +1,25 @@
+# commands to install and run :)
+
+mysql -u root -p
+create database sirme;
+mysql -u root -p sirme < /SIRME/scripts/sql.sql
+
+sudo apt-get update
+sudo apt-get install ttf-mscorefonts-installer
+ls /usr/share/fonts/truetype/msttcorefonts/
+cat /usr/share/fonts/truetype/msttcorefonts/README
+sudo apt-get install --reinstall ttf-mscorefonts-installer
+
+sudo service tomcat stop
+
+rm -rf /var/lib/tomcat8/logs/*
+rm -rf /var/lib/tomcat8/webapps/SIRME*
+
+mkdir /pictures
+chmod 777 /pictures
+
+cp /SIRME/SIRME-web/target/SIRME.war /var/lib/tomcat8/webapps/
+
+sudo service tomcat start
+
+cd /var/lib/tomcat8/logs/
