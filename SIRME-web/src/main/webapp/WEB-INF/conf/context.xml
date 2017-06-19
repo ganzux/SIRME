@@ -35,7 +35,7 @@
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:/conf/config.properties</value>
+				<value>classpath:/resources/config.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -54,14 +54,14 @@
 		<property name="allowZIP" 			value="${review.and.zip}" />		
 	</bean>
 	
-	<util:properties id="applicationProps" location="classpath:conf/config.properties" />
+	<util:properties id="applicationProps" location="classpath:resources/config.properties" />
     <context:property-placeholder properties-ref="applicationProps" />
 
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
 		<property name="configLocations">
 			<list>
-				<value>classpath:/conf/hibernate.cfg.xml</value>
+				<value>classpath:/resources/hibernate.cfg.xml</value>
 			</list>
 		</property>
 		

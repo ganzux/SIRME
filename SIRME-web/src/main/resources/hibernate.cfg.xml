@@ -12,9 +12,9 @@
 <!-- 		<property name="connection.driver_class">net.bull.javamelody.JdbcDriver</property> -->
         <property name="hibernate.connection.driver">com.mysql.jdbc.Driver</property>
 
- 		<property name="hibernate.connection.url">jdbc:mysql://</property>
-		<property name="hibernate.connection.username"></property>
-		<property name="hibernate.connection.password"></property>
+ 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sirme</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
 
 		<property name="hibernate.connection.pool_size">5</property>
 <!-- 		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property> -->

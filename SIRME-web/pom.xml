@@ -113,14 +113,20 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-			
-		
-		
 
 	</dependencies>
 
 	<build>
 		<finalName>SIRME</finalName>
+		
+		<plugins>
+		    <plugin>
+			    <artifactId>maven-resources-plugin</artifactId>
+			    <configuration>
+			        <outputDirectory>${project.build.outputDirectory}/resources</outputDirectory>
+			    </configuration>
+		    </plugin>
+	  	</plugins>
 	</build>
 
 </project>

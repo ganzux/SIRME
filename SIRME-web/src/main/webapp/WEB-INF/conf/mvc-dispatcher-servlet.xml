@@ -33,8 +33,11 @@
 	
 	<bean id="multipartResolver" class="com.alcedomoreno.sirme.business.rest.PutAwareCommonsMultipartResolver">
         <property name="maxUploadSize" value="5000000" />
- 
     </bean>
+    
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean>
 
 	<!-- Controladores RESTful principales -->
 	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
